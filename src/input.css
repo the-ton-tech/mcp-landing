@@ -1,0 +1,134 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400&display=swap');
+
+@layer base {
+  :root {
+    /* shadcn/ui CSS variables — light mode */
+    --background:          0 0% 100%;
+    --foreground:          224 71% 4%;
+    --card:                0 0% 100%;
+    --card-foreground:     224 71% 4%;
+    --popover:             0 0% 100%;
+    --popover-foreground:  224 71% 4%;
+    --primary:             199 100% 46%;   /* TON blue #0098EA */
+    --primary-foreground:  0 0% 100%;
+    --secondary:           220 14% 96%;
+    --secondary-foreground: 224 71% 4%;
+    --muted:               220 14% 96%;
+    --muted-foreground:    220 9% 46%;
+    --accent:              220 14% 96%;
+    --accent-foreground:   224 71% 4%;
+    --destructive:         0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    --border:              220 13% 90%;
+    --input:               220 13% 90%;
+    --ring:                199 100% 46%;
+    --radius:              0.5rem;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --background:          224 71% 4%;
+      --foreground:          210 20% 98%;
+      --card:                215 27% 8%;
+      --card-foreground:     210 20% 98%;
+      --popover:             215 27% 8%;
+      --popover-foreground:  210 20% 98%;
+      --primary:             199 100% 46%;
+      --primary-foreground:  0 0% 100%;
+      --secondary:           215 27% 11%;
+      --secondary-foreground: 210 20% 98%;
+      --muted:               215 27% 11%;
+      --muted-foreground:    217 11% 55%;
+      --accent:              215 27% 11%;
+      --accent-foreground:   210 20% 98%;
+      --destructive:         0 63% 31%;
+      --destructive-foreground: 210 20% 98%;
+      --border:              215 27% 15%;
+      --input:               215 27% 15%;
+      --ring:                199 100% 46%;
+    }
+  }
+
+  * {
+    border-color: hsl(var(--border));
+    box-sizing: border-box;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: hsl(var(--background));
+    color: hsl(var(--foreground));
+    font-family: 'Inter', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+}
+
+@layer components {
+  /* ── Top accent bar ─────────────────────────────────────── */
+  .page-accent {
+    background: linear-gradient(90deg, hsl(var(--primary)) 0%, hsl(199 100% 60%) 100%);
+    height: 3px;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 50;
+  }
+
+  /* ── CSS-only tabs ──────────────────────────────────────── */
+  .tab-radio { position: absolute; opacity: 0; pointer-events: none; width: 0; height: 0; }
+
+  .tab-panel { display: none; }
+  #t-claude:checked   ~ .tab-panels .p-claude,
+  #t-cursor:checked   ~ .tab-panels .p-cursor,
+  #t-windsurf:checked ~ .tab-panels .p-windsurf,
+  #t-vscode:checked   ~ .tab-panels .p-vscode { display: block; }
+
+  .tab-btn {
+    @apply inline-flex cursor-pointer select-none items-center rounded-t-md border border-b-0
+           border-border bg-muted px-4 py-2
+           text-sm font-medium text-muted-foreground transition-colors
+           hover:text-foreground;
+  }
+  #t-claude:checked   ~ .tab-list .l-claude,
+  #t-cursor:checked   ~ .tab-list .l-cursor,
+  #t-windsurf:checked ~ .tab-list .l-windsurf,
+  #t-vscode:checked   ~ .tab-list .l-vscode {
+    background: hsl(var(--background));
+    color: hsl(var(--primary));
+    border-top: 2px solid hsl(var(--primary));
+    padding-top: calc(0.5rem - 1px);
+  }
+
+  /* ── Code block ─────────────────────────────────────────── */
+  .code-wrap {
+    background: hsl(220 30% 7%);
+    @apply overflow-hidden rounded-lg border border-[hsl(220_20%_14%)] text-sm;
+  }
+  .code-header {
+    background: hsl(220 30% 10%);
+    @apply flex items-center gap-2 border-b border-[hsl(220_20%_14%)] px-4 py-2;
+  }
+  .code-dot { @apply h-2 w-2 rounded-full; }
+  .code-body {
+    color: hsl(210 20% 88%);
+    @apply overflow-x-auto p-4 font-mono leading-relaxed;
+  }
+
+  /* ── Step connector ─────────────────────────────────────── */
+  .step-line {
+    @apply absolute left-[11px] top-7 h-full w-px border-l border-dashed border-border;
+  }
+
+  /* ── Query item ─────────────────────────────────────────── */
+  .query-item {
+    @apply flex items-baseline gap-2 rounded-md px-3 py-2 text-sm
+           text-muted-foreground transition-colors
+           hover:bg-accent hover:text-accent-foreground;
+  }
+}

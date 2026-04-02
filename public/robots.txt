@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://ton-mcp-landing.vercel.app/sitemap.xml

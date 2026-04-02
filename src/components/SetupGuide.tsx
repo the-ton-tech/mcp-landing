@@ -1,35 +1,37 @@
 import type { ReactNode } from 'react'
-import { Badge }     from '@/components/ui/badge'
-import { Separator } from '@/components/ui/separator'
+import { Badge }          from '@/components/ui/badge'
+import { Separator }      from '@/components/ui/separator'
 import { Card, CardContent } from '@/components/ui/card'
 
-// ── Server definitions ────────────────────────────────────────────────────
+// ── Types ─────────────────────────────────────────────────────────────────
 
-const SERVERS = [
+interface Server    { id: string; name: string; label: string; desc: string; caps: string[] }
+interface TabConfig { id: string; label: string; step1: { title: string; code: string; lang: string } }
+
+// ── Data ──────────────────────────────────────────────────────────────────
+
+const SERVERS: Server[] = [
   {
-    id:      'docs',
-    name:    'TON Docs',
-    label:   'Remote · HTTP',
-    color:   'primary' as const,
-    desc:    'Read-only access to the full TON documentation via a public HTTP endpoint. No installation required.',
-    caps:    ['TON documentation search', 'API reference', 'FunC / Tolk guides', 'TL-B schemas'],
+    id:    'docs',
+    name:  'TON Docs',
+    label: 'Remote · HTTP',
+    desc:  'Read-only access to the full TON documentation via a public HTTP endpoint. No installation required.',
+    caps:  ['TON documentation search', 'API reference', 'FunC / Tolk guides', 'TL-B schemas'],
   },
   {
-    id:      'mcp',
-    name:    'TON MCP',
-    label:   'Local · npx',
-    color:   'secondary' as const,
-    desc:    'Full blockchain capabilities running locally via npx. Query balances, send transactions, deploy contracts.',
-    caps:    ['Wallet & balance queries', 'Send transactions', 'Deploy contracts', 'Jetton / NFT operations'],
+    id:    'mcp',
+    name:  'TON MCP',
+    label: 'Local · npx',
+    desc:  'Full blockchain capabilities running locally via npx. Query balances, send transactions, deploy contracts.',
+    caps:  ['Wallet & balance queries', 'Send transactions', 'Deploy contracts', 'Jetton / NFT operations'],
   },
 ]
-
-// ── IDE configs ───────────────────────────────────────────────────────────
 
 const CLAUDE_COMMANDS = `claude mcp add --transport http ton-docs https://docs.ton.org/mcp
 claude mcp add ton -- npx -y @ton/mcp@alpha`
 
-const CURSOR_CONFIG = `{
+// Shared config format for Cursor and Windsurf
+const CURSOR_WINDSURF_CONFIG = `{
   "mcpServers": {
     "ton-docs": {
       "type": "http",
@@ -67,12 +69,12 @@ const TABS: TabConfig[] = [
   {
     id:    'cursor',
     label: 'Cursor',
-    step1: { title: 'Add to Cursor MCP settings (Settings → MCP → Add server):', code: CURSOR_CONFIG, lang: 'json' },
+    step1: { title: 'Add to Cursor MCP settings (Settings → MCP → Add server):', code: CURSOR_WINDSURF_CONFIG, lang: 'json' },
   },
   {
     id:    'windsurf',
     label: 'Windsurf',
-    step1: { title: 'Add to ~/.codeium/windsurf/mcp_config.json:', code: CURSOR_CONFIG, lang: 'json' },
+    step1: { title: 'Add to ~/.codeium/windsurf/mcp_config.json:', code: CURSOR_WINDSURF_CONFIG, lang: 'json' },
   },
   {
     id:    'vscode',
@@ -89,11 +91,6 @@ const QUERIES = [
   'What are best practices for writing secure FunC contracts?',
   'Explain the TON sharding model from the docs.',
 ]
-
-// ── Types ─────────────────────────────────────────────────────────────────
-
-interface CodeSnippet { title: string; code: string; lang: string }
-interface TabConfig   { id: string; label: string; step1: CodeSnippet }
 
 // ── Primitives ────────────────────────────────────────────────────────────
 
@@ -126,12 +123,9 @@ function Step({ n, last = false, title, children }: {
   )
 }
 
-// ── Main component ────────────────────────────────────────────────────────
-
 export function SetupGuide() {
   return (
     <section>
-      {/* Server overview cards */}
       <div className="mb-8 grid gap-4 sm:grid-cols-2">
         {SERVERS.map(s => (
           <Card key={s.id} className="relative overflow-hidden">
@@ -180,17 +174,15 @@ export function SetupGuide() {
         <div className="tab-panels rounded-b-lg rounded-tr-lg border border-border bg-background p-6">
           {TABS.map(t => (
             <div key={t.id} className={`tab-panel p-${t.id}`}>
-              <div className="space-y-0">
-                <Step n={1} title={t.step1.title}>
-                  <CodeBlock code={t.step1.code} lang={t.step1.lang} />
-                </Step>
-                <Step n={2} last title="Verify both servers are connected">
-                  <p className="text-sm text-muted-foreground">
-                    Ask your IDE assistant to list tools — you should see:
-                  </p>
-                  <CodeBlock code={VERIFY_OUTPUT} lang="output" />
-                </Step>
-              </div>
+              <Step n={1} title={t.step1.title}>
+                <CodeBlock code={t.step1.code} lang={t.step1.lang} />
+              </Step>
+              <Step n={2} last title="Verify both servers are connected">
+                <p className="text-sm text-muted-foreground">
+                  Ask your IDE assistant to list tools — you should see:
+                </p>
+                <CodeBlock code={VERIFY_OUTPUT} lang="output" />
+              </Step>
             </div>
           ))}
         </div>

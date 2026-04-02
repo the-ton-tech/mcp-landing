@@ -6,7 +6,7 @@ export default function App() {
   return (
     <>
       <div className="page-accent" />
-      <main className="mx-auto max-w-4xl px-6 py-14 pt-16">
+      <main className="mx-auto max-w-4xl px-6 pb-14 pt-16">
         <Header />
         <SetupGuide />
         <Features />

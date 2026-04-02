@@ -1,4 +1,4 @@
-import { ExternalLink } from 'lucide-react'
+import { ExternalLink, Sun, Moon } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 
 const LINKS = [
@@ -10,14 +10,18 @@ const LINKS = [
 export function Header() {
   return (
     <header className="mb-10">
-      <div className="mb-1 flex items-center gap-2">
-        <TONLogo />
-        <h1 className="text-2xl font-bold tracking-tight text-foreground">
-          TON Developer MCP
-        </h1>
+      <div className="mb-1 flex items-center justify-between gap-2">
+        <div className="flex items-center gap-2.5">
+          <TONLogo />
+          <h1 className="text-2xl font-bold tracking-tight text-foreground">
+            TON Developer MCP
+          </h1>
+        </div>
+        <ThemeToggle />
       </div>
       <p className="mb-5 text-muted-foreground">
-        Set up remote TON Developer MCP in your IDE in minutes!
+        Connect your AI assistant to TON blockchain — query balances, deploy contracts,
+        and search the full documentation without leaving your IDE.
       </p>
       <nav className="flex flex-wrap gap-2">
         {LINKS.map(({ label, href }) => (
@@ -33,11 +37,25 @@ export function Header() {
   )
 }
 
-// Official TON icon from https://ton.org/en/brand-assets
+function ThemeToggle() {
+  return (
+    <div className="theme-toggle">
+      <label htmlFor="theme-light" className="theme-btn" title="Light theme">
+        <Sun size={15} />
+      </label>
+      <label htmlFor="theme-dark" className="theme-btn" title="Dark theme">
+        <Moon size={15} />
+      </label>
+    </div>
+  )
+}
+
+// Official TON icon — light: #4DB8FF, dark: white (ton.org/en/brand-assets)
+// fill="currentColor" so CSS controls the colour per theme via .ton-logo
 function TONLogo() {
   return (
-    <svg width="32" height="32" viewBox="0 0 237 237" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M118.204 0.000292436C183.486 0.000292436 236.408 52.9224 236.408 118.205C236.408 183.487 183.486 236.408 118.204 236.408C52.9216 236.408 0.000184007 183.487 0 118.205C0 52.9225 52.9215 0.000452012 118.204 0.000292436ZM74.1011 62.1965C57.6799 62.1965 47.268 79.912 55.5308 94.2347L109.964 188.582C113.619 194.922 122.781 194.922 126.436 188.582L180.88 94.2347C189.132 79.9343 178.72 62.1966 162.31 62.1965H74.1011ZM162.288 78.8412C166.031 78.8412 168.234 82.8121 166.45 85.9075L137.856 137.091L137.851 137.099L126.506 159.046V78.8412H162.288ZM109.872 78.8517V159.024L98.5376 137.088L98.5334 137.08L69.9294 85.9215L69.8468 85.7725C68.2134 82.6997 70.405 78.8517 74.0899 78.8517H109.872Z" fill="#4DB8FF"/>
+    <svg className="ton-logo" width="32" height="32" viewBox="0 0 237 237" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path fill="currentColor" d="M118.204 0.000292436C183.486 0.000292436 236.408 52.9224 236.408 118.205C236.408 183.487 183.486 236.408 118.204 236.408C52.9216 236.408 0.000184007 183.487 0 118.205C0 52.9225 52.9215 0.000452012 118.204 0.000292436ZM74.1011 62.1965C57.6799 62.1965 47.268 79.912 55.5308 94.2347L109.964 188.582C113.619 194.922 122.781 194.922 126.436 188.582L180.88 94.2347C189.132 79.9343 178.72 62.1966 162.31 62.1965H74.1011ZM162.288 78.8412C166.031 78.8412 168.234 82.8121 166.45 85.9075L137.856 137.091L137.851 137.099L126.506 159.046V78.8412H162.288ZM109.872 78.8517V159.024L98.5376 137.088L98.5334 137.08L69.9294 85.9215L69.8468 85.7725C68.2134 82.6997 70.405 78.8517 74.0899 78.8517H109.872Z" />
     </svg>
   )
 }

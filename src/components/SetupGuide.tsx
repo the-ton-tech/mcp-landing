@@ -15,22 +15,22 @@ const SERVERS: Server[] = [
     id:    'docs',
     name:  'TON Docs',
     label: 'Remote · HTTP',
-    desc:  'Read-only access to the full TON documentation via a public HTTP endpoint. No installation required.',
-    caps:  ['TON documentation search', 'API reference', 'FunC / Tolk guides', 'TL-B schemas'],
+    desc:  'Zero install. Connects directly to the public TON documentation endpoint over HTTP — just add the URL and go.',
+    caps:  ['Full documentation search', 'API & TL-B reference', 'FunC / Tolk guides', 'Architecture deep-dives'],
   },
   {
     id:    'mcp',
     name:  'TON MCP',
     label: 'Local · npx',
-    desc:  'Full blockchain capabilities running locally via npx. Query balances, send transactions, deploy contracts.',
-    caps:  ['Wallet & balance queries', 'Send transactions', 'Deploy contracts', 'Jetton / NFT operations'],
+    desc:  'Runs locally via npx. Gives your AI assistant live access to the blockchain — balances, transactions, contracts.',
+    caps:  ['Wallet & balance queries', 'Send transactions', 'Deploy smart contracts', 'Jetton / NFT operations'],
   },
 ]
 
 const CLAUDE_COMMANDS = `claude mcp add --transport http ton-docs https://docs.ton.org/mcp
 claude mcp add ton -- npx -y @ton/mcp@alpha`
 
-// Shared config format for Cursor and Windsurf
+// Shared config for Cursor and Windsurf
 const CURSOR_WINDSURF_CONFIG = `{
   "mcpServers": {
     "ton-docs": {
@@ -86,10 +86,10 @@ const TABS: TabConfig[] = [
 const QUERIES = [
   'What is the TON balance of my address?',
   'Show the last 10 transactions for this address.',
-  'Create agentic wallet for me.',
-  'Swap 0.5 TON for USDT',
+  'Create an agentic wallet for me.',
+  'Swap 0.5 TON for USDT.',
   'What are best practices for writing secure FunC contracts?',
-  'Explain the TON sharding model from the docs.',
+  'Explain the TON sharding model.',
 ]
 
 // ── Primitives ────────────────────────────────────────────────────────────
@@ -123,9 +123,12 @@ function Step({ n, last = false, title, children }: {
   )
 }
 
+// ── Component ─────────────────────────────────────────────────────────────
+
 export function SetupGuide() {
   return (
     <section>
+      {/* Server overview */}
       <div className="mb-8 grid gap-4 sm:grid-cols-2">
         {SERVERS.map(s => (
           <Card key={s.id} className="relative overflow-hidden">
@@ -134,7 +137,7 @@ export function SetupGuide() {
               <div className="mb-3 flex items-start justify-between gap-2">
                 <div>
                   <p className="font-semibold text-foreground">{s.name}</p>
-                  <p className="text-xs text-muted-foreground">{s.desc}</p>
+                  <p className="mt-0.5 text-xs text-muted-foreground">{s.desc}</p>
                 </div>
                 <Badge variant="secondary" className="shrink-0 text-xs">{s.label}</Badge>
               </div>
@@ -151,9 +154,9 @@ export function SetupGuide() {
         ))}
       </div>
 
-      <h2 className="mb-1 text-lg font-semibold text-foreground">Quick Setup Guide</h2>
+      <h2 className="mb-1 text-lg font-semibold text-foreground">Setup</h2>
       <p className="mb-5 text-sm text-muted-foreground">
-        Add both servers to your IDE with a single config block:
+        Pick your IDE and add both servers in one step.
       </p>
 
       {/* CSS-only tabs */}
@@ -177,9 +180,9 @@ export function SetupGuide() {
               <Step n={1} title={t.step1.title}>
                 <CodeBlock code={t.step1.code} lang={t.step1.lang} />
               </Step>
-              <Step n={2} last title="Verify both servers are connected">
+              <Step n={2} last title="Verify the connection">
                 <p className="text-sm text-muted-foreground">
-                  Ask your IDE assistant to list tools — you should see:
+                  Ask your assistant to list available tools — you should see:
                 </p>
                 <CodeBlock code={VERIFY_OUTPUT} lang="output" />
               </Step>
@@ -191,7 +194,7 @@ export function SetupGuide() {
       {/* Example queries */}
       <div className="mt-8">
         <div className="mb-3 flex items-center gap-3">
-          <p className="text-sm font-semibold text-foreground">Example Queries</p>
+          <p className="text-sm font-semibold text-foreground">Try asking</p>
           <Separator className="flex-1" />
         </div>
         <div className="grid gap-1 sm:grid-cols-2">

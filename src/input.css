@@ -4,54 +4,84 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ─── Design tokens ──────────────────────────────────────────────────────────
+   Based on Figma: BP Admin Panel Design System (shadcn/ui slate base).
+   --primary overridden with TON blue: #0098EA in light, #4DB8FF in dark.
+   Theme priority: manual (light/dark radio) > OS preference (prefers-color-scheme).
+─────────────────────────────────────────────────────────────────────────── */
+
 @layer base {
+  /* Light theme — default */
   :root {
-    --background:           0 0% 100%;
-    --foreground:           224 71% 4%;
-    --card:                 0 0% 100%;
-    --card-foreground:      224 71% 4%;
-    --popover:              0 0% 100%;
-    --popover-foreground:   224 71% 4%;
-    --primary:              199 100% 46%;  /* TON blue #0098EA */
-    --primary-foreground:   0 0% 100%;
-    --secondary:            220 14% 96%;
-    --secondary-foreground: 224 71% 4%;
-    --muted:                220 14% 96%;
-    --muted-foreground:     220 9% 46%;
-    --accent:               220 14% 96%;
-    --accent-foreground:    224 71% 4%;
-    --destructive:          0 84% 60%;
-    --destructive-foreground: 0 0% 100%;
-    --border:               220 13% 90%;
-    --input:                220 13% 90%;
-    --ring:                 199 100% 46%;
-    --radius:               0.5rem;
+    --background:             0 0% 100%;
+    --foreground:             222.2 84% 4.9%;
+    --card:                   0 0% 100%;
+    --card-foreground:        222.2 84% 4.9%;
+    --popover:                0 0% 100%;
+    --popover-foreground:     222.2 84% 4.9%;
+    --primary:                199 100% 46%;    /* #0098EA – better contrast on white */
+    --primary-foreground:     0 0% 100%;
+    --secondary:              210 40% 96.1%;
+    --secondary-foreground:   222.2 47.4% 11.2%;
+    --muted:                  210 40% 96.1%;
+    --muted-foreground:       215.4 16.3% 46.9%;
+    --accent:                 210 40% 96.1%;
+    --accent-foreground:      222.2 47.4% 11.2%;
+    --destructive:            0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border:                 214.3 31.8% 91.4%;
+    --input:                  214.3 31.8% 91.4%;
+    --ring:                   199 100% 46%;
+    --radius:                 0.5rem;
   }
 
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --background:           224 71% 4%;
-      --foreground:           210 20% 98%;
-      --card:                 215 27% 8%;
-      --card-foreground:      210 20% 98%;
-      --popover:              215 27% 8%;
-      --popover-foreground:   210 20% 98%;
-      --primary:              199 100% 46%;
-      --primary-foreground:   0 0% 100%;
-      --secondary:            215 27% 11%;
-      --secondary-foreground: 210 20% 98%;
-      --muted:                215 27% 11%;
-      --muted-foreground:     217 11% 55%;
-      --accent:               215 27% 11%;
-      --accent-foreground:    210 20% 98%;
-      --destructive:          0 63% 31%;
-      --destructive-foreground: 210 20% 98%;
-      --border:               215 27% 15%;
-      --input:                215 27% 15%;
-      --ring:                 199 100% 46%;
-    }
+  /* Manual light override */
+  html:has(#theme-light:checked) {
+    --background:             0 0% 100%;
+    --foreground:             222.2 84% 4.9%;
+    --card:                   0 0% 100%;
+    --card-foreground:        222.2 84% 4.9%;
+    --popover:                0 0% 100%;
+    --popover-foreground:     222.2 84% 4.9%;
+    --primary:                199 100% 46%;
+    --primary-foreground:     0 0% 100%;
+    --secondary:              210 40% 96.1%;
+    --secondary-foreground:   222.2 47.4% 11.2%;
+    --muted:                  210 40% 96.1%;
+    --muted-foreground:       215.4 16.3% 46.9%;
+    --accent:                 210 40% 96.1%;
+    --accent-foreground:      222.2 47.4% 11.2%;
+    --destructive:            0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border:                 214.3 31.8% 91.4%;
+    --input:                  214.3 31.8% 91.4%;
+    --ring:                   199 100% 46%;
   }
 
+  /* Manual dark override — wins over OS light via :has() specificity */
+  html:has(#theme-dark:checked) {
+    --background:             222.2 84% 4.9%;
+    --foreground:             210 40% 98%;
+    --card:                   220 23% 7.5%;
+    --card-foreground:        210 40% 98%;
+    --popover:                220 23% 7.5%;
+    --popover-foreground:     210 40% 98%;
+    --primary:                199 100% 65%;
+    --primary-foreground:     222.2 84% 4.9%;
+    --secondary:              217.2 32.6% 17.5%;
+    --secondary-foreground:   210 40% 98%;
+    --muted:                  217.2 32.6% 17.5%;
+    --muted-foreground:       215 20.2% 65.1%;
+    --accent:                 217.2 32.6% 17.5%;
+    --accent-foreground:      210 40% 98%;
+    --destructive:            0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border:                 217.2 32.6% 17.5%;
+    --input:                  217.2 32.6% 17.5%;
+    --ring:                   199 100% 65%;
+  }
+
+  /* Global resets */
   * { box-sizing: border-box; border-color: hsl(var(--border)); }
   html { scroll-behavior: smooth; }
   body {
@@ -63,13 +93,38 @@
 }
 
 @layer components {
+  /* ── Theme radio inputs (visually hidden) ───────────────── */
+  .theme-radio { @apply sr-only; }
+
+  /* ── Theme toggle button group ──────────────────────────── */
+  .theme-toggle {
+    @apply flex items-center gap-0.5 rounded-lg border border-border bg-muted p-1;
+  }
+  .theme-btn {
+    @apply flex h-7 w-7 cursor-pointer items-center justify-center rounded-md
+           text-muted-foreground transition-colors hover:text-foreground;
+  }
+
+  /* Active state — sun is default (auto = light) */
+  html:has(#theme-light:checked) label[for="theme-light"],
+  html:has(#theme-auto:checked)  label[for="theme-light"] {
+    @apply bg-background text-foreground shadow-sm;
+  }
+  html:has(#theme-dark:checked) label[for="theme-dark"] {
+    @apply bg-background text-foreground shadow-sm;
+  }
+
+  /* ── TON logo colour (light: brand blue, dark: white) ───── */
+  .ton-logo { color: #4DB8FF; }
+  html:has(#theme-dark:checked) .ton-logo { color: white; }
+
   /* ── Top accent bar ─────────────────────────────────────── */
   .page-accent {
     @apply fixed inset-x-0 top-0 z-50 h-[3px];
-    background: linear-gradient(90deg, hsl(var(--primary)), hsl(199 100% 60%));
+    background: linear-gradient(90deg, hsl(var(--primary)), hsl(199 100% 72%));
   }
 
-  /* ── CSS-only tabs ──────────────────────────────────────── */
+  /* ── CSS-only IDE tabs ──────────────────────────────────── */
   .tab-radio {
     @apply absolute h-0 w-0 opacity-0;
     pointer-events: none;
@@ -97,7 +152,7 @@
     padding-top: calc(0.5rem - 1px);
   }
 
-  /* ── Code block ─────────────────────────────────────────── */
+  /* ── Code block (always dark, theme-independent) ─────────── */
   .code-wrap {
     @apply overflow-hidden rounded-lg border border-[hsl(220_20%_14%)] text-sm;
     background: hsl(220 30% 7%);

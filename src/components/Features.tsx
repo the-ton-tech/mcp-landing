@@ -4,32 +4,32 @@ const ITEMS = [
   {
     icon: '📖',
     title: 'Documentation Search',
-    desc:  'Instantly query the full TON docs — TL-B schemas, FunC / Tact references, and architecture guides — right inside your IDE.',
+    desc:  'Ask anything about TON — TL-B schemas, FunC / Tolk syntax, staking mechanics — and get answers grounded in the official docs.',
   },
   {
     icon: '⛓️',
-    title: 'Live Blockchain Data',
-    desc:  'Fetch real-time balances, transaction history, and contract state from the TON mainnet without leaving your editor.',
+    title: 'Live Chain Data',
+    desc:  'Pull real-time balances, transaction history, and contract state from TON mainnet without switching context.',
   },
   {
     icon: '🚀',
     title: 'Blockchain Operations',
-    desc:  'Interact with Jetton, NFT, and custom smart contracts via natural language. The MCP handles encoding and signing.',
+    desc:  'Deploy Jettons, NFTs, and custom contracts through natural language. Encoding, fees, and signing are handled for you.',
   },
   {
     icon: '🤖',
     title: 'Agentic Wallets',
-    desc:  'Spin up on-chain agent wallets at agents.ton.org and let your AI assistant send and receive TON autonomously.',
+    desc:  'Create on-chain agent wallets at agents.ton.org and let your AI send, receive, and swap TON autonomously.',
   },
   {
     icon: '🔒',
-    title: 'Secure by Default',
-    desc:  'Keys never leave your device. The local server signs locally; the remote docs server is completely read-only.',
+    title: 'Secure by Design',
+    desc:  'Your keys never leave your machine. The docs server is fully read-only; the local server signs everything locally.',
   },
   {
     icon: '⚡',
-    title: 'Zero Configuration',
-    desc:  'The public docs server needs no install — one command and it\'s live. The local server runs via npx with no global deps.',
+    title: 'No Setup Overhead',
+    desc:  'The docs server needs just a URL — nothing to install. The local server runs on-demand via npx with no global dependencies.',
   },
 ]
 

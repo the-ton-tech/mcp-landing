@@ -1,16 +1,11 @@
 # TON Developer MCP
 
-> Connect AI assistants to the TON blockchain via the Model Context Protocol. Query balances, deploy contracts, and search the full documentation without leaving your IDE.
-
-TON Developer MCP exposes two servers via the Model Context Protocol (MCP):
+> Connect AI assistants to the TON blockchain via the Model Context Protocol. Query balances, deploy contracts, and search the full TON documentation without leaving your IDE.
 
 ## Servers
 
-- **TON Docs** (remote, no install): `https://docs.ton.org/mcp`
-  Read-only access to the full TON documentation over HTTP.
-
-- **TON MCP Alpha** (local, via npx): `npx -y @ton/mcp@alpha`
-  Live blockchain access — balances, transactions, contract deployment.
+- [TON Docs MCP](https://docs.ton.org/mcp): Remote HTTP server. Read-only access to the full TON documentation. No installation required.
+- [TON MCP Alpha](https://www.npmjs.com/package/@ton/mcp): Local server via `npx -y @ton/mcp@alpha`. Live blockchain access — balances, transactions, contract deployment, Jetton and NFT operations.
 
 ## Available Tools
 
@@ -20,16 +15,42 @@ TON Developer MCP exposes two servers via the Model Context Protocol (MCP):
 - `ton_deploy_contract` — Deploy smart contracts (Jetton, NFT, custom)
 - `ton_get_transactions` — Fetch transaction history for an address
 
-## Setup (Claude Code)
+## Setup
+
+Add as a skill (recommended):
+
+```bash
+npx skills add ton-connect/kit/packages/mcp
+```
+
+Or configure manually for Claude Code:
 
 ```bash
 claude mcp add --transport http ton-docs https://docs.ton.org/mcp
 claude mcp add ton -- npx -y @ton/mcp@alpha
 ```
 
-## Links
+For Cursor and Windsurf (`~/.codeium/windsurf/mcp_config.json`):
 
-- Documentation: https://docs.ton.org/mcp
-- Agentic Wallets: https://agents.ton.org
-- Dashboard: https://agents.ton.org/dashboard
-- TON Website: https://ton.org
+```json
+{
+  "mcpServers": {
+    "ton-docs": { "type": "http", "url": "https://docs.ton.org/mcp" },
+    "ton": { "command": "npx", "args": ["-y", "@ton/mcp@alpha"] }
+  }
+}
+```
+
+## Documentation
+
+- [TON MCP Docs](https://docs.ton.org/mcp): Full reference for the TON MCP server — tools, authentication, and usage examples.
+- [TON Documentation](https://docs.ton.org): Complete TON blockchain developer documentation — FunC, Tolk, TL-B, smart contracts, wallets.
+- [TON API Reference](https://docs.ton.org/v3/documentation/ton-documentation): API and SDK reference for building on TON.
+- [FunC Language Guide](https://docs.ton.org/develop/func/overview): Smart contract language reference for TON.
+
+## Ecosystem
+
+- [Agentic Wallets](https://agents.ton.org): Create and manage on-chain agent wallets on TON.
+- [Agent Dashboard](https://agents.ton.org/dashboard): Monitor and control agentic wallet activity.
+- [TON Website](https://ton.org): Official TON blockchain website.
+- [TON GitHub](https://github.com/ton-blockchain): Open-source repositories for the TON protocol.

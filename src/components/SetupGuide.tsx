@@ -27,10 +27,11 @@ const SERVERS: Server[] = [
   },
 ]
 
+const SKILL_CMD = 'npx skills add ton-connect/kit/packages/mcp'
+
 const CLAUDE_COMMANDS = `claude mcp add --transport http ton-docs https://docs.ton.org/mcp
 claude mcp add ton -- npx -y @ton/mcp@alpha`
 
-// Shared config for Cursor and Windsurf
 const CURSOR_WINDSURF_CONFIG = `{
   "mcpServers": {
     "ton-docs": {
@@ -60,7 +61,7 @@ const VSCODE_CONFIG = `{
 const VERIFY_OUTPUT =
   'ton-docs · ton_search_docs\nton     · ton_get_balance, ton_send_transaction, …'
 
-const TABS: TabConfig[] = [
+const IDE_TABS: TabConfig[] = [
   {
     id:    'claude',
     label: 'Claude Code',
@@ -82,6 +83,7 @@ const TABS: TabConfig[] = [
     step1: { title: 'Add to .vscode/mcp.json in your project:', code: VSCODE_CONFIG, lang: 'json' },
   },
 ]
+
 
 const QUERIES = [
   'What is the TON balance of my address?',
@@ -159,15 +161,27 @@ export function SetupGuide() {
         Pick your IDE and add both servers in one step.
       </p>
 
-      {/* CSS-only tabs */}
+      {/* Skills — standalone block */}
+      <div className="mb-4">
+        <p className="mb-2 text-sm font-medium text-foreground">Use with Skills</p>
+        <CodeBlock code={SKILL_CMD} lang="bash" />
+      </div>
+
+      <div className="mb-5 flex items-center gap-3">
+        <Separator className="flex-1" />
+        <span className="text-xs text-muted-foreground">or setup manually</span>
+        <Separator className="flex-1" />
+      </div>
+
+      {/* CSS-only IDE tabs */}
       <div>
-        {TABS.map(t => (
+        {IDE_TABS.map(t => (
           <input key={t.id} className="tab-radio" type="radio"
                  id={`t-${t.id}`} name="ide" defaultChecked={t.id === 'claude'} />
         ))}
 
         <div className="tab-list flex flex-wrap gap-1">
-          {TABS.map(t => (
+          {IDE_TABS.map(t => (
             <label key={t.id} htmlFor={`t-${t.id}`} className={`tab-btn l-${t.id}`}>
               {t.label}
             </label>
@@ -175,7 +189,7 @@ export function SetupGuide() {
         </div>
 
         <div className="tab-panels rounded-b-lg rounded-tr-lg border border-border bg-background p-6">
-          {TABS.map(t => (
+          {IDE_TABS.map(t => (
             <div key={t.id} className={`tab-panel p-${t.id}`}>
               <Step n={1} title={t.step1.title}>
                 <CodeBlock code={t.step1.code} lang={t.step1.lang} />

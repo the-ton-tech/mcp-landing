@@ -9,18 +9,24 @@
 
 ## Available Tools
 
-- `ton_search_docs` — Search TON documentation
-- `ton_get_balance` — Get wallet or contract balance
-- `ton_send_transaction` — Send TON or Jetton transactions
-- `ton_deploy_contract` — Deploy smart contracts (Jetton, NFT, custom)
-- `ton_get_transactions` — Fetch transaction history for an address
+- `search_ton_docs` — Search TON documentation
+- `query_docs_filesystem_ton_docs` — Read documentation pages by path (ripgrep, cat, head, tree)
+- `get_balance` — Get wallet or contract balance
+- `get_transactions` — Fetch transaction history for an address
+- `send_ton` — Send TON to an address
+- `send_jetton` — Send Jetton tokens to an address
+- `get_jetton_balance` — Get Jetton balance for a wallet
+- `get_swap_quote` — Get a swap quote between tokens
+- `get_nfts` — List NFTs owned by a wallet
+- `send_nft` — Transfer an NFT to another address
+- `agentic_deploy_subwallet` — Deploy an agentic sub-wallet on-chain
 
 ## Setup
 
-Add as a skill (recommended):
+Add the TON skills bundle (recommended — documentation and wallets in one install):
 
 ```bash
-npx skills add ton-connect/kit/packages/mcp
+npx skills add ton-org/skills
 ```
 
 Or configure manually for Claude Code:
@@ -43,7 +49,7 @@ For Cursor and Windsurf (`~/.codeium/windsurf/mcp_config.json`):
 
 ## Documentation
 
-- [TON MCP Docs](https://docs.ton.org/mcp): Full reference for the TON MCP server — tools, authentication, and usage examples.
+- [TON Docs MCP](https://docs.ton.org/mcp): Full reference for the TON MCP server — tools, authentication, and usage examples.
 - [TON Documentation](https://docs.ton.org): Complete TON blockchain developer documentation — FunC, Tolk, TL-B, smart contracts, wallets.
 - [TON API Reference](https://docs.ton.org/v3/documentation/ton-documentation): API and SDK reference for building on TON.
 - [FunC Language Guide](https://docs.ton.org/develop/func/overview): Smart contract language reference for TON.

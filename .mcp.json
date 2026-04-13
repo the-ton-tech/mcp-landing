@@ -1,0 +1,16 @@
+{
+  "mcpServers": {
+    "ton-docs": {
+      "type": "http",
+      "url": "https://docs.ton.org/mcp"
+    },
+    "ton": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "@ton/mcp@alpha"
+      ]
+    }
+  }
+}

@@ -6,7 +6,8 @@
   "scripts": {
     "build:css": "mkdir -p dist && tailwindcss -i ./src/input.css -o ./dist/out.css --minify",
     "build:html": "tsx build.ts",
-    "build": "pnpm run build:css && pnpm run build:html"
+    "build": "pnpm run build:css && pnpm run build:html",
+    "preview": "pnpm run build && npx --yes serve dist -l 4173"
   },
   "repository": {
     "type": "git",

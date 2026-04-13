@@ -1,11 +1,4 @@
-import { ExternalLink, Sun, Moon } from 'lucide-react'
-import { Button } from '@/components/ui/button'
-
-const LINKS = [
-  { label: 'Agentic Wallets', href: 'https://agents.ton.org' },
-  { label: 'Dashboard',       href: 'https://agents.ton.org/dashboard' },
-  { label: 'MCP Docs',        href: 'https://docs.ton.org/mcp' },
-]
+import { Sun, Moon } from 'lucide-react'
 
 export function Header() {
   return (
@@ -19,20 +12,10 @@ export function Header() {
         </div>
         <ThemeToggle />
       </div>
-      <p className="mb-5 text-muted-foreground">
+      <p className="text-muted-foreground">
         Connect your AI assistant to TON blockchain — query balances, deploy contracts,
         and search the full documentation without leaving your IDE.
       </p>
-      <nav className="flex flex-wrap gap-2">
-        {LINKS.map(({ label, href }) => (
-          <Button key={label} variant="outline" size="sm" asChild>
-            <a href={href} target="_blank" rel="noopener noreferrer">
-              {label}
-              <ExternalLink className="opacity-50" />
-            </a>
-          </Button>
-        ))}
-      </nav>
     </header>
   )
 }

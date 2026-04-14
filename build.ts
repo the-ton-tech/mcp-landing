@@ -25,6 +25,7 @@ const SITE_URL   = 'https://mcp.ton.org'
 const SITE_TITLE = 'TON MCP — AI Agent Tools for TON Blockchain'
 const SITE_DESC  = 'Give your AI assistant live access to the TON blockchain. Query balances, send transactions, deploy contracts, and search official TON documentation — all via the Model Context Protocol.'
 const SITE_TITLE_SHORT = 'TON MCP'
+const SITE_KEYWORDS = 'TON, blockchain, MCP, Model Context Protocol, AI agent, developer tools, smart contracts, FunC, Tolk, agentic wallet, skills, Claude, Cursor, Windsurf, VS Code'
 
 // JSON-LD structured data — SoftwareApplication schema
 const JSON_LD = JSON.stringify({
@@ -37,7 +38,7 @@ const JSON_LD = JSON.stringify({
   operatingSystem: 'Any',
   offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
   author: { '@type': 'Organization', name: 'TON Foundation', url: 'https://ton.org' },
-  keywords: 'TON, blockchain, MCP, Model Context Protocol, AI agent, developer tools, smart contracts, FunC, Tolk, agentic wallet, Claude, Cursor, Windsurf',
+  keywords: SITE_KEYWORDS,
 })
 
 // ── 1. Render React to static markup ─────────────────────────────────────
@@ -56,7 +57,7 @@ const html = `<!DOCTYPE html>
 
   <title>${SITE_TITLE}</title>
   <meta name="description" content="${SITE_DESC}" />
-  <meta name="keywords" content="TON, blockchain, MCP, Model Context Protocol, AI agent, developer tools, smart contracts, FunC, Tolk, agentic wallet, Claude, Cursor, Windsurf, VS Code" />
+  <meta name="keywords" content="${SITE_KEYWORDS}" />
   <meta name="author" content="TON Foundation" />
   <meta name="robots" content="index, follow" />
   <meta name="theme-color" content="#0098EA" />

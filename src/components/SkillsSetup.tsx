@@ -41,6 +41,8 @@ const SKILL_CARDS: SkillCard[] = [
     tryAsking: [
       { text: 'What are best practices for writing secure FunC contracts?' },
       { text: 'Explain the TON sharding model.' },
+      { text: 'How does the Jetton standard work?' },
+      { text: 'What is the difference between basechain and masterchain?' },
     ],
   },
   {

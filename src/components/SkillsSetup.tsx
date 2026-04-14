@@ -1,0 +1,203 @@
+import { Badge } from '@/components/ui/badge'
+import { Card, CardContent } from '@/components/ui/card'
+import { CodeBlock } from '@/components/CodeBlock'
+
+interface SkillTryPrompt {
+  text: string
+  required?: boolean
+}
+
+interface SkillCard {
+  id: 'docs' | 'wallets'
+  title: string
+  label: string
+  about: string
+  tryAsking: SkillTryPrompt[]
+  tags: string[]
+}
+
+const SKILLS_ROOT_INSTALL = 'npx skills add ton-org/skills'
+
+const SKILLS_PATH = 'ton-org/skills'
+
+const SKILLS_ADD_CMD = (...segments: string[]) =>
+  `npx skills add ${segments.map(s => `${SKILLS_PATH}/${s}`).join(' ')}`
+
+const SKILLS_GRANULAR: Record<'all' | 'd' | 'w' | 'none', string> = {
+  all: SKILLS_ROOT_INSTALL,
+  d: SKILLS_ADD_CMD('docs'),
+  w: SKILLS_ADD_CMD('wallets'),
+  none: '# Select at least one topic using the checkboxes above.',
+}
+
+const SKILL_CARDS: SkillCard[] = [
+  {
+    id: 'docs',
+    title: 'docs',
+    label: 'Documentation',
+    about:
+      'Orientation and answers grounded in official material: TL-B, TVM, FunC / Tolk, staking and validator topics at a high level, protocol architecture, and how to read the docs stack. In the repo this surfaces as the documentation skill line (`ton-org/skills/docs` and related prompts)—installed once with the root command above alongside wallets.',
+    tags: ['documentation', 'tl-b', 'reference'],
+    tryAsking: [
+      { text: 'What are best practices for writing secure FunC contracts?' },
+      { text: 'Explain the TON sharding model.' },
+      { text: 'How does the Jetton standard work?' },
+      { text: 'What is the difference between basechain and masterchain?' },
+    ],
+  },
+  {
+    id: 'wallets',
+    title: 'wallets',
+    label: 'Wallets & chain',
+    about:
+      'Operational skills for live chain data: balances and history, send / receive / swap flows, Jettons and NFTs, and agentic wallet workflows. Creating an agentic wallet is mandatory before you rely on balance or transfer prompts—the tooling expects that onboarding first. Packaged under the wallets slice of the monorepo (`ton-org/skills/wallets`).',
+    tryAsking: [
+      { text: 'Create an agentic wallet for me.', required: true },
+      { text: 'What is the TON balance of my address?' },
+      { text: 'Show the last 10 transactions for this address.' },
+      { text: 'Swap 0.5 TON for USDT.' },
+    ],
+    tags: ['chain', 'wallets', 'agentic'],
+  },
+]
+
+function SkillsGranularInstallSlots() {
+  const { all, d, w, none } = SKILLS_GRANULAR
+  return (
+    <>
+      <div className="skill-code-slot skill-slot-all">
+        <CodeBlock code={all} lang="bash" />
+      </div>
+      <div className="skill-code-slot skill-slot-d">
+        <CodeBlock code={d} lang="bash" />
+      </div>
+      <div className="skill-code-slot skill-slot-w">
+        <CodeBlock code={w} lang="bash" />
+      </div>
+      <div className="skill-code-slot skill-slot-none">
+        <CodeBlock code={none} lang="bash" />
+      </div>
+    </>
+  )
+}
+
+export function SkillsSetup() {
+  return (
+    <section id="skills" className="scroll-mt-28 border-t border-border pt-10">
+      <h2 className="mb-2 text-lg font-semibold text-foreground">Skills</h2>
+      <p className="mb-3 text-xs text-muted-foreground">
+        Install the whole monorepo in one shot, or pick individual skill packs below. The cards describe documentation and wallets (paths such as{' '}
+        <span className="font-mono text-[11px] text-foreground/80">ton-org/skills/docs</span>
+        {' '}and{' '}
+        <span className="font-mono text-[11px] text-foreground/80">ton-org/skills/wallets</span>
+        ).
+      </p>
+
+      <h3 className="mb-2 text-xs font-medium text-foreground">Full bundle</h3>
+      <p className="mb-2 rounded-lg border border-primary/25 bg-primary/5 px-4 py-3 text-sm text-foreground/90">
+        To let your AI agent use TON — copy the command below, paste it into your terminal, and run it.
+      </p>
+      <div className="mb-6">
+        <CodeBlock code={SKILLS_ROOT_INSTALL} lang="bash" />
+      </div>
+
+      <h3 className="mb-3 text-xs font-medium text-foreground">What&apos;s in the bundle</h3>
+      <div className="mb-4 grid items-stretch gap-4 sm:grid-cols-2">
+        {SKILL_CARDS.map(card => (
+          <Card
+            key={card.id}
+            className="relative flex h-full flex-col overflow-hidden border-border"
+          >
+            <div className="absolute inset-x-0 top-0 h-0.5 bg-primary opacity-60" />
+            <CardContent className="flex flex-1 flex-col p-0">
+              <div className="space-y-2 p-5">
+                <div className="flex flex-wrap items-start justify-between gap-2">
+                  <p className="font-semibold capitalize text-foreground">{card.title}</p>
+                  <Badge variant="secondary" className="shrink-0 text-[10px] font-medium">
+                    {card.label}
+                  </Badge>
+                </div>
+                <p className="text-xs leading-relaxed text-muted-foreground">
+                  {card.about}
+                </p>
+                <div className="flex flex-wrap gap-1.5">
+                  {card.tags.map(t => (
+                    <Badge key={t} variant="outline" className="text-[10px] font-normal">
+                      {t}
+                    </Badge>
+                  ))}
+                </div>
+              </div>
+
+              <div className="mt-auto border-t border-border/60 bg-muted/20 px-4 py-3">
+                <p className="mb-2 text-[10px] font-semibold uppercase tracking-wide text-muted-foreground">
+                  Try asking
+                </p>
+                <ul className="space-y-2">
+                  {card.tryAsking.map((p, i) => (
+                    <li
+                      key={`${card.id}-try-${i}`}
+                      className="flex flex-wrap items-baseline gap-x-2 gap-y-0.5 text-[11px] leading-snug text-foreground/85"
+                    >
+                      <Badge variant="secondary" className="shrink-0 tabular-nums text-[10px]">
+                        {i + 1}
+                      </Badge>
+                      {p.required && (
+                        <Badge
+                          variant="outline"
+                          className="shrink-0 border-primary/55 px-1.5 py-0 text-[9px] font-medium text-primary"
+                        >
+                          Required
+                        </Badge>
+                      )}
+                      <span className="min-w-0">&ldquo;{p.text}&rdquo;</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+
+      <div className="skill-bundle-scope mt-8 border-t border-border pt-8">
+        <p className="mb-2 text-xs font-medium text-foreground">Install selected skills only</p>
+        <div className="mb-4 flex flex-col gap-2 sm:flex-row sm:flex-wrap">
+          <label
+            htmlFor="skill-pick-docs"
+            className="flex min-w-0 flex-1 cursor-pointer items-start gap-3 rounded-lg border border-border bg-card p-3 transition-colors hover:border-primary/40 has-[:checked]:border-primary/55 has-[:checked]:bg-muted/30"
+          >
+            <input
+              id="skill-pick-docs"
+              type="checkbox"
+              className="mt-0.5 h-4 w-4 shrink-0 rounded border-border accent-primary"
+              defaultChecked
+            />
+            <span className="min-w-0 text-xs leading-relaxed text-muted-foreground">
+              <span className="font-medium text-foreground">docs</span>
+              {' '}
+              — documentation &amp; reference skills
+            </span>
+          </label>
+          <label
+            htmlFor="skill-pick-wallets"
+            className="flex min-w-0 flex-1 cursor-pointer items-start gap-3 rounded-lg border border-border bg-card p-3 transition-colors hover:border-primary/40 has-[:checked]:border-primary/55 has-[:checked]:bg-muted/30"
+          >
+            <input
+              id="skill-pick-wallets"
+              type="checkbox"
+              className="mt-0.5 h-4 w-4 shrink-0 rounded border-border accent-primary"
+              defaultChecked
+            />
+            <span className="min-w-0 text-xs leading-relaxed text-muted-foreground">
+              <span className="font-medium text-foreground">wallets</span>
+              {' '}
+              — chain, agentic wallet, swaps
+            </span>
+          </label>
+        </div>
+        <SkillsGranularInstallSlots />
+      </div>
+    </section>
+  )
+}

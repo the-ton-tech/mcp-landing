@@ -136,11 +136,18 @@
   #t-windsurf:checked ~ .tab-panels .p-windsurf,
   #t-vscode:checked   ~ .tab-panels .p-vscode { display: block; }
 
+  .tab-list {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .tab-list::-webkit-scrollbar { display: none; }
   .tab-btn {
     @apply inline-flex cursor-pointer select-none items-center rounded-t-md
            border border-b-0 border-border bg-muted
-           px-4 py-2 text-sm font-medium text-muted-foreground
-           transition-colors hover:text-foreground;
+           px-3 py-1.5 text-xs font-medium text-muted-foreground
+           transition-colors hover:text-foreground sm:px-4 sm:py-2 sm:text-sm;
+    white-space: nowrap;
   }
   #t-claude:checked   ~ .tab-list .l-claude,
   #t-cursor:checked   ~ .tab-list .l-cursor,
@@ -188,11 +195,13 @@
 
   /* ── Code block (always dark, theme-independent) ─────────── */
   .code-wrap {
-    @apply overflow-hidden rounded-lg border border-[hsl(220_20%_14%)] text-sm;
+    @apply overflow-hidden rounded-lg border border-[hsl(220_20%_14%)] text-xs sm:text-sm;
     background: hsl(220 30% 7%);
+    max-width: 100%;
+    min-width: 0;
   }
   .code-header {
-    @apply flex items-center justify-between gap-2 border-b border-[hsl(220_20%_14%)] px-4 py-2;
+    @apply flex items-center justify-between gap-2 border-b border-[hsl(220_20%_14%)] px-3 py-2 sm:px-4;
     background: hsl(220 30% 10%);
   }
   .code-dot  { @apply h-2 w-2 rounded-full; }
@@ -205,8 +214,20 @@
     @apply text-primary;
   }
   .code-body {
-    @apply overflow-x-auto p-4 font-mono leading-relaxed;
+    @apply overflow-x-auto p-3 font-mono leading-relaxed sm:p-4;
     color: hsl(210 20% 88%);
+    min-width: 0;
+  }
+  .code-body pre,
+  .code-body code {
+    display: block;
+    min-width: 0;
+  }
+  .code-body.select-none {
+    user-select: none;
+    -webkit-user-select: none;
+    color: hsl(210 20% 65%);
+    font-style: italic;
   }
 
   /* ── Step connector ─────────────────────────────────────── */

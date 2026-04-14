@@ -12,14 +12,14 @@ export default function App() {
       <input type="radio" name="theme" id="theme-dark"  className="theme-radio" />
 
       <div className="page-accent" />
-      <main className="mx-auto max-w-6xl px-6 pb-14 pt-16">
+      <main className="mx-auto max-w-6xl px-4 pb-14 pt-12 sm:px-6 sm:pt-16">
         <Header />
-        <div className="mt-8 flex flex-col-reverse gap-8 lg:mt-10 lg:grid lg:grid-cols-[minmax(0,1fr)_12.5rem] lg:items-start lg:gap-10 xl:grid-cols-[minmax(0,1fr)_15rem]">
+        <div className="mt-6 flex flex-col gap-8 sm:mt-8 lg:mt-10 lg:grid lg:grid-cols-[minmax(0,1fr)_12.5rem] lg:items-start lg:gap-10 xl:grid-cols-[minmax(0,1fr)_15rem]">
           <div className="min-w-0">
             <SetupGuide />
             <Footer />
           </div>
-          <aside className="lg:sticky lg:top-24 lg:self-start">
+          <aside className="hidden lg:block lg:sticky lg:top-24 lg:self-start">
             <TableOfContents />
           </aside>
         </div>

@@ -92,6 +92,9 @@ export function SkillsSetup() {
       </p>
 
       <h3 className="mb-2 text-xs font-medium text-foreground">Full bundle</h3>
+      <p className="mb-2 rounded-lg border border-primary/25 bg-primary/5 px-4 py-3 text-sm text-foreground/90">
+        To let your AI agent use TON — copy the command below, paste it into your terminal, and run it.
+      </p>
       <div className="mb-6">
         <CodeBlock code={SKILLS_ROOT_INSTALL} lang="bash" />
       </div>

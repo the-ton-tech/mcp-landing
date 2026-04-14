@@ -2,17 +2,17 @@ import { Sun, Moon } from 'lucide-react'
 
 export function Header() {
   return (
-    <header className="mb-10">
+    <header className="mb-8 sm:mb-10">
       <div className="mb-1 flex items-center justify-between gap-2">
-        <div className="flex items-center gap-2.5">
+        <div className="flex min-w-0 items-center gap-2 sm:gap-2.5">
           <TONLogo />
-          <h1 className="text-2xl font-bold tracking-tight text-foreground">
+          <h1 className="truncate text-xl font-bold tracking-tight text-foreground sm:text-2xl">
             TON Developer MCP
           </h1>
         </div>
         <ThemeToggle />
       </div>
-      <p className="text-muted-foreground">
+      <p className="text-sm text-muted-foreground sm:text-base">
         Connect your AI assistant to TON blockchain — query balances, deploy contracts,
         and search the full documentation without leaving your IDE.
       </p>

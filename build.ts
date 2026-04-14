@@ -21,25 +21,23 @@ const distDir   = resolve(__dirname, 'dist')
 const publicDir = resolve(__dirname, 'public')
 const cssPath   = resolve(distDir, 'out.css')
 
-const SITE_URL   = 'https://ton-mcp-landing.vercel.app/'
-const SITE_TITLE = 'TON Developer MCP'
-const SITE_DESC  = 'Connect AI assistants to the TON blockchain via the Model Context Protocol. Query balances, deploy contracts, and search the full TON documentation without leaving your IDE.'
-
-// Official TON icon as inline SVG favicon
-const FAVICON_SVG = `<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 237 237'><path fill='%234DB8FF' d='M118.204 0C183.486 0 236.408 52.922 236.408 118.205c0 65.282-52.922 118.203-118.204 118.203C52.922 236.408 0 183.487 0 118.205 0 52.922 52.922 0 118.204 0zm-44.103 62.196c-16.421 0-26.833 17.716-18.57 32.038l54.433 94.348c3.655 6.34 12.817 6.34 16.472 0l54.444-94.348c8.252-14.3-2.16-32.038-18.57-32.038H74.101zm88.187 16.645c3.743 0 5.946 3.971 4.162 7.066L137.856 137.1l-11.35 21.946V78.841h35.782zM109.872 78.852v80.172L98.538 137.09l-28.604-51.167-.083-.149c-1.633-3.073.558-6.921 4.243-6.921h35.778z'/></svg>`
+const SITE_URL   = 'https://mcp.ton.org'
+const SITE_TITLE = 'TON MCP — AI Agent Tools for TON Blockchain'
+const SITE_DESC  = 'Give your AI assistant live access to the TON blockchain. Query balances, send transactions, deploy contracts, and search official TON documentation — all via the Model Context Protocol.'
+const SITE_TITLE_SHORT = 'TON MCP'
 
 // JSON-LD structured data — SoftwareApplication schema
 const JSON_LD = JSON.stringify({
   '@context': 'https://schema.org',
   '@type': 'SoftwareApplication',
-  name: SITE_TITLE,
+  name: SITE_TITLE_SHORT,
   url: SITE_URL,
   description: SITE_DESC,
   applicationCategory: 'DeveloperApplication',
   operatingSystem: 'Any',
   offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
   author: { '@type': 'Organization', name: 'TON Foundation', url: 'https://ton.org' },
-  keywords: 'TON, blockchain, MCP, Model Context Protocol, AI, developer tools, smart contracts, FunC, Tolk',
+  keywords: 'TON, blockchain, MCP, Model Context Protocol, AI agent, developer tools, smart contracts, FunC, Tolk, agentic wallet, Claude, Cursor, Windsurf',
 })
 
 // ── 1. Render React to static markup ─────────────────────────────────────
@@ -58,9 +56,10 @@ const html = `<!DOCTYPE html>
 
   <title>${SITE_TITLE}</title>
   <meta name="description" content="${SITE_DESC}" />
-  <meta name="keywords" content="TON, blockchain, MCP, Model Context Protocol, AI assistant, developer tools, smart contracts, FunC, Tolk, agentic wallet" />
+  <meta name="keywords" content="TON, blockchain, MCP, Model Context Protocol, AI agent, developer tools, smart contracts, FunC, Tolk, agentic wallet, Claude, Cursor, Windsurf, VS Code" />
   <meta name="author" content="TON Foundation" />
-  <meta name="theme-color" content="#4DB8FF" />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#0098EA" />
   <link rel="canonical" href="${SITE_URL}/" />
 
   <!-- Open Graph -->
@@ -68,10 +67,12 @@ const html = `<!DOCTYPE html>
   <meta property="og:url"         content="${SITE_URL}/" />
   <meta property="og:title"       content="${SITE_TITLE}" />
   <meta property="og:description" content="${SITE_DESC}" />
-  <meta property="og:site_name"   content="${SITE_TITLE}" />
+  <meta property="og:site_name"   content="TON" />
+  <meta property="og:locale"      content="en_US" />
 
   <!-- Twitter Card -->
-  <meta name="twitter:card"        content="summary" />
+  <meta name="twitter:card"        content="summary_large_image" />
+  <meta name="twitter:site"        content="@ton_blockchain" />
   <meta name="twitter:title"       content="${SITE_TITLE}" />
   <meta name="twitter:description" content="${SITE_DESC}" />
 
@@ -81,7 +82,7 @@ const html = `<!DOCTYPE html>
   <!-- Structured data -->
   <script type="application/ld+json">${JSON_LD}</script>
 
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,${FAVICON_SVG}" />
+  <link rel="icon" type="image/x-icon" href="/favicon.ico" />
   <style>${css}</style>
 </head>
 <body>

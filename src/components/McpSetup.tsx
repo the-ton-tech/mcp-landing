@@ -211,7 +211,7 @@ function Step({ n, last = false, title, children }: {
       <div className="relative flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-primary text-xs font-bold text-primary-foreground ring-4 ring-primary/10">
         {n}
       </div>
-      <div className="flex-1 space-y-2.5 pb-6">
+      <div className="min-w-0 flex-1 space-y-2.5 pb-6">
         <p className="pt-0.5 text-sm font-medium text-foreground">{title}</p>
         {children}
       </div>
@@ -291,8 +291,11 @@ export function McpSetup() {
           </label>
         </div>
 
+        <p className="mb-2 rounded-lg border border-primary/25 bg-primary/5 px-4 py-3 text-sm text-foreground/90">
+          To let your AI agent use TON — pick your IDE below, copy the snippet, and follow the two steps.
+        </p>
         <p className="mb-3 text-xs text-muted-foreground">
-          Choose your IDE — the snippet updates from the flags above (no JavaScript required).
+          The snippet updates automatically when you toggle servers above — no JavaScript required.
         </p>
 
         <div className="mb-10">
@@ -301,7 +304,7 @@ export function McpSetup() {
                    id={`t-${tab.id}`} name="ide" defaultChecked={tab.id === 'claude'} />
           ))}
 
-          <div className="tab-list flex flex-wrap gap-1">
+          <div className="tab-list flex gap-1">
             {IDE_TABS.map(tab => (
               <label key={tab.id} htmlFor={`t-${tab.id}`} className={`tab-btn l-${tab.id}`}>
                 {tab.label}
@@ -309,7 +312,7 @@ export function McpSetup() {
             ))}
           </div>
 
-          <div className="tab-panels rounded-b-lg rounded-tr-lg border border-border bg-background p-6">
+          <div className="tab-panels rounded-b-lg rounded-tr-lg border border-border bg-background p-4 sm:p-6">
             {IDE_TABS.map(tab => (
               <div key={tab.id} className={`tab-panel p-${tab.id}`}>
                 <Step n={1} title={tab.step1Title}>

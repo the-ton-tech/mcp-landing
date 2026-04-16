@@ -21,7 +21,7 @@ const distDir   = resolve(__dirname, 'dist')
 const publicDir = resolve(__dirname, 'public')
 const cssPath   = resolve(distDir, 'out.css')
 
-const SITE_URL   = 'https://mcp.ton.org'
+const SITE_URL   = 'https://the-ton-tech.github.io/mcp-landing'
 const SITE_TITLE = 'TON MCP — AI Agent Tools for TON Blockchain'
 const SITE_DESC  = 'Give your AI assistant live access to the TON blockchain. Query balances, send transactions, deploy contracts, and search official TON documentation — all via the Model Context Protocol.'
 const SITE_TITLE_SHORT = 'TON MCP'

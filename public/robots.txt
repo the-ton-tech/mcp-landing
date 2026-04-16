@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://ton-mcp-landing.vercel.app/sitemap.xml
+Sitemap: https://the-ton-tech.github.io/mcp-landing/sitemap.xml

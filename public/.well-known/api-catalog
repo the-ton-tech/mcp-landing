@@ -1,0 +1,10 @@
+{
+  "linkset": [
+    {
+      "anchor": "https://github.com/ton-org/skills",
+      "service-doc": [
+        { "href": "https://github.com/ton-org/skills", "type": "text/html", "title": "ton-org/skills bundle — docs + agentic wallets" }
+      ]
+    }
+  ]
+}

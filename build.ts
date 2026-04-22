@@ -10,9 +10,9 @@
 
 import { renderToStaticMarkup } from 'react-dom/server'
 import { createElement }        from 'react'
-import { readFileSync, writeFileSync, unlinkSync, mkdirSync, readdirSync, copyFileSync } from 'fs'
+import { readFileSync, writeFileSync, unlinkSync, mkdirSync, readdirSync, copyFileSync, statSync } from 'fs'
 import { fileURLToPath }        from 'url'
-import { dirname, resolve }     from 'path'
+import { dirname, resolve, relative } from 'path'
 
 import App from './src/App'
 
@@ -21,7 +21,7 @@ const distDir   = resolve(__dirname, 'dist')
 const publicDir = resolve(__dirname, 'public')
 const cssPath   = resolve(distDir, 'out.css')
 
-const SITE_URL   = 'https://the-ton-tech.github.io/mcp-landing'
+const SITE_URL   = 'https://mcp.ton.org'
 const SITE_TITLE = 'TON MCP — AI Agent Tools for TON Blockchain'
 const SITE_DESC  = 'Give your AI assistant live access to the TON blockchain. Query balances, send transactions, deploy contracts, and search official TON documentation — all via the Model Context Protocol.'
 const SITE_TITLE_SHORT = 'TON MCP'
@@ -77,8 +77,9 @@ const html = `<!DOCTYPE html>
   <meta name="twitter:title"       content="${SITE_TITLE}" />
   <meta name="twitter:description" content="${SITE_DESC}" />
 
-  <!-- AI / LLM discoverability -->
+  <!-- AI / LLM discoverability (RFC 8288 link relations; Pages can't set HTTP Link headers, so these ship in <head>) -->
   <link rel="alternate" type="text/plain" href="${SITE_URL}/llms.txt" title="LLM-readable site summary" />
+  <link rel="sitemap" type="application/xml" href="${SITE_URL}/sitemap.xml" />
 
   <!-- Structured data -->
   <script type="application/ld+json">${JSON_LD}</script>
@@ -96,8 +97,18 @@ mkdirSync(distDir, { recursive: true })
 writeFileSync(resolve(distDir, 'index.html'), html, 'utf-8')
 console.log(`✓  dist/index.html  (${(html.length / 1024).toFixed(1)} KB, SSG + inline copy helper)`)
 
-// ── 5. Copy public/ → dist/ ───────────────────────────────────────────────
-for (const file of readdirSync(publicDir)) {
-  copyFileSync(resolve(publicDir, file), resolve(distDir, file))
-  console.log(`✓  dist/${file}  ← public/${file}`)
+// ── 5. Copy public/ → dist/ (recursive, preserves nested dirs like .well-known/) ─
+function copyDir(src: string, dest: string) {
+  mkdirSync(dest, { recursive: true })
+  for (const entry of readdirSync(src)) {
+    const srcPath  = resolve(src, entry)
+    const destPath = resolve(dest, entry)
+    if (statSync(srcPath).isDirectory()) {
+      copyDir(srcPath, destPath)
+    } else {
+      copyFileSync(srcPath, destPath)
+      console.log(`✓  dist/${relative(distDir, destPath)}  ← public/${relative(publicDir, srcPath)}`)
+    }
+  }
 }
+copyDir(publicDir, distDir)

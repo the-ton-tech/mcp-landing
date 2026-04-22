@@ -1,0 +1,11 @@
+{
+  "$schema": "https://schemas.agentskills.io/discovery/0.2.0/schema.json",
+  "skills": [
+    {
+      "name": "ton-org/skills",
+      "type": "skill-bundle",
+      "description": "Official TON skills bundle — documentation and agentic wallets for AI assistants. Install with `npx skills add ton-org/skills`.",
+      "url": "https://github.com/ton-org/skills"
+    }
+  ]
+}

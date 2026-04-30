@@ -1,7 +1,7 @@
 import { Badge } from '@/components/ui/badge'
-import { Card, CardContent } from '@/components/ui/card'
 import { CodeBlock } from '@/components/CodeBlock'
 import { SKILLS_INSTALL_CMD, skillsAddCmd } from '@/lib/constants'
+import { Eyebrow, FeatureCard, PickerOption, SectionHeading } from '@/components/ui/ton'
 
 interface SkillTryPrompt {
   text: string
@@ -78,52 +78,33 @@ function SkillsGranularInstallSlots() {
 export function SkillsSetup() {
   return (
     <section id="skills" className="scroll-mt-28">
-      <h2 className="mb-2 text-lg font-semibold text-foreground">Skills</h2>
-      <p className="mb-4 text-sm text-muted-foreground">
+      <SectionHeading title="Skills">
         Install the full bundle in one command, or pick individual skills below — currently{' '}
         <span className="font-mono text-[11px] text-foreground/80">docs</span>
         {' '}and{' '}
         <span className="font-mono text-[11px] text-foreground/80">wallets</span>
         .
-      </p>
+      </SectionHeading>
 
-      <h3 className="mb-3 text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">Full bundle</h3>
+      <Eyebrow>Full bundle</Eyebrow>
       <div className="mb-6">
         <CodeBlock code={SKILLS_INSTALL_CMD} lang="bash" />
       </div>
 
-      <h3 className="mb-3 text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">What&apos;s in the bundle</h3>
+      <Eyebrow>What&apos;s in the bundle</Eyebrow>
       <div className="mb-6 grid items-stretch gap-4 sm:grid-cols-2">
         {SKILL_CARDS.map(card => (
-          <Card
+          <FeatureCard
             key={card.id}
-            className="relative flex h-full flex-col overflow-hidden border-border"
-          >
-            <div className="absolute inset-x-0 top-0 h-0.5 bg-primary opacity-60" />
-            <CardContent className="flex flex-1 flex-col p-0">
-              <div className="space-y-2 p-5">
-                <div className="flex flex-wrap items-start justify-between gap-2">
-                  <p className="font-semibold capitalize text-foreground">{card.title}</p>
-                  <Badge variant="secondary" className="shrink-0 text-[10px] font-medium">
-                    {card.label}
-                  </Badge>
-                </div>
-                <p className="text-xs leading-relaxed text-muted-foreground">
-                  {card.about}
-                </p>
-                <div className="flex flex-wrap gap-1.5">
-                  {card.tags.map(t => (
-                    <Badge key={t} variant="outline" className="text-[10px] font-normal">
-                      {t}
-                    </Badge>
-                  ))}
-                </div>
-              </div>
-
-              <div className="mt-auto border-t border-border/60 bg-muted/20 px-4 py-3">
-                <p className="mb-2 text-[10px] font-semibold uppercase tracking-wide text-muted-foreground">
+            title={card.title}
+            label={card.label}
+            tags={card.tags}
+            titleClassName="capitalize"
+            footer={(
+              <>
+                <Eyebrow as="p" className="mb-2 text-[10px]">
                   Try asking
-                </p>
+                </Eyebrow>
                 <ul className="space-y-2">
 
                   {card.tryAsking.map((p, i) => (
@@ -137,7 +118,7 @@ export function SkillsSetup() {
                       {p.required && (
                         <Badge
                           variant="outline"
-                          className="shrink-0 border-primary/55 px-1.5 py-0 text-[9px] font-medium text-primary"
+                          className="shrink-0 border-[var(--accent-default)] px-1.5 py-0 text-[9px] font-medium text-[var(--accent-default)]"
                         >
                           Required
                         </Badge>
@@ -146,47 +127,27 @@ export function SkillsSetup() {
                     </li>
                   ))}
                 </ul>
-              </div>
-            </CardContent>
-          </Card>
+              </>
+            )}
+          >
+            {card.about}
+          </FeatureCard>
         ))}
       </div>
 
       <div className="skill-bundle-scope">
-        <h3 className="mb-3 text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">Install selected skills only</h3>
+        <Eyebrow>Install selected skills only</Eyebrow>
         <div className="mb-4 flex flex-col gap-2 sm:flex-row sm:flex-wrap">
-          <label
-            htmlFor="skill-pick-docs"
-            className="flex min-w-0 flex-1 cursor-pointer items-start gap-3 rounded-lg border border-border bg-card p-3 transition-colors hover:border-primary/40 has-[:checked]:border-primary/55 has-[:checked]:bg-muted/30 has-[:focus-visible]:outline-none has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-primary/60 has-[:focus-visible]:ring-offset-2"
-          >
-            <input
-              id="skill-pick-docs"
-              type="checkbox"
-              className="brand-checkbox mt-0.5"
-              defaultChecked
-            />
-            <span className="min-w-0 text-xs leading-relaxed text-muted-foreground">
-              <span className="font-medium text-foreground">docs</span>
-              {' '}
-              — documentation &amp; reference skills
-            </span>
-          </label>
-          <label
-            htmlFor="skill-pick-wallets"
-            className="flex min-w-0 flex-1 cursor-pointer items-start gap-3 rounded-lg border border-border bg-card p-3 transition-colors hover:border-primary/40 has-[:checked]:border-primary/55 has-[:checked]:bg-muted/30 has-[:focus-visible]:outline-none has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-primary/60 has-[:focus-visible]:ring-offset-2"
-          >
-            <input
-              id="skill-pick-wallets"
-              type="checkbox"
-              className="brand-checkbox mt-0.5"
-              defaultChecked
-            />
-            <span className="min-w-0 text-xs leading-relaxed text-muted-foreground">
-              <span className="font-medium text-foreground">wallets</span>
-              {' '}
-              — chain, agentic wallet, swaps
-            </span>
-          </label>
+          <PickerOption id="skill-pick-docs">
+            <span className="font-medium text-foreground">docs</span>
+            {' '}
+            — documentation &amp; reference skills
+          </PickerOption>
+          <PickerOption id="skill-pick-wallets">
+            <span className="font-medium text-foreground">wallets</span>
+            {' '}
+            — chain, agentic wallet, swaps
+          </PickerOption>
         </div>
         <SkillsGranularInstallSlots />
       </div>

@@ -6,8 +6,8 @@ export function CodeBlock({ code, lang }: { code: string; lang: string }) {
     <div className="code-wrap">
       <div className="code-header">
         <div className="flex min-w-0 items-center gap-2">
-          <span className="code-dot bg-primary/70" />
-          <span className="font-mono text-xs text-[hsl(210_10%_50%)]">{isOutput ? 'output' : lang}</span>
+          <span className="code-dot" />
+          <span className="code-lang">{isOutput ? 'output' : lang}</span>
         </div>
         {!isOutput && (
           <button

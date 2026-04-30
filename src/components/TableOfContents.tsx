@@ -7,13 +7,13 @@ const TOC_ITEMS: { id: string; label: string }[] = [
 export function TableOfContents() {
   return (
     <nav
-      className="rounded-lg border border-border bg-muted/20 p-4"
+      className="toc-card"
       aria-labelledby="toc-title"
       lang="en"
     >
       <p
         id="toc-title"
-        className="mb-3 text-xs font-semibold uppercase tracking-wide text-muted-foreground"
+        className="mb-3 text-xs font-semibold uppercase text-muted-foreground"
       >
         In this guide
       </p>
@@ -22,7 +22,7 @@ export function TableOfContents() {
           <li key={id}>
             <a
               href={`#${id}`}
-              className="font-medium text-foreground/90 underline decoration-border underline-offset-4 transition-colors hover:text-primary hover:decoration-primary/60"
+              className="toc-link"
             >
               {label}
             </a>

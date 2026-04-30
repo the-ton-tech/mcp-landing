@@ -40,8 +40,8 @@
   * { box-sizing: border-box; border-color: hsl(var(--border)); }
   html { scroll-behavior: smooth; }
   body {
-    background-color: hsl(var(--background));
-    color: hsl(var(--foreground));
+    background-color: var(--background-page);
+    color: var(--text-primary);
     font-family: 'Inter', system-ui, sans-serif;
     -webkit-font-smoothing: antialiased;
   }
@@ -50,8 +50,45 @@
 @layer components {
   /* ── Top accent bar ─────────────────────────────────────── */
   .page-accent {
-    @apply fixed inset-x-0 top-0 z-50 h-[3px];
+    @apply fixed inset-x-0 top-0 z-50 h-0.5;
     background: linear-gradient(90deg, var(--accent-default), var(--accent-hover));
+  }
+
+  .ton-card {
+    @apply rounded-lg border;
+    background: var(--background-page);
+    border-color: var(--card-border-default);
+    color: var(--text-primary);
+    box-shadow: 0 12px 32px -28px var(--card-shadow);
+  }
+
+  .feature-card {
+    @apply relative flex h-full flex-col overflow-hidden;
+  }
+
+  .feature-card-accent {
+    @apply absolute inset-x-0 top-0 h-0.5;
+    background: var(--accent-default);
+    opacity: 0.72;
+  }
+
+  .feature-card-footer {
+    @apply mt-auto border-t px-4 py-3;
+    background: var(--background-content);
+    border-color: var(--separator-alpha--footer);
+  }
+
+  .section-divider {
+    @apply my-10 mx-4 border-t sm:mx-8;
+    border-color: var(--separator-alpha--footer);
+  }
+
+  .ton-callout {
+    @apply mb-3 rounded-lg border px-4 py-3 text-sm;
+    background: var(--background-content);
+    border-color: var(--card-border-default);
+    color: var(--text-secondary);
+    box-shadow: inset 2px 0 0 var(--accent-default);
   }
 
   /* ── CSS-only IDE tabs ──────────────────────────────────── */
@@ -74,10 +111,16 @@
   .tab-list::-webkit-scrollbar { display: none; }
   .tab-btn {
     @apply inline-flex cursor-pointer select-none items-center rounded-t-md
-           border border-b-0 border-border bg-muted
-           px-3 py-1.5 text-xs font-medium text-muted-foreground
-           transition-colors hover:text-foreground sm:px-4 sm:py-2 sm:text-sm;
+           border border-b-0 px-3 py-1.5 text-xs font-medium
+           transition-colors sm:px-4 sm:py-2 sm:text-sm;
+    background: var(--background-content);
+    border-color: var(--card-border-default);
+    color: var(--text-tetriary);
     white-space: nowrap;
+  }
+  .tab-btn:hover {
+    background: var(--background-content-hover);
+    color: var(--text-secondary);
   }
   .tab-radio:focus-visible + * .tab-btn,
   .tab-radio:focus-visible ~ .tab-list .tab-btn[for] {
@@ -93,10 +136,17 @@
   #t-cursor:checked   ~ .tab-list .l-cursor,
   #t-windsurf:checked ~ .tab-list .l-windsurf,
   #t-vscode:checked   ~ .tab-list .l-vscode {
-    background: hsl(var(--background));
+    background: var(--background-page);
     color: var(--accent-default);
+    border-color: var(--card-border-default);
     border-top: 2px solid var(--accent-default);
     padding-top: calc(0.5rem - 1px);
+  }
+  .tab-panels {
+    @apply rounded-b-lg rounded-tr-lg border p-4 sm:p-6;
+    background: var(--background-page);
+    border-color: var(--card-border-default);
+    box-shadow: 0 12px 32px -28px var(--card-shadow);
   }
 
   /* ── MCP picker: two checkboxes → 4 config variants (pure CSS) ─ */
@@ -133,32 +183,45 @@
     display: block;
   }
 
-  /* ── Code block (always dark, theme-independent) ─────────── */
   .code-wrap {
-    @apply overflow-hidden rounded-lg border border-[hsl(220_20%_14%)] text-xs sm:text-sm;
-    background: hsl(220 30% 7%);
+    @apply overflow-hidden rounded-lg border text-xs sm:text-sm;
+    background: var(--background-content);
+    border-color: var(--card-border-default);
+    box-shadow: 0 10px 28px -24px var(--card-shadow);
     max-width: 100%;
     min-width: 0;
   }
   .code-header {
-    @apply flex items-center justify-between gap-2 border-b border-[hsl(220_20%_14%)] px-3 py-2 sm:px-4;
-    background: hsl(220 30% 10%);
+    @apply flex items-center justify-between gap-2 border-b px-3 py-2 sm:px-4;
+    background: var(--background-page);
+    border-color: var(--separator-alpha--footer);
   }
-  .code-dot  { @apply h-2 w-2 rounded-full; }
+  .code-dot {
+    @apply h-2 w-2 rounded-full;
+    background: var(--accent-default);
+  }
+  .code-lang {
+    @apply font-mono text-xs;
+    color: var(--text-tetriary);
+  }
   .code-copy-btn {
     @apply inline-flex shrink-0 items-center justify-center rounded-md p-1.5
-           text-[hsl(210_20%_85%)] transition-colors
-           hover:bg-white/10 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/60;
+           transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/60;
+    color: var(--icon-secondary);
+  }
+  .code-copy-btn:hover {
+    background: var(--background-content-hover);
+    color: var(--icon-primary);
   }
   .code-copy-btn[data-copied] {
-    @apply text-primary;
+    color: var(--accent-default);
   }
   .code-copy-btn .copy-icon-copied { display: none; }
   .code-copy-btn[data-copied] .copy-icon-default { display: none; }
   .code-copy-btn[data-copied] .copy-icon-copied { display: inline-block; }
   .code-body {
     @apply overflow-x-auto p-3 font-mono leading-relaxed sm:p-4;
-    color: hsl(210 20% 88%);
+    color: var(--text-secondary);
     min-width: 0;
   }
   .code-body pre,
@@ -167,43 +230,101 @@
     min-width: 0;
   }
   .code-body-output {
-    color: hsl(210 20% 65%);
+    color: var(--text-tetriary);
     font-style: italic;
   }
 
   /* ── Brand checkbox: hidden native + inline SVG checkmark ── */
   .brand-checkbox {
-    @apply h-4 w-4 shrink-0 cursor-pointer rounded-[4px] border border-border bg-background transition-colors;
+    @apply h-4 w-4 shrink-0 cursor-pointer rounded-[4px] border transition-colors;
     appearance: none;
     -webkit-appearance: none;
+    background-color: var(--background-page);
+    border-color: var(--card-border-checkbox);
     background-position: center;
     background-repeat: no-repeat;
     background-size: 12px 12px;
   }
   .brand-checkbox:hover {
-    border-color: hsl(var(--primary) / 0.5);
+    border-color: var(--accent-default);
   }
   .brand-checkbox:checked {
-    background-color: hsl(var(--primary));
-    border-color: hsl(var(--primary));
+    background-color: var(--accent-default);
+    border-color: var(--accent-default);
     background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='white' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><polyline points='3.5,8.5 6.5,11.5 12.5,5'/></svg>");
   }
   .brand-checkbox:focus-visible {
     @apply outline-none ring-2 ring-primary/60 ring-offset-2;
   }
 
+  .picker-option {
+    @apply flex min-w-0 flex-1 cursor-pointer items-start gap-3 rounded-lg border p-3 transition-colors
+           has-[:focus-visible]:outline-none has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-primary/60 has-[:focus-visible]:ring-offset-2;
+    background: var(--background-page);
+    border-color: var(--card-border-checkbox);
+  }
+  .picker-option:hover {
+    background: var(--background-content-hover);
+    border-color: var(--accent-default);
+    box-shadow: var(--default--input--box--shadow--hover);
+  }
+  .picker-option:has(:checked) {
+    background: var(--background-content-hover);
+    border-color: var(--accent-default--border-pressed);
+  }
+
   /* ── Prompt card copy button (light surface override) ───── */
+  .prompt-card {
+    @apply relative flex items-center gap-3 overflow-hidden rounded-lg border py-2.5 pl-4 pr-2 text-sm transition-colors;
+    background: var(--background-page);
+    border-color: var(--card-border-default);
+    color: var(--text-primary);
+  }
+  .prompt-card:hover {
+    background: var(--background-content-hover);
+    border-color: var(--accent-default);
+  }
+  .prompt-card-accent {
+    @apply absolute inset-y-0 left-0 w-0.5;
+    background: var(--accent-default);
+    opacity: 0.72;
+  }
   .prompt-copy-btn {
-    @apply text-muted-foreground hover:bg-muted hover:text-foreground;
+    color: var(--text-tetriary);
+  }
+  .prompt-copy-btn:hover {
+    background: var(--background-content-hover);
+    color: var(--text-primary);
   }
   .prompt-copy-btn[data-copied] {
-    @apply text-primary;
+    color: var(--accent-default);
   }
 
   /* ── Step connector — uses TON separator token ──────────── */
   .step-line {
     @apply absolute left-[11px] top-7 h-full w-px border-l border-dashed;
     border-color: var(--separator-alpha);
+  }
+  .step-marker {
+    @apply relative flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-xs font-bold text-primary-foreground;
+    background: var(--accent-default);
+    box-shadow: var(--default--input--box--shadow--hover);
+  }
+
+  .toc-card {
+    @apply rounded-lg border p-4;
+    background: var(--background-content);
+    border-color: var(--card-border-default);
+    box-shadow: 0 12px 32px -28px var(--card-shadow);
+  }
+  .toc-link {
+    @apply font-medium underline underline-offset-4 transition-colors;
+    color: var(--text-secondary);
+    text-decoration-color: var(--card-border-default);
+  }
+  .toc-link:hover {
+    color: var(--accent-default);
+    text-decoration-color: var(--accent-default);
   }
 
   /* ── Footer top border — softer separator per TON spec ──── */

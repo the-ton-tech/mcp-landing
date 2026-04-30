@@ -6,7 +6,7 @@ export function Step({ n, last = false, title, children }: {
   return (
     <div className="relative flex gap-4">
       {!last && <div className="step-line" />}
-      <div className="relative flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-primary text-xs font-bold text-primary-foreground ring-4 ring-primary/10">
+      <div className="step-marker">
         {n}
       </div>
       <div className="min-w-0 flex-1 space-y-2.5 pb-6">

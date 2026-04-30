@@ -1,6 +1,7 @@
 import { Check, Copy, Sparkles } from 'lucide-react'
 import { CodeBlock } from '@/components/CodeBlock'
 import { Step } from '@/components/Step'
+import { SectionHeading } from '@/components/ui/ton'
 import { SKILLS_INSTALL_CMD } from '@/lib/constants'
 
 const TRY_PROMPT = 'What can I do with TON?'
@@ -8,11 +9,10 @@ const TRY_PROMPT = 'What can I do with TON?'
 export function GettingStarted() {
   return (
     <section id="getting-started" className="scroll-mt-28">
-      <h2 className="mb-2 text-lg font-semibold text-foreground">Getting started</h2>
-      <p className="mb-4 text-sm text-muted-foreground">
+      <SectionHeading title="Getting started">
         TON MCP gives your AI agent live access to the TON blockchain and its documentation —
         check balances, send transactions, deploy contracts, and search official docs.
-      </p>
+      </SectionHeading>
 
       <Step n={1} title="Install skills">
         <p className="text-sm text-muted-foreground">
@@ -25,9 +25,9 @@ export function GettingStarted() {
         <p className="text-sm text-muted-foreground">
           Open your AI assistant and ask:
         </p>
-        <div className="prompt-card relative flex items-center gap-3 overflow-hidden rounded-lg border border-border bg-card py-2.5 pl-4 pr-2 text-sm text-foreground transition-colors hover:border-primary/35 hover:bg-muted/30">
-          <span className="absolute inset-y-0 left-0 w-0.5 bg-primary/60" aria-hidden />
-          <Sparkles className="h-4 w-4 shrink-0 text-primary" aria-hidden />
+        <div className="prompt-card">
+          <span className="prompt-card-accent" aria-hidden />
+          <Sparkles className="h-4 w-4 shrink-0 text-[var(--accent-default)]" aria-hidden />
           <span className="min-w-0 flex-1 leading-snug">{TRY_PROMPT}</span>
           <button
             type="button"

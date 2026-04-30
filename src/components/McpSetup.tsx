@@ -1,7 +1,6 @@
-import { Badge } from '@/components/ui/badge'
-import { Card, CardContent } from '@/components/ui/card'
 import { CodeBlock } from '@/components/CodeBlock'
 import { Step } from '@/components/Step'
+import { Callout, Eyebrow, FeatureCard, PickerOption, SectionHeading } from '@/components/ui/ton'
 
 // ── Types ─────────────────────────────────────────────────────────────────
 
@@ -206,81 +205,45 @@ function McpVerifySlots() {
 export function McpSetup() {
   return (
     <section id="mcp" className="scroll-mt-28">
-      <h2 className="mb-2 text-lg font-semibold text-foreground">MCP</h2>
-      <p className="mb-4 text-sm text-muted-foreground">
+      <SectionHeading title="MCP">
         Configure Model Context Protocol servers so your AI agent can read TON documentation and call live chain operations directly from your IDE.
-      </p>
+      </SectionHeading>
 
-      <h3 className="mb-3 text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">Servers</h3>
+      <Eyebrow>Servers</Eyebrow>
       <div className="mb-6 grid items-stretch gap-4 sm:grid-cols-2">
         {MCP_SERVER_CARDS.map(card => (
-          <Card
+          <FeatureCard
             key={card.id}
-            className="relative flex h-full flex-col overflow-hidden border-border"
+            title={card.title}
+            label={card.label}
+            tags={card.tags}
+            titleClassName="font-mono text-sm"
           >
-            <div className="absolute inset-x-0 top-0 h-0.5 bg-primary opacity-60" />
-            <CardContent className="flex flex-1 flex-col p-5">
-              <div className="mb-2 flex flex-wrap items-start justify-between gap-2">
-                <p className="font-mono text-sm font-semibold text-foreground">{card.title}</p>
-                <Badge variant="secondary" className="text-[10px] font-medium">
-                  {card.label}
-                </Badge>
-              </div>
-              <p className="text-xs leading-relaxed text-muted-foreground">{card.about}</p>
-              <div className="mt-3 flex flex-wrap gap-1.5">
-                {card.tags.map(tag => (
-                  <Badge key={tag} variant="outline" className="text-[10px] font-normal">
-                    {tag}
-                  </Badge>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
+            {card.about}
+          </FeatureCard>
         ))}
       </div>
 
       <div className="mcp-config-scope">
-        <h3 className="mb-3 text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">Include in config</h3>
+        <Eyebrow>Include in config</Eyebrow>
         <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-          <label
-            htmlFor="mcp-docs"
-            className="flex min-w-0 flex-1 cursor-pointer items-start gap-3 rounded-lg border border-border bg-card p-3 transition-colors hover:border-primary/40 has-[:checked]:border-primary/55 has-[:checked]:bg-muted/30 has-[:focus-visible]:outline-none has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-primary/60 has-[:focus-visible]:ring-offset-2"
-          >
-            <input
-              id="mcp-docs"
-              type="checkbox"
-              className="brand-checkbox mt-0.5"
-              defaultChecked
-            />
-            <span className="min-w-0 text-xs leading-relaxed text-muted-foreground">
-              <span className="font-medium text-foreground">TON Docs MCP</span>
-              {' '}
-              — remote HTTP
-            </span>
-          </label>
-          <label
-            htmlFor="mcp-chain"
-            className="flex min-w-0 flex-1 cursor-pointer items-start gap-3 rounded-lg border border-border bg-card p-3 transition-colors hover:border-primary/40 has-[:checked]:border-primary/55 has-[:checked]:bg-muted/30 has-[:focus-visible]:outline-none has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-primary/60 has-[:focus-visible]:ring-offset-2"
-          >
-            <input
-              id="mcp-chain"
-              type="checkbox"
-              className="brand-checkbox mt-0.5"
-              defaultChecked
-            />
-            <span className="min-w-0 text-xs leading-relaxed text-muted-foreground">
-              <span className="font-medium text-foreground">TON chain MCP</span>
-              {' '}
-              — local via{' '}
-              <span className="font-mono text-[11px] text-foreground/85">npx -y @ton/mcp@alpha</span>
-              .
-            </span>
-          </label>
+          <PickerOption id="mcp-docs">
+            <span className="font-medium text-foreground">TON Docs MCP</span>
+            {' '}
+            — remote HTTP
+          </PickerOption>
+          <PickerOption id="mcp-chain">
+            <span className="font-medium text-foreground">TON chain MCP</span>
+            {' '}
+            — local via{' '}
+            <span className="font-mono text-[11px] text-foreground/85">npx -y @ton/mcp@alpha</span>
+            .
+          </PickerOption>
         </div>
 
-        <p className="mb-3 rounded-lg border border-primary/25 bg-primary/5 px-4 py-3 text-sm text-foreground/90">
+        <Callout>
           To let your AI agent use TON — pick your IDE below, copy the snippet, and follow the two steps.
-        </p>
+        </Callout>
         <p className="mb-4 text-xs text-muted-foreground">
           The snippet updates automatically when you toggle servers above — no JavaScript required.
         </p>
@@ -299,7 +262,7 @@ export function McpSetup() {
             ))}
           </div>
 
-          <div className="tab-panels rounded-b-lg rounded-tr-lg border border-border bg-background p-4 sm:p-6">
+          <div className="tab-panels">
             {IDE_TABS.map(tab => (
               <div key={tab.id} className={`tab-panel p-${tab.id}`}>
                 <Step n={1} title={tab.step1Title}>

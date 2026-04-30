@@ -22,14 +22,12 @@ export function GettingStarted() {
         <p className="ton-copy">
           Open your AI assistant and ask:
         </p>
-        <div className="prompt-card">
-          <span className="prompt-card-accent" aria-hidden />
+        <div className="prompt-card" data-copy-source>
           <Sparkles className="h-4 w-4 shrink-0 text-[var(--accent-default)]" aria-hidden />
-          <span className="min-w-0 flex-1 leading-snug">{TRY_PROMPT}</span>
+          <span className="min-w-0 flex-1 leading-snug" data-copy-value>{TRY_PROMPT}</span>
           <button
             type="button"
             className="code-copy-btn prompt-copy-btn shrink-0"
-            data-copy-text={TRY_PROMPT}
             title="Copy prompt"
             aria-label="Copy prompt to clipboard"
           >
@@ -37,9 +35,6 @@ export function GettingStarted() {
             <Check className="copy-icon-copied h-3.5 w-3.5" strokeWidth={2.5} aria-hidden />
           </button>
         </div>
-        <p className="ton-compact">
-          Your agent will list the TON tools it now has — balances, transactions, swaps, NFTs, contract deploys, and docs search. Pick whatever you need from there.
-        </p>
       </Step>
 
       <Step n={3} last title="You're ready to go">

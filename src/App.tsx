@@ -22,10 +22,16 @@ document.body.addEventListener('click', function (e) {
   e.preventDefault();
   var text = btn.getAttribute('data-copy-text');
   if (!text) {
-    var wrap = btn.closest('.code-wrap');
-    var codeEl = wrap && wrap.querySelector('.code-body code');
-    if (!codeEl) return;
-    text = codeEl.textContent || '';
+    var source = btn.closest('[data-copy-source]');
+    var valueEl = source && source.querySelector('[data-copy-value]');
+    if (valueEl) {
+      text = valueEl.textContent || '';
+    } else {
+      var wrap = btn.closest('.code-wrap');
+      var codeEl = wrap && wrap.querySelector('.code-body code');
+      if (!codeEl) return;
+      text = codeEl.textContent || '';
+    }
   }
   function done() {
     btn.setAttribute('data-copied', 'true');

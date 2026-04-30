@@ -168,7 +168,7 @@
   }
 
   .guide-stack > .guide-section + .guide-section {
-    margin-top: 72px;
+    margin-top: 48px;
   }
 
   .hero-section {
@@ -518,11 +518,12 @@
     min-width: 0;
   }
   .code-copy-btn {
-    @apply absolute right-3 top-3 inline-flex h-8 w-8 shrink-0 items-center justify-center
+    @apply absolute right-3 inline-flex h-8 w-8 shrink-0 items-center justify-center
            transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/60;
     background: transparent;
     border-radius: 40px;
     color: var(--icon-secondary);
+    top: calc(1rem + 0.8125em - 1rem);
   }
   .code-copy-btn:hover {
     background: var(--background-content-hover);
@@ -603,24 +604,21 @@
 
   /* ── Prompt card copy button (light surface override) ───── */
   .prompt-card {
-    @apply relative flex items-center gap-3 overflow-hidden rounded-lg border py-2.5 pl-4 pr-2 text-sm transition-colors;
+    @apply relative flex min-w-0 items-center gap-3 overflow-hidden border py-4 pl-4 pr-14 text-sm transition-colors sm:py-5 sm:pl-6;
     background: var(--background-page);
-    border-color: var(--card-border-default);
+    border-color: var(--button-secondary-stroke);
+    border-radius: 40px;
     color: var(--text-primary);
     max-width: 100%;
-    min-width: 0;
   }
   .prompt-card:hover {
     background: var(--background-content-hover);
-    border-color: var(--accent-default);
-  }
-  .prompt-card-accent {
-    @apply absolute inset-y-0 left-0 w-0.5;
-    background: var(--accent-default);
-    opacity: 0.72;
+    border-color: var(--button-secondary-stroke);
   }
   .prompt-copy-btn {
     color: var(--text-tetriary);
+    top: 50%;
+    transform: translateY(-50%);
   }
   .prompt-copy-btn:hover {
     background: var(--background-content-hover);
@@ -628,6 +626,16 @@
   }
   .prompt-copy-btn[data-copied] {
     color: var(--accent-default);
+  }
+
+  @media (min-width: 640px) {
+    .code-copy-btn {
+      top: calc(1.25rem + 0.8125em - 1rem);
+    }
+
+    .prompt-copy-btn {
+      top: 50%;
+    }
   }
 
   /* ── Step connector — uses TON separator token ──────────── */
@@ -678,7 +686,7 @@
   }
 
   .guide-stack > .guide-section + .guide-section {
-    margin-top: 48px;
+    margin-top: 32px;
   }
 
   .ton-button {

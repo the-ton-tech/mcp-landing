@@ -1,6 +1,7 @@
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent } from '@/components/ui/card'
 import { CodeBlock } from '@/components/CodeBlock'
+import { SKILLS_INSTALL_CMD, skillsAddCmd } from '@/lib/constants'
 
 interface SkillTryPrompt {
   text: string
@@ -16,17 +17,10 @@ interface SkillCard {
   tags: string[]
 }
 
-const SKILLS_ROOT_INSTALL = 'npx skills add ton-org/skills -y'
-
-const SKILLS_PATH = 'ton-org/skills'
-
-const SKILLS_ADD_CMD = (...segments: string[]) =>
-  `npx skills add ${segments.map(s => `${SKILLS_PATH}/${s}`).join(' ')} -y`
-
 const SKILLS_GRANULAR: Record<'all' | 'd' | 'w' | 'none', string> = {
-  all: SKILLS_ROOT_INSTALL,
-  d: SKILLS_ADD_CMD('docs'),
-  w: SKILLS_ADD_CMD('wallets'),
+  all: SKILLS_INSTALL_CMD,
+  d: skillsAddCmd('docs'),
+  w: skillsAddCmd('wallets'),
   none: '# Select at least one topic using the checkboxes above.',
 }
 
@@ -36,7 +30,7 @@ const SKILL_CARDS: SkillCard[] = [
     title: 'docs',
     label: 'Documentation',
     about:
-      'Orientation and answers grounded in official material: TL-B, TVM, FunC / Tolk, staking and validator topics at a high level, protocol architecture, and how to read the docs stack. In the repo this surfaces as the documentation skill line (`ton-org/skills/docs` and related prompts)—installed once with the root command above alongside wallets.',
+      'Answers grounded in official TON material: TL-B, TVM, FunC and Tolk, validator and staking topics, protocol architecture. Installed at `ton-org/skills/docs`.',
     tags: ['documentation', 'tl-b', 'reference'],
     tryAsking: [
       { text: 'What are best practices for writing secure FunC contracts?' },
@@ -50,7 +44,7 @@ const SKILL_CARDS: SkillCard[] = [
     title: 'wallets',
     label: 'Wallets & chain',
     about:
-      'Operational skills for live chain data: balances and history, send / receive / swap flows, Jettons and NFTs, and agentic wallet workflows. Creating an agentic wallet is mandatory before you rely on balance or transfer prompts—the tooling expects that onboarding first. Packaged under the wallets slice of the monorepo (`ton-org/skills/wallets`).',
+      'Live chain operations: balances and history, sends, swaps, Jettons and NFTs, agentic wallet workflows. Installed at `ton-org/skills/wallets`.',
     tryAsking: [
       { text: 'Create an agentic wallet for me.', required: true },
       { text: 'What is the TON balance of my address?' },
@@ -86,19 +80,19 @@ export function SkillsSetup() {
     <section id="skills" className="scroll-mt-28">
       <h2 className="mb-2 text-lg font-semibold text-foreground">Skills</h2>
       <p className="mb-4 text-sm text-muted-foreground">
-        Install the whole monorepo in one shot, or pick individual skill packs below. The cards describe documentation and wallets (paths such as{' '}
-        <span className="font-mono text-[11px] text-foreground/80">ton-org/skills/docs</span>
+        Install the full bundle in one command, or pick individual skills below — currently{' '}
+        <span className="font-mono text-[11px] text-foreground/80">docs</span>
         {' '}and{' '}
-        <span className="font-mono text-[11px] text-foreground/80">ton-org/skills/wallets</span>
-        ).
+        <span className="font-mono text-[11px] text-foreground/80">wallets</span>
+        .
       </p>
 
-      <h3 className="mb-2 text-xs font-medium text-foreground">Full bundle</h3>
+      <h3 className="mb-3 text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">Full bundle</h3>
       <div className="mb-6">
-        <CodeBlock code={SKILLS_ROOT_INSTALL} lang="bash" />
+        <CodeBlock code={SKILLS_INSTALL_CMD} lang="bash" />
       </div>
 
-      <h3 className="mb-2 text-xs font-medium text-foreground">What&apos;s in the bundle</h3>
+      <h3 className="mb-3 text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">What&apos;s in the bundle</h3>
       <div className="mb-6 grid items-stretch gap-4 sm:grid-cols-2">
         {SKILL_CARDS.map(card => (
           <Card
@@ -158,16 +152,16 @@ export function SkillsSetup() {
       </div>
 
       <div className="skill-bundle-scope">
-        <h3 className="mb-2 text-xs font-medium text-foreground">Install selected skills only</h3>
+        <h3 className="mb-3 text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">Install selected skills only</h3>
         <div className="mb-4 flex flex-col gap-2 sm:flex-row sm:flex-wrap">
           <label
             htmlFor="skill-pick-docs"
-            className="flex min-w-0 flex-1 cursor-pointer items-start gap-3 rounded-lg border border-border bg-card p-3 transition-colors hover:border-primary/40 has-[:checked]:border-primary/55 has-[:checked]:bg-muted/30"
+            className="flex min-w-0 flex-1 cursor-pointer items-start gap-3 rounded-lg border border-border bg-card p-3 transition-colors hover:border-primary/40 has-[:checked]:border-primary/55 has-[:checked]:bg-muted/30 has-[:focus-visible]:outline-none has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-primary/60 has-[:focus-visible]:ring-offset-2"
           >
             <input
               id="skill-pick-docs"
               type="checkbox"
-              className="mt-0.5 h-4 w-4 shrink-0 rounded border-border accent-primary"
+              className="brand-checkbox mt-0.5"
               defaultChecked
             />
             <span className="min-w-0 text-xs leading-relaxed text-muted-foreground">
@@ -178,12 +172,12 @@ export function SkillsSetup() {
           </label>
           <label
             htmlFor="skill-pick-wallets"
-            className="flex min-w-0 flex-1 cursor-pointer items-start gap-3 rounded-lg border border-border bg-card p-3 transition-colors hover:border-primary/40 has-[:checked]:border-primary/55 has-[:checked]:bg-muted/30"
+            className="flex min-w-0 flex-1 cursor-pointer items-start gap-3 rounded-lg border border-border bg-card p-3 transition-colors hover:border-primary/40 has-[:checked]:border-primary/55 has-[:checked]:bg-muted/30 has-[:focus-visible]:outline-none has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-primary/60 has-[:focus-visible]:ring-offset-2"
           >
             <input
               id="skill-pick-wallets"
               type="checkbox"
-              className="mt-0.5 h-4 w-4 shrink-0 rounded border-border accent-primary"
+              className="brand-checkbox mt-0.5"
               defaultChecked
             />
             <span className="min-w-0 text-xs leading-relaxed text-muted-foreground">

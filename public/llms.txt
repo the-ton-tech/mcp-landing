@@ -23,7 +23,7 @@
 
 ## Setup
 
-Add the TON skills bundle (recommended — documentation and wallets in one install):
+Add the TON skills bundle (recommended — docs and wallets skills installed together):
 
 ```bash
 npx skills add ton-org/skills -y

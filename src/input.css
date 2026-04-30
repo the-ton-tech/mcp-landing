@@ -5,31 +5,34 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ─── Design tokens ──────────────────────────────────────────────────────────
-   Derived from src/constants.css (TON brand colours, light theme only).
+/* ─── Tailwind/shadcn HSL channel tokens ────────────────────────────────────
+   These mirror the raw hex tokens in src/constants.css as HSL channel triples
+   so Tailwind's `hsl(var(--*))` colour utilities work. Each line names its
+   source-of-truth in constants.css. Update both together if a brand colour
+   changes.
 ─────────────────────────────────────────────────────────────────────────── */
 
 @layer base {
   :root {
-    --background:             0 0% 100%;          /* --background-page    #FFFFFF  */
-    --foreground:             222 46% 3%;          /* --text-primary       #04060B  */
-    --card:                   0 0% 100%;
-    --card-foreground:        222 46% 3%;
-    --popover:                0 0% 100%;
-    --popover-foreground:     222 46% 3%;
-    --primary:                199 100% 46%;        /* --accent-default     #0098EA  */
-    --primary-foreground:     0 0% 100%;
-    --secondary:              216 34% 97%;         /* --background-content #F5F7FA  */
-    --secondary-foreground:   224 31% 14%;         /* --text-secondary     #191F2F  */
-    --muted:                  216 34% 97%;
-    --muted-foreground:       200 15% 52%;         /* --text-tetriary      #728A96  */
-    --accent:                 216 34% 97%;
-    --accent-foreground:      224 31% 14%;
-    --destructive:            0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-    --border:                 201 15% 88%;         /* --card-border-default #DDE3E6 */
-    --input:                  201 15% 88%;
-    --ring:                   199 100% 46%;
+    --background:             0 0% 100%;          /* --background-page       #FFFFFF  */
+    --foreground:             222 46% 3%;          /* --text-primary          #04060B  */
+    --card:                   0 0% 100%;          /* --background-page       #FFFFFF  */
+    --card-foreground:        222 46% 3%;          /* --text-primary          #04060B  */
+    --popover:                0 0% 100%;          /* --background-page       #FFFFFF  */
+    --popover-foreground:     222 46% 3%;          /* --text-primary          #04060B  */
+    --primary:                199 100% 46%;        /* --accent-default        #0098EA  */
+    --primary-foreground:     0 0% 100%;          /* --background-page       #FFFFFF  */
+    --secondary:              216 34% 97%;         /* --background-content    #F5F7FA  */
+    --secondary-foreground:   224 31% 14%;         /* --text-secondary        #191F2F  */
+    --muted:                  216 34% 97%;         /* --background-content    #F5F7FA  */
+    --muted-foreground:       200 15% 52%;         /* --text-tetriary         #728A96  */
+    --accent:                 216 34% 97%;         /* --background-content    #F5F7FA  */
+    --accent-foreground:      224 31% 14%;         /* --text-secondary        #191F2F  */
+    --destructive:            0 71% 66%;            /* --text-error            #ED6767  */
+    --destructive-foreground: 0 0% 100%;          /* --background-page       #FFFFFF  */
+    --border:                 201 15% 88%;         /* --card-border-default   #DDE3E6  */
+    --input:                  201 15% 88%;         /* --card-border-default   #DDE3E6  */
+    --ring:                   199 100% 46%;        /* --accent-default        #0098EA  */
     --radius:                 0.5rem;
   }
 
@@ -78,6 +81,16 @@
            px-3 py-1.5 text-xs font-medium text-muted-foreground
            transition-colors hover:text-foreground sm:px-4 sm:py-2 sm:text-sm;
     white-space: nowrap;
+  }
+  .tab-radio:focus-visible + * .tab-btn,
+  .tab-radio:focus-visible ~ .tab-list .tab-btn[for] {
+    /* fallback handled per-checked state below */
+  }
+  #t-claude:focus-visible   ~ .tab-list .l-claude,
+  #t-cursor:focus-visible   ~ .tab-list .l-cursor,
+  #t-windsurf:focus-visible ~ .tab-list .l-windsurf,
+  #t-vscode:focus-visible   ~ .tab-list .l-vscode {
+    @apply outline-none ring-2 ring-primary/60 ring-offset-2;
   }
   #t-claude:checked   ~ .tab-list .l-claude,
   #t-cursor:checked   ~ .tab-list .l-cursor,
@@ -143,6 +156,9 @@
   .code-copy-btn[data-copied] {
     @apply text-primary;
   }
+  .code-copy-btn .copy-icon-copied { display: none; }
+  .code-copy-btn[data-copied] .copy-icon-default { display: none; }
+  .code-copy-btn[data-copied] .copy-icon-copied { display: inline-block; }
   .code-body {
     @apply overflow-x-auto p-3 font-mono leading-relaxed sm:p-4;
     color: hsl(210 20% 88%);
@@ -153,11 +169,30 @@
     display: block;
     min-width: 0;
   }
-  .code-body.select-none {
-    user-select: none;
-    -webkit-user-select: none;
+  .code-body-output {
     color: hsl(210 20% 65%);
     font-style: italic;
+  }
+
+  /* ── Brand checkbox: hidden native + inline SVG checkmark ── */
+  .brand-checkbox {
+    @apply h-4 w-4 shrink-0 cursor-pointer rounded-[4px] border border-border bg-background transition-colors;
+    appearance: none;
+    -webkit-appearance: none;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 12px 12px;
+  }
+  .brand-checkbox:hover {
+    border-color: hsl(var(--primary) / 0.5);
+  }
+  .brand-checkbox:checked {
+    background-color: hsl(var(--primary));
+    border-color: hsl(var(--primary));
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='white' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><polyline points='3.5,8.5 6.5,11.5 12.5,5'/></svg>");
+  }
+  .brand-checkbox:focus-visible {
+    @apply outline-none ring-2 ring-primary/60 ring-offset-2;
   }
 
   /* ── Prompt card copy button (light surface override) ───── */
@@ -168,9 +203,15 @@
     @apply text-primary;
   }
 
-  /* ── Step connector ─────────────────────────────────────── */
+  /* ── Step connector — uses TON separator token ──────────── */
   .step-line {
-    @apply absolute left-[11px] top-7 h-full w-px border-l border-dashed border-border;
+    @apply absolute left-[11px] top-7 h-full w-px border-l border-dashed;
+    border-color: var(--separator-alpha);
+  }
+
+  /* ── Footer top border — softer separator per TON spec ──── */
+  .footer-separator {
+    border-top: 1px solid var(--separator-alpha--footer);
   }
 
 }

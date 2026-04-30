@@ -211,7 +211,7 @@ export function McpSetup() {
         Configure Model Context Protocol servers so your AI agent can read TON documentation and call live chain operations directly from your IDE.
       </p>
 
-      <h3 className="mb-2 text-xs font-medium text-foreground">Servers</h3>
+      <h3 className="mb-3 text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">Servers</h3>
       <div className="mb-6 grid items-stretch gap-4 sm:grid-cols-2">
         {MCP_SERVER_CARDS.map(card => (
           <Card
@@ -240,16 +240,16 @@ export function McpSetup() {
       </div>
 
       <div className="mcp-config-scope">
-        <h3 className="mb-2 text-xs font-medium text-foreground">Include in config</h3>
+        <h3 className="mb-3 text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">Include in config</h3>
         <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
           <label
             htmlFor="mcp-docs"
-            className="flex min-w-0 flex-1 cursor-pointer items-start gap-3 rounded-lg border border-border bg-card p-3 transition-colors hover:border-primary/40 has-[:checked]:border-primary/55 has-[:checked]:bg-muted/30"
+            className="flex min-w-0 flex-1 cursor-pointer items-start gap-3 rounded-lg border border-border bg-card p-3 transition-colors hover:border-primary/40 has-[:checked]:border-primary/55 has-[:checked]:bg-muted/30 has-[:focus-visible]:outline-none has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-primary/60 has-[:focus-visible]:ring-offset-2"
           >
             <input
               id="mcp-docs"
               type="checkbox"
-              className="mt-0.5 h-4 w-4 shrink-0 rounded border-border accent-primary"
+              className="brand-checkbox mt-0.5"
               defaultChecked
             />
             <span className="min-w-0 text-xs leading-relaxed text-muted-foreground">
@@ -260,12 +260,12 @@ export function McpSetup() {
           </label>
           <label
             htmlFor="mcp-chain"
-            className="flex min-w-0 flex-1 cursor-pointer items-start gap-3 rounded-lg border border-border bg-card p-3 transition-colors hover:border-primary/40 has-[:checked]:border-primary/55 has-[:checked]:bg-muted/30"
+            className="flex min-w-0 flex-1 cursor-pointer items-start gap-3 rounded-lg border border-border bg-card p-3 transition-colors hover:border-primary/40 has-[:checked]:border-primary/55 has-[:checked]:bg-muted/30 has-[:focus-visible]:outline-none has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-primary/60 has-[:focus-visible]:ring-offset-2"
           >
             <input
               id="mcp-chain"
               type="checkbox"
-              className="mt-0.5 h-4 w-4 shrink-0 rounded border-border accent-primary"
+              className="brand-checkbox mt-0.5"
               defaultChecked
             />
             <span className="min-w-0 text-xs leading-relaxed text-muted-foreground">
@@ -316,6 +316,10 @@ export function McpSetup() {
               </div>
             ))}
           </div>
+
+          <p className="mt-3 text-xs text-muted-foreground">
+            Don&apos;t see your client? Any MCP-compatible app — Claude Desktop, Zed, Continue, and others — works with the same server URLs above.
+          </p>
         </div>
       </div>
     </section>

@@ -6,11 +6,12 @@ const LINKS = [
   { label: 'Agentic Wallets', href: 'https://agents.ton.org' },
   { label: 'Dashboard', href: 'https://agents.ton.org/dashboard' },
   { label: 'Docs MCP', href: 'https://docs.ton.org/mcp' },
+  { label: 'GitHub', href: 'https://github.com/the-ton-tech/mcp-landing' },
 ]
 
 export function Footer() {
   return (
-    <footer className="mt-12 border-t border-border pt-8">
+    <footer className="footer-separator mt-12 pt-8">
       <nav className="flex flex-wrap gap-2" aria-label="External links">
         {LINKS.map(({ label, href }) => (
           <Button key={label} variant="outline" size="sm" asChild>

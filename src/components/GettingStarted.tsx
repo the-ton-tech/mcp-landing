@@ -1,8 +1,7 @@
-import { Copy, Sparkles } from 'lucide-react'
+import { Check, Copy, Sparkles } from 'lucide-react'
 import { CodeBlock } from '@/components/CodeBlock'
 import { Step } from '@/components/Step'
-
-const INSTALL_CMD = 'npx skills add ton-org/skills -y'
+import { SKILLS_INSTALL_CMD } from '@/lib/constants'
 
 const TRY_PROMPT = 'What can I do with TON?'
 
@@ -17,9 +16,9 @@ export function GettingStarted() {
 
       <Step n={1} title="Install skills">
         <p className="text-sm text-muted-foreground">
-          Run the command below in your terminal to install the full skill bundle.
+          Run this in your terminal to install the full TON skills bundle.
         </p>
-        <CodeBlock code={INSTALL_CMD} lang="bash" />
+        <CodeBlock code={SKILLS_INSTALL_CMD} lang="bash" />
       </Step>
 
       <Step n={2} title="Ask your agent">
@@ -37,7 +36,8 @@ export function GettingStarted() {
             title="Copy prompt"
             aria-label="Copy prompt to clipboard"
           >
-            <Copy className="h-3.5 w-3.5" strokeWidth={2} aria-hidden />
+            <Copy className="copy-icon-default h-3.5 w-3.5" strokeWidth={2} aria-hidden />
+            <Check className="copy-icon-copied h-3.5 w-3.5" strokeWidth={2.5} aria-hidden />
           </button>
         </div>
         <p className="text-xs text-muted-foreground">
@@ -48,7 +48,7 @@ export function GettingStarted() {
       <Step n={3} last title="You're ready to go">
         <p className="text-sm text-muted-foreground">
           Your agent can now query balances, send TON, search documentation, and more.
-          Scroll down to configure MCP servers or install individual skill packs.
+          Scroll down to install individual skills or configure MCP servers directly.
         </p>
       </Step>
     </section>

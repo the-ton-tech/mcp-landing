@@ -77,12 +77,12 @@ function SkillsGranularInstallSlots() {
 
 export function SkillsSetup() {
   return (
-    <section id="skills" className="scroll-mt-28">
+    <section id="skills" className="guide-section">
       <SectionHeading title="Skills">
         Install the full bundle in one command, or pick individual skills below — currently{' '}
-        <span className="font-mono text-[11px] text-foreground/80">docs</span>
+        <span className="ton-inline-code">docs</span>
         {' '}and{' '}
-        <span className="font-mono text-[11px] text-foreground/80">wallets</span>
+        <span className="ton-inline-code">wallets</span>
         .
       </SectionHeading>
 

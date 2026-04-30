@@ -204,7 +204,7 @@ function McpVerifySlots() {
 
 export function McpSetup() {
   return (
-    <section id="mcp" className="scroll-mt-28">
+    <section id="mcp" className="guide-section">
       <SectionHeading title="MCP">
         Configure Model Context Protocol servers so your AI agent can read TON documentation and call live chain operations directly from your IDE.
       </SectionHeading>
@@ -236,7 +236,7 @@ export function McpSetup() {
             <span className="font-medium text-foreground">TON chain MCP</span>
             {' '}
             — local via{' '}
-            <span className="font-mono text-[11px] text-foreground/85">npx -y @ton/mcp@alpha</span>
+            <span className="ton-inline-code">npx -y @ton/mcp@alpha</span>
             .
           </PickerOption>
         </div>

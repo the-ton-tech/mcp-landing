@@ -14,6 +14,8 @@
 
 @layer base {
   :root {
+    --site-header-height: 68px;
+    --section-anchor-offset: 96px;
     --background:             0 0% 100%;          /* --background-page       #FFFFFF  */
     --foreground:             222 46% 3%;          /* --text-primary          #04060B  */
     --card:                   0 0% 100%;          /* --background-page       #FFFFFF  */
@@ -38,24 +40,32 @@
 
   /* Global resets */
   * { box-sizing: border-box; border-color: hsl(var(--border)); }
-  html { scroll-behavior: smooth; }
+  html {
+    scroll-behavior: smooth;
+    max-width: 100%;
+    overflow-x: hidden;
+  }
   body {
     background-color: var(--background-page);
     color: var(--text-primary);
     font-family: Inter, Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
+    max-width: 100%;
+    min-width: 0;
+    overflow-x: hidden;
   }
 }
 
 @layer components {
   /* ── Top accent bar ─────────────────────────────────────── */
   .page-accent {
-    @apply fixed inset-x-0 top-0 z-50 h-0.5;
+    @apply fixed inset-x-0 top-0 h-0.5;
+    z-index: 110;
     background: linear-gradient(90deg, var(--accent-default), var(--accent-hover));
   }
 
   .site-header {
-    @apply sticky top-0 w-full border-b;
+    @apply fixed inset-x-0 top-0 w-full border-b;
     z-index: 100;
     background: var(--background-fixed-header);
     border-color: var(--separator-alpha--footer);
@@ -65,15 +75,15 @@
   }
 
   .site-header-inner {
-    @apply mx-auto flex w-full flex-row items-center justify-start gap-2;
-    max-width: 1120px;
+    @apply mx-auto flex w-full min-w-0 flex-row items-center justify-start gap-2;
+    max-width: min(1120px, 100%);
     min-height: 68px;
     padding: 16px;
     box-sizing: border-box;
   }
 
   .site-brand {
-    @apply flex shrink-0 items-center gap-2;
+    @apply flex min-w-0 shrink-0 items-center gap-2;
     color: var(--text-primary);
     text-decoration: none;
   }
@@ -90,8 +100,12 @@
     line-height: 24px;
   }
 
+  .site-brand svg {
+    @apply shrink-0;
+  }
+
   .site-nav {
-    @apply ml-auto flex min-w-0 items-center gap-1 overflow-x-auto;
+    @apply ml-auto flex min-w-0 flex-1 items-center gap-1 overflow-x-auto sm:justify-end;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
   }
@@ -112,6 +126,37 @@
   .site-nav-link:hover {
     background: var(--background-content-hover);
     color: var(--accent-default);
+  }
+
+  .page-main {
+    width: 100%;
+    max-width: 72rem;
+    min-width: 0;
+    padding-top: calc(var(--site-header-height) + 40px);
+  }
+
+  .page-content,
+  .guide-stack,
+  .guide-section {
+    width: 100%;
+    max-width: 58rem;
+    min-width: 0;
+  }
+
+  .guide-section {
+    scroll-margin-top: var(--section-anchor-offset);
+  }
+
+  .guide-stack > .guide-section + .guide-section {
+    margin-top: 56px;
+  }
+
+  .hero-section {
+    padding-top: 8px;
+  }
+
+  .hero-actions {
+    @apply mt-6 flex min-w-0 flex-col gap-3 sm:flex-row sm:flex-wrap;
   }
 
   .section-title {
@@ -137,6 +182,21 @@
     font-weight: 400;
     line-height: 20px;
     margin: 0;
+  }
+
+  .ton-inline-code {
+    border: 1px solid var(--card-border-default);
+    border-radius: 6px;
+    background: var(--background-content);
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
+    color: var(--text-secondary);
+    font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 0.82em;
+    font-weight: 400;
+    line-height: 1.4;
+    overflow-wrap: anywhere;
+    padding: 1px 5px;
   }
 
   .eyebrow {
@@ -186,11 +246,6 @@
     font-weight: 400;
     line-height: 20px;
     margin: 0;
-  }
-
-  .section-divider {
-    @apply my-10 mx-4 border-t sm:mx-8;
-    border-color: var(--separator-alpha--footer);
   }
 
   .ton-callout {
@@ -332,11 +387,13 @@
   .code-body {
     @apply overflow-x-auto p-3 font-mono leading-relaxed sm:p-4;
     color: var(--text-secondary);
+    max-width: 100%;
     min-width: 0;
   }
   .code-body pre,
   .code-body code {
     display: block;
+    max-width: 100%;
     min-width: 0;
   }
   .code-body-output {
@@ -372,6 +429,7 @@
            has-[:focus-visible]:outline-none has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-primary/60 has-[:focus-visible]:ring-offset-2;
     background: var(--background-page);
     border-color: var(--card-border-checkbox);
+    max-width: 100%;
   }
   .picker-option:hover {
     background: var(--background-content-hover);
@@ -396,6 +454,8 @@
     background: var(--background-page);
     border-color: var(--card-border-default);
     color: var(--text-primary);
+    max-width: 100%;
+    min-width: 0;
   }
   .prompt-card:hover {
     background: var(--background-content-hover);
@@ -458,6 +518,14 @@
     padding: 8px 10px;
     font-size: 13px;
     line-height: 18px;
+  }
+
+  .page-main {
+    padding-top: calc(var(--site-header-height) + 28px);
+  }
+
+  .guide-stack > .guide-section + .guide-section {
+    margin-top: 44px;
   }
 
   .section-title {

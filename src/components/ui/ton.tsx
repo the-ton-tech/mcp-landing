@@ -122,10 +122,6 @@ export function PickerOption({
   )
 }
 
-export function SectionDivider() {
-  return <div className="section-divider" />
-}
-
 export function Callout({ children }: { children: ReactNode }) {
   return (
     <p className="ton-callout">

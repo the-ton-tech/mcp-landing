@@ -8,7 +8,7 @@ const TRY_PROMPT = 'What can I do with TON?'
 
 export function GettingStarted() {
   return (
-    <section id="getting-started" className="scroll-mt-28">
+    <section id="getting-started" className="guide-section">
       <SectionHeading title="Getting started" />
 
       <Step n={1} title="Install skills">

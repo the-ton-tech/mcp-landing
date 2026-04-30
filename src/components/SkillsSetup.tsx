@@ -33,7 +33,7 @@ export function SkillsSetup() {
         <a href="https://agentskills.io/" target="_blank" rel="noreferrer noopener">
           Agent skills
         </a>
-        {' '} are bundles of instructions and workflows that teaches your AI assistant
+        {' '} are bundles of instructions and workflows that teach your AI assistant
         domain-specific knowledge. TON skills below come from{' '}
         <a href="https://github.com/ton-org/skills" target="_blank" rel="noreferrer noopener">
           ton-org/skills

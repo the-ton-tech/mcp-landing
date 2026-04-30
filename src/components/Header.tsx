@@ -8,20 +8,22 @@ const NAV_ITEMS = [
 export function Header() {
   return (
     <header className="site-header">
-      <div className="site-header-inner">
-        <a href="#what-it-is" className="site-brand">
-          <TONLogo />
-          <h1 className="site-brand-title">
-            MCP
-          </h1>
-        </a>
-        <nav className="site-nav" aria-label="Guide sections">
-          {NAV_ITEMS.map(({ id, label }) => (
-            <a key={id} href={`#${id}`} className="site-nav-link">
-              {label}
-            </a>
-          ))}
-        </nav>
+      <div className="site-header-outer">
+        <div className="site-header-inner">
+          <a href="#what-it-is" className="site-brand">
+            <TONLogo />
+            <h1 className="site-brand-title">
+              MCP
+            </h1>
+          </a>
+          <nav className="site-nav" aria-label="Guide sections">
+            {NAV_ITEMS.map(({ id, label }) => (
+              <a key={id} href={`#${id}`} className="site-nav-link">
+                {label}
+              </a>
+            ))}
+          </nav>
+        </div>
       </div>
     </header>
   )

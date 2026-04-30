@@ -69,7 +69,7 @@
     color: var(--accent-hover);
   }
 
-  a:not(.ton-button):not(.site-brand):not(.site-nav-link):hover {
+  a:not(.ton-button):not(.site-brand):not(.site-nav-link):not(.footer-link):hover {
     text-decoration: underline;
   }
 }
@@ -85,9 +85,15 @@
     transition: background-color var(--loader--transition);
   }
 
+  .site-header-outer {
+    @apply mx-auto w-full px-4 sm:px-6;
+    max-width: 72rem;
+    box-sizing: border-box;
+  }
+
   .site-header-inner {
-    @apply mx-auto flex w-full min-w-0 flex-row items-center justify-start gap-2 px-4 sm:px-0;
-    max-width: min(960px, 100%);
+    @apply mx-auto flex w-full min-w-0 flex-row items-center justify-start gap-2;
+    max-width: 960px;
     min-height: 68px;
     padding-top: 16px;
     padding-bottom: 16px;
@@ -414,77 +420,74 @@
     box-shadow: inset 2px 0 0 var(--accent-default);
   }
 
-  /* ── CSS-only IDE tabs ──────────────────────────────────── */
-  .tab-radio {
-    @apply absolute h-0 w-0 opacity-0;
-    pointer-events: none;
+  /* ── IDE picker — pill segmented control ─────────────────── */
+  .ide-tabbed {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
   }
 
-  .tab-list {
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
+  .ide-picker {
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: 2px;
+    padding: 4px;
+    border-radius: 999px;
+    background: transparent;
+    border: 1px solid var(--card-border-default);
+    align-self: flex-start;
+    max-width: 100%;
   }
-  .tab-list::-webkit-scrollbar { display: none; }
-  .tab-btn {
-    @apply inline-flex cursor-pointer select-none items-center rounded-t-md
-           border border-b-0 px-3 py-1.5 text-xs font-medium
-           transition-colors sm:px-4 sm:py-2 sm:text-sm;
-    background: var(--background-content);
-    border-color: var(--card-border-default);
-    color: var(--text-tetriary);
-    white-space: nowrap;
+
+  .ide-pill {
     position: relative;
-  }
-  .tab-btn:hover {
-    background: var(--background-content-hover);
-    color: var(--text-secondary);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    user-select: none;
+    padding: 6px 14px;
+    border-radius: 999px;
+    font-family: Inter, Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 20px;
+    color: var(--text-tetriary);
+    transition:
+      background-color var(--loader--transition),
+      color var(--loader--transition);
+    white-space: nowrap;
   }
 
-  /* Active tab (synced across every .tab-list in the section) */
-  .mcp-section:has(#t-claude:checked)   .tab-list .l-claude,
-  .mcp-section:has(#t-cursor:checked)   .tab-list .l-cursor,
-  .mcp-section:has(#t-windsurf:checked) .tab-list .l-windsurf,
-  .mcp-section:has(#t-vscode:checked)   .tab-list .l-vscode {
-    background: var(--background-page);
-    color: var(--accent-default);
-    border-color: var(--card-border-default);
-    border-top: 2px solid var(--accent-default);
-    padding-top: calc(0.5rem - 1px);
-    z-index: 1;
+  .ide-pill input {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    opacity: 0;
+    cursor: pointer;
   }
 
-  /* Focus ring on the active tab labels */
-  .mcp-section:has(#t-claude:focus-visible)   .tab-list .l-claude,
-  .mcp-section:has(#t-cursor:focus-visible)   .tab-list .l-cursor,
-  .mcp-section:has(#t-windsurf:focus-visible) .tab-list .l-windsurf,
-  .mcp-section:has(#t-vscode:focus-visible)   .tab-list .l-vscode {
+  .ide-pill:hover {
+    color: var(--text-primary);
+  }
+
+  .ide-pill:has(input:checked) {
+    background: var(--accent-default);
+    color: #ffffff;
+  }
+
+  .ide-pill:has(input:focus-visible) {
     @apply outline-none ring-2 ring-primary/60 ring-offset-2;
   }
 
-  /* Tabs glued to the code panel below them */
-  .ide-tabbed .tab-list {
-    margin-bottom: -1px;
-    padding-left: 4px;
-  }
-  .ide-panel {
-    @apply rounded-b-lg rounded-tr-lg border p-3 sm:p-4;
-    background: var(--background-page);
-    border-color: var(--card-border-default);
-    box-shadow: 0 12px 32px -28px var(--card-shadow);
-  }
-  .ide-panel .code-wrap {
-    border: 0;
-    box-shadow: none;
-    border-radius: 16px;
-  }
-
-  /* Show only the code matching the currently selected IDE */
-  .mcp-section .ide-slot { display: none; }
-  .mcp-section:has(#t-claude:checked)   .ide-slot-claude,
-  .mcp-section:has(#t-cursor:checked)   .ide-slot-cursor,
-  .mcp-section:has(#t-windsurf:checked) .ide-slot-windsurf,
-  .mcp-section:has(#t-vscode:checked)   .ide-slot-vscode {
+  /* Each MCP card switches its own code independently */
+  .ide-card .ide-slot { display: none; }
+  .ide-card:has(input[value="claude"]:checked)   .ide-slot-claude,
+  .ide-card:has(input[value="cursor"]:checked)   .ide-slot-cursor,
+  .ide-card:has(input[value="windsurf"]:checked) .ide-slot-windsurf,
+  .ide-card:has(input[value="vscode"]:checked)   .ide-slot-vscode {
     display: block;
   }
 

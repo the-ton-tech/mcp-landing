@@ -30,7 +30,8 @@ const footerColumns = [
 export function Footer() {
   return (
     <footer className="pb-6 pt-10 sm:pb-10 sm:pt-14 md:pt-16">
-      <div className="mx-auto max-w-[960px] border-t border-white/[0.05] px-4 pt-5 sm:px-0 sm:pt-6 md:pt-8">
+      <div className="mx-auto w-full max-w-[1152px] px-4 sm:px-6">
+        <div className="mx-auto max-w-[960px] border-t border-white/[0.05] pt-5 sm:pt-6 md:pt-8">
         <div className="grid gap-8 sm:grid-cols-2 md:grid-cols-[minmax(0,1.4fr)_repeat(3,minmax(0,1fr))] md:gap-10">
           <div>
             <a href="#what-it-is" className="site-brand flex items-center gap-2.5 text-lg font-semibold tracking-tight text-inherit no-underline hover:text-inherit hover:no-underline">
@@ -50,7 +51,7 @@ export function Footer() {
                   <li key={link.label}>
                     <a
                       href={link.href}
-                      className="text-sm text-neutral-600 transition-colors hover:text-white"
+                      className="footer-link text-sm text-neutral-600 transition-colors hover:text-[var(--accent-default)]"
                       {...(link.href.startsWith('http')
                         ? { target: '_blank', rel: 'noopener noreferrer' }
                         : {})}
@@ -66,6 +67,7 @@ export function Footer() {
 
         <div className="mt-6 flex flex-col items-center justify-between gap-4 pt-4 text-xs text-neutral-700 sm:mt-8 sm:flex-row sm:pt-6">
           <p>&copy; {new Date().getFullYear()} MCP. Built on The Open Network.</p>
+        </div>
         </div>
       </div>
     </footer>

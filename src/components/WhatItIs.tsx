@@ -1,7 +1,8 @@
 import { ExternalLink } from 'lucide-react'
 
-import { Button } from '@/components/ui/button'
+import { buttonVariants } from '@/components/ui/button'
 import { SectionHeading } from '@/components/ui/ton'
+import { cn } from '@/lib/utils'
 
 export function WhatItIs() {
   return (
@@ -11,17 +12,21 @@ export function WhatItIs() {
         check balances, send transactions, deploy contracts, and search official docs.
       </SectionHeading>
       <div className="hero-actions">
-        <Button className="w-full sm:w-auto" asChild>
-          <a href="#getting-started">
-            Get started
-          </a>
-        </Button>
-        <Button variant="outline" className="w-full sm:w-auto" asChild>
-          <a href="https://docs.ton.org/ecosystem/ai/mcp" target="_blank" rel="noopener noreferrer">
-            Documentation
-            <ExternalLink className="opacity-60" aria-hidden />
-          </a>
-        </Button>
+        <a
+          href="#getting-started"
+          className={cn(buttonVariants(), 'w-full sm:w-auto')}
+        >
+          Get started
+        </a>
+        <a
+          href="https://docs.ton.org/ecosystem/ai/mcp"
+          target="_blank"
+          rel="noopener noreferrer"
+          className={cn(buttonVariants({ variant: 'outline' }), 'w-full sm:w-auto')}
+        >
+          Documentation
+          <ExternalLink className="opacity-60" aria-hidden />
+        </a>
       </div>
     </section>
   )

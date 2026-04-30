@@ -108,12 +108,18 @@ const MCP_SERVERS: McpServer[] = [
   },
 ]
 
-function IdeTabStrip() {
+function IdeTabStrip({ groupName }: { groupName: string }) {
   return (
-    <div className="tab-list flex gap-1">
+    <div className="ide-picker" role="radiogroup" aria-label="IDE">
       {IDE_TABS.map(tab => (
-        <label key={tab.id} htmlFor={`t-${tab.id}`} className={`tab-btn l-${tab.id}`}>
-          {tab.label}
+        <label key={tab.id} className={`ide-pill ide-pill-${tab.id}`}>
+          <input
+            type="radio"
+            name={groupName}
+            value={tab.id}
+            defaultChecked={tab.id === 'claude'}
+          />
+          <span>{tab.label}</span>
         </label>
       ))}
     </div>
@@ -122,13 +128,13 @@ function IdeTabStrip() {
 
 function CommandPanel({ commands }: { commands: McpServer['commands'] }) {
   return (
-    <div className="ide-panel">
+    <>
       {IDE_TABS.map(tab => (
         <div key={tab.id} className={`ide-slot ide-slot-${tab.id}`}>
           <CodeBlock code={commands[tab.id].code} lang={commands[tab.id].lang} />
         </div>
       ))}
-    </div>
+    </>
   )
 }
 
@@ -141,24 +147,13 @@ export function McpSetup() {
         agent live access to the blockchain and to the official documentation.
       </SectionHeading>
 
-      {IDE_TABS.map(tab => (
-        <input
-          key={tab.id}
-          className="tab-radio"
-          type="radio"
-          id={`t-${tab.id}`}
-          name="ide"
-          defaultChecked={tab.id === 'claude'}
-        />
-      ))}
-
       <div className="flex flex-col gap-4">
         {MCP_SERVERS.map(server => (
-          <div key={server.id} className="flex flex-col gap-3">
+          <div key={server.id} className="ide-card flex flex-col gap-3">
             <h3 className="subsection-title">{server.title}</h3>
             <p className="ton-copy">{server.about}</p>
             <div className="ide-tabbed">
-              <IdeTabStrip />
+              <IdeTabStrip groupName={`ide-${server.id}`} />
               <CommandPanel commands={server.commands} />
             </div>
           </div>

@@ -2,7 +2,7 @@ const footerColumns = [
   {
     title: 'Product',
     links: [
-      { label: 'What it is', href: '#what-it-is' },
+      { label: 'What is TON MCP', href: '#what-it-is' },
       { label: 'Getting started', href: '#getting-started' },
       { label: 'Skills', href: '#skills' },
       { label: 'MCP', href: '#mcp' },

@@ -14,7 +14,7 @@ const SKILLS: SkillItem[] = [
     id: 'wallets',
     title: 'TON Blockchain & Wallets',
     about:
-      'A bundle of agent skills that teach your AI assistant how to work with TON wallets and on-chain operations — checking balances, sending TON and jettons, swapping on DEX, managing NFTs, and creating agentic wallets.',
+      'A bundle of agent skills that teaches your AI assistant how to work with TON wallets and on-chain operations — checking balances, sending TON and jettons, swapping on DEX, managing NFTs, and creating agentic wallets.',
     command: skillsAddCmd('wallets'),
   },
   {
@@ -30,11 +30,10 @@ export function SkillsSetup() {
   return (
     <section id="skills" className="guide-section">
       <SectionHeading title="Skills">
-        Skills are packaged{' '}
         <a href="https://agentskills.io/" target="_blank" rel="noreferrer noopener">
-          agent skills
+          Agent skills
         </a>
-        {' '}— bundles of instructions and workflows that teach your AI assistant
+        {' '} are bundles of instructions and workflows that teaches your AI assistant
         domain-specific knowledge. TON skills below come from{' '}
         <a href="https://github.com/ton-org/skills" target="_blank" rel="noreferrer noopener">
           ton-org/skills

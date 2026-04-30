@@ -1,10 +1,10 @@
 export function Header() {
   return (
-    <header>
-      <div className="flex items-center gap-2 sm:gap-2.5">
+    <header className="site-header">
+      <div className="site-header-inner">
         <TONLogo />
-        <h1 className="truncate text-xl font-bold text-foreground sm:text-2xl">
-          MCP
+        <h1 className="site-brand-title">
+          TON MCP
         </h1>
       </div>
     </header>
@@ -14,8 +14,8 @@ export function Header() {
 function TONLogo() {
   return (
     <svg
-      width="28"
-      height="28"
+      width="32"
+      height="32"
       viewBox="0 0 28 28"
       fill="none"
       role="img"

@@ -42,7 +42,7 @@
   body {
     background-color: var(--background-page);
     color: var(--text-primary);
-    font-family: 'Inter', system-ui, sans-serif;
+    font-family: Inter, Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
   }
 }
@@ -52,6 +52,66 @@
   .page-accent {
     @apply fixed inset-x-0 top-0 z-50 h-0.5;
     background: linear-gradient(90deg, var(--accent-default), var(--accent-hover));
+  }
+
+  .site-header {
+    @apply sticky top-0 w-full border-b;
+    z-index: 100;
+    background: var(--background-fixed-header);
+    border-color: var(--separator-alpha--footer);
+    -webkit-backdrop-filter: blur(32px);
+    backdrop-filter: blur(32px);
+    transition: background-color var(--loader--transition);
+  }
+
+  .site-header-inner {
+    @apply mx-auto flex w-full flex-row items-center justify-start gap-2;
+    max-width: 1120px;
+    min-height: 68px;
+    padding: 16px;
+    box-sizing: border-box;
+  }
+
+  .site-brand-title {
+    @apply truncate;
+    color: var(--text-primary);
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 24px;
+  }
+
+  .section-title {
+    color: var(--text-primary);
+    font-size: 40px;
+    font-weight: 700;
+    line-height: 48px;
+    margin: 0 0 16px;
+  }
+
+  .section-intro,
+  .ton-copy {
+    color: var(--text-secondary);
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 28px;
+    margin: 0;
+  }
+
+  .ton-compact {
+    color: var(--text-tetriary);
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+    margin: 0;
+  }
+
+  .eyebrow {
+    color: var(--text-tetriary);
+    font-size: 11px;
+    font-weight: 600;
+    line-height: 16px;
+    margin: 0 0 12px;
+    text-transform: uppercase;
   }
 
   .ton-card {
@@ -76,6 +136,22 @@
     @apply mt-auto border-t px-4 py-3;
     background: var(--background-content);
     border-color: var(--separator-alpha--footer);
+  }
+
+  .feature-card-title {
+    color: var(--text-primary);
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 28px;
+    margin: 0;
+  }
+
+  .feature-card-copy {
+    color: var(--text-secondary);
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+    margin: 0;
   }
 
   .section-divider {
@@ -272,6 +348,13 @@
     background: var(--background-content-hover);
     border-color: var(--accent-default--border-pressed);
   }
+  .picker-option-text {
+    @apply min-w-0;
+    color: var(--text-secondary);
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+  }
 
   /* ── Prompt card copy button (light surface override) ───── */
   .prompt-card {
@@ -310,12 +393,22 @@
     background: var(--accent-default);
     box-shadow: var(--default--input--box--shadow--hover);
   }
+  .step-title {
+    color: var(--text-primary);
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 28px;
+    margin: 0;
+    padding-top: 0;
+  }
 
   .toc-card {
     @apply rounded-lg border p-4;
     background: var(--background-content);
     border-color: var(--card-border-default);
     box-shadow: 0 12px 32px -28px var(--card-shadow);
+    font-size: 16px;
+    line-height: 24px;
   }
   .toc-link {
     @apply font-medium underline underline-offset-4 transition-colors;
@@ -332,4 +425,43 @@
     border-top: 1px solid var(--separator-alpha--footer);
   }
 
+}
+
+@media screen and (max-width: 568px) {
+  .site-header-inner {
+    padding: 16px 24px;
+  }
+
+  .site-brand-title {
+    font-size: 20px;
+    line-height: 24px;
+  }
+
+  .section-title {
+    font-size: 26px;
+    line-height: 32px;
+    margin-bottom: 12px;
+  }
+
+  .section-intro,
+  .ton-copy {
+    font-size: 16px;
+    line-height: 24px;
+  }
+
+  .picker-option-text {
+    font-size: 14px;
+    line-height: 20px;
+  }
+
+  .step-title {
+    font-size: 16px;
+    line-height: 24px;
+  }
+}
+
+@media screen and (max-width: 414px) {
+  .site-header-inner {
+    padding: 16px;
+  }
 }

@@ -15,14 +15,14 @@ export function GettingStarted() {
       </SectionHeading>
 
       <Step n={1} title="Install skills">
-        <p className="text-sm text-muted-foreground">
+        <p className="ton-copy">
           Run this in your terminal to install the full TON skills bundle.
         </p>
         <CodeBlock code={SKILLS_INSTALL_CMD} lang="bash" />
       </Step>
 
       <Step n={2} title="Ask your agent">
-        <p className="text-sm text-muted-foreground">
+        <p className="ton-copy">
           Open your AI assistant and ask:
         </p>
         <div className="prompt-card">
@@ -40,13 +40,13 @@ export function GettingStarted() {
             <Check className="copy-icon-copied h-3.5 w-3.5" strokeWidth={2.5} aria-hidden />
           </button>
         </div>
-        <p className="text-xs text-muted-foreground">
+        <p className="ton-compact">
           Your agent will list the TON tools it now has — balances, transactions, swaps, NFTs, contract deploys, and docs search. Pick whatever you need from there.
         </p>
       </Step>
 
       <Step n={3} last title="You're ready to go">
-        <p className="text-sm text-muted-foreground">
+        <p className="ton-copy">
           Your agent can now query balances, send TON, search documentation, and more.
           Scroll down to install individual skills or configure MCP servers directly.
         </p>

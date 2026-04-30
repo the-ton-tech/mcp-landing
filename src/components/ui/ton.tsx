@@ -13,9 +13,9 @@ export function SectionHeading({
 }) {
   return (
     <div className="mb-4">
-      <h2 className="mb-2 text-lg font-semibold text-foreground">{title}</h2>
+      <h2 className="section-title">{title}</h2>
       {children && (
-        <p className="text-sm text-muted-foreground">
+        <p className="section-intro">
           {children}
         </p>
       )}
@@ -39,7 +39,7 @@ export function Eyebrow<T extends ElementType = 'h3'>({
   return (
     <Component
       className={cn(
-        'mb-3 text-[11px] font-semibold uppercase text-muted-foreground',
+        'eyebrow',
         className
       )}
       {...props}
@@ -72,12 +72,12 @@ export function FeatureCard({
       <CardContent className="flex flex-1 flex-col p-0">
         <div className="space-y-2 p-5">
           <div className="flex flex-wrap items-start justify-between gap-2">
-            <p className={cn('font-semibold text-foreground', titleClassName)}>{title}</p>
+            <p className={cn('feature-card-title', titleClassName)}>{title}</p>
             <Badge variant="secondary" className="shrink-0 text-[10px] font-medium">
               {label}
             </Badge>
           </div>
-          <p className="text-xs leading-relaxed text-muted-foreground">
+          <p className="feature-card-copy">
             {children}
           </p>
           <div className="flex flex-wrap gap-1.5">
@@ -115,7 +115,7 @@ export function PickerOption({
         className="brand-checkbox mt-0.5"
         defaultChecked={defaultChecked}
       />
-      <span className="min-w-0 text-xs leading-relaxed text-muted-foreground">
+      <span className="picker-option-text">
         {children}
       </span>
     </label>

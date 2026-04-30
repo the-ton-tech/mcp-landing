@@ -271,7 +271,7 @@ export function McpSetup() {
                   {tab.id === 'vscode' && <McpJsonConfigSlots vscode />}
                 </Step>
                 <Step n={2} last title="Verify the connection">
-                  <p className="text-sm text-muted-foreground">
+                  <p className="ton-copy">
                     Ask your assistant to list available tools — you should see:
                   </p>
                   <McpVerifySlots />

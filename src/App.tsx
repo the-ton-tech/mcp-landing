@@ -7,9 +7,9 @@ export default function App() {
   return (
     <>
       <div className="page-accent" />
-      <main className="mx-auto max-w-6xl px-4 pb-14 pt-12 sm:px-6 sm:pt-16">
-        <Header />
-        <div className="mt-10 flex flex-col gap-8 sm:mt-12 lg:grid lg:grid-cols-[minmax(0,1fr)_12.5rem] lg:items-start lg:gap-10 xl:grid-cols-[minmax(0,1fr)_15rem]">
+      <Header />
+      <main className="mx-auto max-w-6xl px-4 pb-14 pt-10 sm:px-6 sm:pt-14">
+        <div className="flex flex-col gap-8 lg:grid lg:grid-cols-[minmax(0,1fr)_12.5rem] lg:items-start lg:gap-10 xl:grid-cols-[minmax(0,1fr)_15rem]">
           <div className="min-w-0">
             <SetupGuide />
             <Footer />

@@ -9,8 +9,8 @@ export function Step({ n, last = false, title, children }: {
       <div className="step-marker">
         {n}
       </div>
-      <div className="min-w-0 flex-1 space-y-2.5 pb-6">
-        <p className="pt-0.5 text-sm font-medium text-foreground">{title}</p>
+      <div className="min-w-0 flex-1 space-y-3 pb-7">
+        <p className="step-title">{title}</p>
         {children}
       </div>
     </div>

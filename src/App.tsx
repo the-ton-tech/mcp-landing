@@ -10,9 +10,9 @@ export default function App() {
       <main className="page-main mx-auto px-4 pb-14 sm:px-6">
         <div className="page-content mx-auto">
           <SetupGuide />
-          <Footer />
         </div>
       </main>
+      <Footer />
       <script
         dangerouslySetInnerHTML={{
           __html: `(function(){

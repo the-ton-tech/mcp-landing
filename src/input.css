@@ -159,7 +159,7 @@
   .guide-stack,
   .guide-section {
     width: 100%;
-    max-width: 736px;
+    max-width: 960px;
     min-width: 0;
   }
 
@@ -422,12 +422,6 @@
     pointer-events: none;
   }
 
-  .tab-panel { display: none; }
-  #t-claude:checked   ~ .tab-panels .p-claude,
-  #t-cursor:checked   ~ .tab-panels .p-cursor,
-  #t-windsurf:checked ~ .tab-panels .p-windsurf,
-  #t-vscode:checked   ~ .tab-panels .p-vscode { display: block; }
-
   .tab-list {
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
@@ -442,69 +436,57 @@
     border-color: var(--card-border-default);
     color: var(--text-tetriary);
     white-space: nowrap;
+    position: relative;
   }
   .tab-btn:hover {
     background: var(--background-content-hover);
     color: var(--text-secondary);
   }
-  .tab-radio:focus-visible + * .tab-btn,
-  .tab-radio:focus-visible ~ .tab-list .tab-btn[for] {
-    /* fallback handled per-checked state below */
-  }
-  #t-claude:focus-visible   ~ .tab-list .l-claude,
-  #t-cursor:focus-visible   ~ .tab-list .l-cursor,
-  #t-windsurf:focus-visible ~ .tab-list .l-windsurf,
-  #t-vscode:focus-visible   ~ .tab-list .l-vscode {
-    @apply outline-none ring-2 ring-primary/60 ring-offset-2;
-  }
-  #t-claude:checked   ~ .tab-list .l-claude,
-  #t-cursor:checked   ~ .tab-list .l-cursor,
-  #t-windsurf:checked ~ .tab-list .l-windsurf,
-  #t-vscode:checked   ~ .tab-list .l-vscode {
+
+  /* Active tab (synced across every .tab-list in the section) */
+  .mcp-section:has(#t-claude:checked)   .tab-list .l-claude,
+  .mcp-section:has(#t-cursor:checked)   .tab-list .l-cursor,
+  .mcp-section:has(#t-windsurf:checked) .tab-list .l-windsurf,
+  .mcp-section:has(#t-vscode:checked)   .tab-list .l-vscode {
     background: var(--background-page);
     color: var(--accent-default);
     border-color: var(--card-border-default);
     border-top: 2px solid var(--accent-default);
     padding-top: calc(0.5rem - 1px);
+    z-index: 1;
   }
-  .tab-panels {
-    @apply rounded-b-lg rounded-tr-lg border p-4 sm:p-6;
+
+  /* Focus ring on the active tab labels */
+  .mcp-section:has(#t-claude:focus-visible)   .tab-list .l-claude,
+  .mcp-section:has(#t-cursor:focus-visible)   .tab-list .l-cursor,
+  .mcp-section:has(#t-windsurf:focus-visible) .tab-list .l-windsurf,
+  .mcp-section:has(#t-vscode:focus-visible)   .tab-list .l-vscode {
+    @apply outline-none ring-2 ring-primary/60 ring-offset-2;
+  }
+
+  /* Tabs glued to the code panel below them */
+  .ide-tabbed .tab-list {
+    margin-bottom: -1px;
+    padding-left: 4px;
+  }
+  .ide-panel {
+    @apply rounded-b-lg rounded-tr-lg border p-3 sm:p-4;
     background: var(--background-page);
     border-color: var(--card-border-default);
     box-shadow: 0 12px 32px -28px var(--card-shadow);
   }
-
-  /* ── MCP picker: two checkboxes → 4 config variants (pure CSS) ─ */
-  .mcp-config-scope .mcp-code-slot {
-    display: none;
-  }
-  .mcp-config-scope:has(#mcp-docs:checked):has(#mcp-chain:checked) .mcp-slot-both {
-    display: block;
-  }
-  .mcp-config-scope:has(#mcp-docs:checked):has(#mcp-chain:not(:checked)) .mcp-slot-docs {
-    display: block;
-  }
-  .mcp-config-scope:has(#mcp-docs:not(:checked)):has(#mcp-chain:checked) .mcp-slot-chain {
-    display: block;
-  }
-  .mcp-config-scope:has(#mcp-docs:not(:checked)):has(#mcp-chain:not(:checked)) .mcp-slot-none {
-    display: block;
+  .ide-panel .code-wrap {
+    border: 0;
+    box-shadow: none;
+    border-radius: 16px;
   }
 
-  /* ── Skills bundle: 2 checkboxes → 4 install variants (pure CSS) ─ */
-  .skill-bundle-scope .skill-code-slot {
-    display: none;
-  }
-  .skill-bundle-scope:has(#skill-pick-docs:checked):has(#skill-pick-wallets:checked) .skill-slot-all {
-    display: block;
-  }
-  .skill-bundle-scope:has(#skill-pick-docs:checked):has(#skill-pick-wallets:not(:checked)) .skill-slot-d {
-    display: block;
-  }
-  .skill-bundle-scope:has(#skill-pick-docs:not(:checked)):has(#skill-pick-wallets:checked) .skill-slot-w {
-    display: block;
-  }
-  .skill-bundle-scope:has(#skill-pick-docs:not(:checked)):has(#skill-pick-wallets:not(:checked)) .skill-slot-none {
+  /* Show only the code matching the currently selected IDE */
+  .mcp-section .ide-slot { display: none; }
+  .mcp-section:has(#t-claude:checked)   .ide-slot-claude,
+  .mcp-section:has(#t-cursor:checked)   .ide-slot-cursor,
+  .mcp-section:has(#t-windsurf:checked) .ide-slot-windsurf,
+  .mcp-section:has(#t-vscode:checked)   .ide-slot-vscode {
     display: block;
   }
 
@@ -655,11 +637,6 @@
     line-height: 28px;
     margin: 0;
     padding-top: 0;
-  }
-
-  /* ── Footer top border — softer separator per TON spec ──── */
-  .footer-separator {
-    border-top: 1px solid var(--separator-alpha--footer);
   }
 
 }

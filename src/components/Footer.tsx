@@ -1,27 +1,98 @@
-import { ExternalLink } from 'lucide-react'
-import { Button } from '@/components/ui/button'
-
-const LINKS = [
-  { label: 'Skills', href: 'https://github.com/ton-org/skills' },
-  { label: 'Agentic Wallets', href: 'https://agents.ton.org' },
-  { label: 'Dashboard', href: 'https://agents.ton.org/dashboard' },
-  { label: 'Docs MCP', href: 'https://docs.ton.org/mcp' },
-  { label: 'GitHub', href: 'https://github.com/the-ton-tech/mcp-landing' },
+const footerColumns = [
+  {
+    title: 'Product',
+    links: [
+      { label: 'What it is', href: '#what-it-is' },
+      { label: 'Getting started', href: '#getting-started' },
+      { label: 'Skills', href: '#skills' },
+      { label: 'MCP', href: '#mcp' },
+    ],
+  },
+  {
+    title: 'Developers',
+    links: [
+      { label: 'Skills repository', href: 'https://github.com/ton-org/skills' },
+      { label: 'Documentation', href: 'https://docs.ton.org/ecosystem/ai/mcp' },
+      { label: 'Agentic Wallets', href: 'https://agents.ton.org' },
+    ],
+  },
+  {
+    title: 'Social networks',
+    links: [
+      { label: 'Telegram TON Tech', href: 'https://t.me/tontech' },
+      { label: 'Telegram TON Tech RU', href: 'https://t.me/tontechru' },
+      { label: 'X (Twitter) TON Tech', href: 'https://x.com/TONTechHQ' },
+      { label: 'Telegram AI Dev Wall', href: 'https://t.me/ai_dev_wall' },
+    ],
+  },
 ]
 
 export function Footer() {
   return (
-    <footer className="footer-separator mt-12 pt-8">
-      <nav className="flex flex-wrap gap-2" aria-label="External links">
-        {LINKS.map(({ label, href }) => (
-          <Button key={label} variant="outline" size="sm" asChild>
-            <a href={href} target="_blank" rel="noopener noreferrer">
-              {label}
-              <ExternalLink className="opacity-50" aria-hidden />
+    <footer className="pb-6 pt-10 sm:pb-10 sm:pt-14 md:pt-16">
+      <div className="mx-auto max-w-[1240px] border-t border-white/[0.05] px-6 pt-5 sm:pt-6 md:pt-8">
+        <div className="grid gap-8 sm:grid-cols-2 md:grid-cols-[minmax(0,1.4fr)_repeat(3,minmax(0,1fr))] md:gap-10">
+          <div>
+            <a href="#what-it-is" className="site-brand flex items-center gap-2.5 text-lg font-semibold tracking-tight text-inherit no-underline hover:text-inherit hover:no-underline">
+              <TONLogo />
+              <span>MCP</span>
             </a>
-          </Button>
-        ))}
-      </nav>
+            <p className="mt-3 text-sm text-neutral-600">
+              Model Context Protocol for The Open Network.
+            </p>
+          </div>
+
+          {footerColumns.map((col) => (
+            <div key={col.title}>
+              <h4 className="mb-3 text-sm font-medium text-neutral-400">{col.title}</h4>
+              <ul className="flex flex-col gap-2.5">
+                {col.links.map((link) => (
+                  <li key={link.label}>
+                    <a
+                      href={link.href}
+                      className="text-sm text-neutral-600 transition-colors hover:text-white"
+                      {...(link.href.startsWith('http')
+                        ? { target: '_blank', rel: 'noopener noreferrer' }
+                        : {})}
+                    >
+                      {link.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+
+        <div className="mt-6 flex flex-col items-center justify-between gap-4 pt-4 text-xs text-neutral-700 sm:mt-8 sm:flex-row sm:pt-6">
+          <p>&copy; {new Date().getFullYear()} MCP. Built on The Open Network.</p>
+        </div>
+      </div>
     </footer>
+  )
+}
+
+function TONLogo() {
+  return (
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 28 28"
+      fill="none"
+      role="img"
+      aria-label="TON"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M28 14.001C28 21.733 21.732 28.001 14 28.001C6.26801 28.001 0 21.733 0 14.001C0 6.26899 6.26801 0.000976562 14 0.000976562C21.732 0.000976562 28 6.26899 28 14.001ZM9.21931 8.00098H18.7801H18.7813C20.538 8.00098 21.6522 9.89966 20.7691 11.4302L14.8672 21.6576C14.4822 22.3254 13.5172 22.3254 13.1322 21.6576L7.23158 11.4302C6.34721 9.89726 7.4614 8.00098 9.21931 8.00098ZM13.1262 18.5882V9.74806H9.21811C8.78976 9.74806 8.53708 10.2029 8.74163 10.5578L11.8423 16.1035L13.1262 18.5882ZM16.1559 16.1047L19.2554 10.5566C19.4599 10.2017 19.2073 9.74685 18.7789 9.74685H14.8709V18.5906L16.1559 16.1047Z"
+        fill="var(--accent-default)"
+      />
+      <path
+        d="M18.7802 8.00098H9.21936C7.46145 8.00098 6.34727 9.89726 7.23164 11.4302L13.1322 21.6576C13.5173 22.3254 14.4823 22.3254 14.8673 21.6576L20.7691 11.4302C21.6523 9.89966 20.5381 8.00098 18.7814 8.00098H18.7802ZM13.1274 18.5906L11.8424 16.1035L8.74168 10.5578C8.53714 10.2029 8.78981 9.74806 9.21816 9.74806H13.1262V18.5918L13.1274 18.5906ZM19.2555 10.5566L16.156 16.1047L14.8709 18.5906V9.74685H18.779C19.2073 9.74685 19.46 10.2017 19.2555 10.5566Z"
+        fill="var(--background-page)"
+      />
+    </svg>
   )
 }

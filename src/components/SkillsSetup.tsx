@@ -1,155 +1,79 @@
-import { Badge } from '@/components/ui/badge'
 import { CodeBlock } from '@/components/CodeBlock'
-import { SKILLS_INSTALL_CMD, skillsAddCmd } from '@/lib/constants'
-import { Eyebrow, FeatureCard, PickerOption, SectionHeading } from '@/components/ui/ton'
+import { skillsAddCmd } from '@/lib/constants'
+import { SectionHeading } from '@/components/ui/ton'
 
-interface SkillTryPrompt {
-  text: string
-  required?: boolean
-}
-
-interface SkillCard {
-  id: 'docs' | 'wallets'
+interface SkillItem {
+  id: 'wallets' | 'docs'
   title: string
-  label: string
+  subtitle: string
   about: string
-  tryAsking: SkillTryPrompt[]
-  tags: string[]
+  includes: string[]
+  command: string
 }
 
-const SKILLS_GRANULAR: Record<'all' | 'd' | 'w' | 'none', string> = {
-  all: SKILLS_INSTALL_CMD,
-  d: skillsAddCmd('docs'),
-  w: skillsAddCmd('wallets'),
-  none: '# Select at least one topic using the checkboxes above.',
-}
-
-const SKILL_CARDS: SkillCard[] = [
-  {
-    id: 'docs',
-    title: 'docs',
-    label: 'Documentation',
-    about:
-      'Answers grounded in official TON material: TL-B, TVM, FunC and Tolk, validator and staking topics, protocol architecture. Installed at `ton-org/skills/docs`.',
-    tags: ['documentation', 'tl-b', 'reference'],
-    tryAsking: [
-      { text: 'What are best practices for writing secure FunC contracts?' },
-      { text: 'Explain the TON sharding model.' },
-      { text: 'How does the Jetton standard work?' },
-      { text: 'What is the difference between basechain and masterchain?' },
-    ],
-  },
+const SKILLS: SkillItem[] = [
   {
     id: 'wallets',
     title: 'wallets',
-    label: 'Wallets & chain',
+    subtitle: 'TON MCP & agentic wallets',
     about:
-      'Live chain operations: balances and history, sends, swaps, Jettons and NFTs, agentic wallet workflows. Installed at `ton-org/skills/wallets`.',
-    tryAsking: [
-      { text: 'Create an agentic wallet for me.', required: true },
-      { text: 'What is the TON balance of my address?' },
-      { text: 'Show the last 10 transactions for this address.' },
-      { text: 'Swap 0.5 TON for USDT.' },
+      'Domain-specific instructions and workflows for wallet operations, DeFi, NFTs, and the agentic wallet lifecycle. Pairs with the @ton/mcp server below.',
+    includes: [
+      'ton-balance — TON & jetton balances, token lists, transaction history',
+      'ton-send — send TON and jettons to addresses or TON DNS (.ton, .t.me)',
+      'ton-swap — swap and trade jettons on TON DEX (Omniston)',
+      'ton-nfts — list, inspect, and transfer NFTs',
+      'ton-create-wallet — create and deploy an agentic wallet on-chain',
+      'ton-manage-wallets — import, switch accounts, rotate operator keys',
+      'ton-cli — run TON MCP tools directly from the CLI',
+      'ton-xstocks — buy and sell Backed xStocks (tokenized equities)',
     ],
-    tags: ['chain', 'wallets', 'agentic'],
+    command: skillsAddCmd('wallets'),
+  },
+  {
+    id: 'docs',
+    title: 'docs',
+    subtitle: 'Documentation & standards',
+    about:
+      'Answers grounded in official TON material — TL-B, TVM, FunC and Tolk, validator and staking topics, protocol architecture, and TEPs.',
+    includes: [
+      'ton-docs — official TON documentation, TEPs, and SDK topics via the TON Docs MCP server',
+    ],
+    command: skillsAddCmd('docs'),
   },
 ]
-
-function SkillsGranularInstallSlots() {
-  const { all, d, w, none } = SKILLS_GRANULAR
-  return (
-    <>
-      <div className="skill-code-slot skill-slot-all">
-        <CodeBlock code={all} lang="bash" />
-      </div>
-      <div className="skill-code-slot skill-slot-d">
-        <CodeBlock code={d} lang="bash" />
-      </div>
-      <div className="skill-code-slot skill-slot-w">
-        <CodeBlock code={w} lang="bash" />
-      </div>
-      <div className="skill-code-slot skill-slot-none">
-        <CodeBlock code={none} lang="bash" />
-      </div>
-    </>
-  )
-}
 
 export function SkillsSetup() {
   return (
     <section id="skills" className="guide-section">
       <SectionHeading title="Skills">
-        Install the full bundle in one command, or pick individual skills below — currently{' '}
-        <span className="ton-inline-code">docs</span>
-        {' '}and{' '}
-        <span className="ton-inline-code">wallets</span>
-        .
+        Packaged{' '}
+        <a href="https://agentskills.io/" target="_blank" rel="noreferrer noopener">
+          agent skills
+        </a>
+        {' '}from{' '}
+        <a href="https://github.com/ton-org/skills" target="_blank" rel="noreferrer noopener">
+          ton-org/skills
+        </a>
+        . Pick the groups your AI agent needs — install each one independently.
       </SectionHeading>
 
-      <Eyebrow>Full bundle</Eyebrow>
-      <div className="mb-6">
-        <CodeBlock code={SKILLS_INSTALL_CMD} lang="bash" />
-      </div>
-
-      <Eyebrow>What&apos;s in the bundle</Eyebrow>
-      <div className="mb-6 grid items-stretch gap-4 sm:grid-cols-2">
-        {SKILL_CARDS.map(card => (
-          <FeatureCard
-            key={card.id}
-            title={card.title}
-            label={card.label}
-            tags={card.tags}
-            titleClassName="capitalize"
-            footer={(
-              <>
-                <Eyebrow as="p" className="mb-2 text-[10px]">
-                  Try asking
-                </Eyebrow>
-                <ul className="space-y-2">
-
-                  {card.tryAsking.map((p, i) => (
-                    <li
-                      key={`${card.id}-try-${i}`}
-                      className="flex flex-wrap items-baseline gap-x-2 gap-y-0.5 text-[11px] leading-snug text-foreground/85"
-                    >
-                      <Badge variant="secondary" className="shrink-0 tabular-nums text-[10px]">
-                        {i + 1}
-                      </Badge>
-                      {p.required && (
-                        <Badge
-                          variant="outline"
-                          className="shrink-0 border-[var(--accent-default)] px-1.5 py-0 text-[9px] font-medium text-[var(--accent-default)]"
-                        >
-                          Required
-                        </Badge>
-                      )}
-                      <span className="min-w-0">&ldquo;{p.text}&rdquo;</span>
-                    </li>
-                  ))}
-                </ul>
-              </>
-            )}
-          >
-            {card.about}
-          </FeatureCard>
+      <div className="flex flex-col gap-8">
+        {SKILLS.map(skill => (
+          <div key={skill.id} className="flex flex-col gap-3">
+            <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+              <h3 className="text-lg font-semibold capitalize">{skill.title}</h3>
+              <span className="text-sm text-muted-foreground">{skill.subtitle}</span>
+            </div>
+            <p className="ton-copy">{skill.about}</p>
+            <ul className="ml-5 list-disc space-y-1 text-sm text-muted-foreground">
+              {skill.includes.map(item => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+            <CodeBlock code={skill.command} lang="bash" />
+          </div>
         ))}
-      </div>
-
-      <div className="skill-bundle-scope">
-        <Eyebrow>Install selected skills only</Eyebrow>
-        <div className="mb-4 flex flex-col gap-2 sm:flex-row sm:flex-wrap">
-          <PickerOption id="skill-pick-docs">
-            <span className="font-medium text-foreground">docs</span>
-            {' '}
-            — documentation &amp; reference skills
-          </PickerOption>
-          <PickerOption id="skill-pick-wallets">
-            <span className="font-medium text-foreground">wallets</span>
-            {' '}
-            — chain, agentic wallet, swaps
-          </PickerOption>
-        </div>
-        <SkillsGranularInstallSlots />
       </div>
     </section>
   )

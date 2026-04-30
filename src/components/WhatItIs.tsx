@@ -11,13 +11,13 @@ export function WhatItIs() {
         check balances, send transactions, deploy contracts, and search official docs.
       </SectionHeading>
       <div className="hero-actions">
-        <Button size="lg" className="w-full sm:w-auto" asChild>
+        <Button className="w-full sm:w-auto" asChild>
           <a href="https://github.com/ton-org/skills" target="_blank" rel="noopener noreferrer">
             GitHub
             <ExternalLink className="opacity-70" aria-hidden />
           </a>
         </Button>
-        <Button variant="outline" size="lg" className="w-full sm:w-auto" asChild>
+        <Button variant="outline" className="w-full sm:w-auto" asChild>
           <a href="https://docs.ton.org/ecosystem/ai/mcp" target="_blank" rel="noopener noreferrer">
             Documentation
             <ExternalLink className="opacity-60" aria-hidden />

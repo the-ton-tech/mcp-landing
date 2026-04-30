@@ -9,10 +9,7 @@ const TRY_PROMPT = 'What can I do with TON?'
 export function GettingStarted() {
   return (
     <section id="getting-started" className="scroll-mt-28">
-      <SectionHeading title="Getting started">
-        TON MCP gives your AI agent live access to the TON blockchain and its documentation —
-        check balances, send transactions, deploy contracts, and search official docs.
-      </SectionHeading>
+      <SectionHeading title="Getting started" />
 
       <Step n={1} title="Install skills">
         <p className="ton-copy">

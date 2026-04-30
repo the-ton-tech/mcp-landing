@@ -72,12 +72,46 @@
     box-sizing: border-box;
   }
 
+  .site-brand {
+    @apply flex shrink-0 items-center gap-2;
+    color: var(--text-primary);
+    text-decoration: none;
+  }
+
+  .site-brand:hover {
+    color: var(--text-primary);
+  }
+
   .site-brand-title {
     @apply truncate;
     color: var(--text-primary);
     font-size: 20px;
     font-weight: 700;
     line-height: 24px;
+  }
+
+  .site-nav {
+    @apply ml-auto flex min-w-0 items-center gap-1 overflow-x-auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .site-nav::-webkit-scrollbar {
+    display: none;
+  }
+
+  .site-nav-link {
+    @apply shrink-0 rounded-md px-3 py-2 transition-colors;
+    color: var(--text-secondary);
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 20px;
+    text-decoration: none;
+  }
+
+  .site-nav-link:hover {
+    background: var(--background-content-hover);
+    color: var(--accent-default);
   }
 
   .section-title {
@@ -402,24 +436,6 @@
     padding-top: 0;
   }
 
-  .toc-card {
-    @apply rounded-lg border p-4;
-    background: var(--background-content);
-    border-color: var(--card-border-default);
-    box-shadow: 0 12px 32px -28px var(--card-shadow);
-    font-size: 16px;
-    line-height: 24px;
-  }
-  .toc-link {
-    @apply font-medium underline underline-offset-4 transition-colors;
-    color: var(--text-secondary);
-    text-decoration-color: var(--card-border-default);
-  }
-  .toc-link:hover {
-    color: var(--accent-default);
-    text-decoration-color: var(--accent-default);
-  }
-
   /* ── Footer top border — softer separator per TON spec ──── */
   .footer-separator {
     border-top: 1px solid var(--separator-alpha--footer);
@@ -429,12 +445,19 @@
 
 @media screen and (max-width: 568px) {
   .site-header-inner {
+    gap: 12px;
     padding: 16px 24px;
   }
 
   .site-brand-title {
     font-size: 20px;
     line-height: 24px;
+  }
+
+  .site-nav-link {
+    padding: 8px 10px;
+    font-size: 13px;
+    line-height: 18px;
   }
 
   .section-title {

@@ -1,11 +1,27 @@
+const NAV_ITEMS = [
+  { id: 'what-it-is', label: 'What it is' },
+  { id: 'getting-started', label: 'Getting started' },
+  { id: 'skills', label: 'Skills' },
+  { id: 'mcp', label: 'MCP' },
+]
+
 export function Header() {
   return (
     <header className="site-header">
       <div className="site-header-inner">
-        <TONLogo />
-        <h1 className="site-brand-title">
-          TON MCP
-        </h1>
+        <a href="#what-it-is" className="site-brand">
+          <TONLogo />
+          <h1 className="site-brand-title">
+            MCP
+          </h1>
+        </a>
+        <nav className="site-nav" aria-label="Guide sections">
+          {NAV_ITEMS.map(({ id, label }) => (
+            <a key={id} href={`#${id}`} className="site-nav-link">
+              {label}
+            </a>
+          ))}
+        </nav>
       </div>
     </header>
   )

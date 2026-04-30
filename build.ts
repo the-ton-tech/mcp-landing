@@ -23,7 +23,7 @@ const cssPath   = resolve(distDir, 'out.css')
 
 const SITE_URL   = 'https://mcp.ton.org'
 const SITE_TITLE = 'TON MCP — AI Agent Tools for TON Blockchain'
-const SITE_DESC  = 'Give your AI assistant access to the TON Blockchain. Query balances, send transactions, deploy contracts, and search official TON documentation — all via the Model Context Protocol.'
+const SITE_DESC  = 'Give your AI assistant access to TON Blockchain. Query balances, send transactions, deploy contracts, and search official TON documentation — all via the Model Context Protocol.'
 const SITE_TITLE_SHORT = 'TON MCP'
 const SITE_KEYWORDS = 'TON, blockchain, MCP, Model Context Protocol, AI agent, developer tools, smart contracts, FunC, Tolk, agentic wallet, skills, Claude, Cursor, Windsurf, VS Code'
 

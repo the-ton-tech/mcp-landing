@@ -35,7 +35,7 @@ export function SkillsSetup() {
           agent skills
         </a>
         {' '}— bundles of instructions and workflows that teach your AI assistant
-        domain-specific knowledge. The TON skills below come from{' '}
+        domain-specific knowledge. TON skills below come from{' '}
         <a href="https://github.com/ton-org/skills" target="_blank" rel="noreferrer noopener">
           ton-org/skills
         </a>

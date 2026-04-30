@@ -84,7 +84,10 @@ const html = `<!DOCTYPE html>
   <!-- Structured data -->
   <script type="application/ld+json">${JSON_LD}</script>
 
-  <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon_32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon_16x16.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple_touch_icon.png" />
+  <link rel="mask-icon" href="/safari_pinned_tab.svg" color="#0098EA" />
   <style>${css}</style>
 </head>
 <body>

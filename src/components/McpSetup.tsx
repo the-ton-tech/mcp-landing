@@ -279,10 +279,6 @@ export function McpSetup() {
               </div>
             ))}
           </div>
-
-          <p className="mt-3 text-xs text-muted-foreground">
-            Don&apos;t see your client? Any MCP-compatible app — Claude Desktop, Zed, Continue, and others — works with the same server URLs above.
-          </p>
         </div>
       </div>
     </section>

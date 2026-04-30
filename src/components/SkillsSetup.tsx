@@ -125,6 +125,7 @@ export function SkillsSetup() {
                   Try asking
                 </p>
                 <ul className="space-y-2">
+
                   {card.tryAsking.map((p, i) => (
                     <li
                       key={`${card.id}-try-${i}`}

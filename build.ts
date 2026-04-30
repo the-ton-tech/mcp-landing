@@ -45,8 +45,11 @@ const JSON_LD = JSON.stringify({
 const body = renderToStaticMarkup(createElement(App))
 
 // ── 2. Read and inline Tailwind CSS, then clean up intermediate file ──────
+//      In WATCH mode, leave dist/out.css in place so `tailwindcss --watch`
+//      keeps updating the same file (otherwise we'd loop: unlink → tailwind
+//      rewrites → tsx re-runs build.ts → unlink → ...).
 const css = readFileSync(cssPath, 'utf-8')
-unlinkSync(cssPath)
+if (!process.env.WATCH) unlinkSync(cssPath)
 
 // ── 3. Assemble final HTML ────────────────────────────────────────────────
 const html = `<!DOCTYPE html>

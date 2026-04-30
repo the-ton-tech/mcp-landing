@@ -12,9 +12,8 @@ export function WhatItIs() {
       </SectionHeading>
       <div className="hero-actions">
         <Button className="w-full sm:w-auto" asChild>
-          <a href="https://github.com/ton-org/skills" target="_blank" rel="noopener noreferrer">
-            GitHub
-            <ExternalLink className="opacity-70" aria-hidden />
+          <a href="#getting-started">
+            Get started
           </a>
         </Button>
         <Button variant="outline" className="w-full sm:w-auto" asChild>

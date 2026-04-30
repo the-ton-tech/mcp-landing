@@ -19,24 +19,16 @@ type Lang = 'bash' | 'json'
 interface McpServer {
   id: 'chain' | 'docs'
   title: string
-  subtitle: string
   about: string
-  highlights: string[]
   commands: Record<IdeId, { code: string, lang: Lang }>
 }
 
 const MCP_SERVERS: McpServer[] = [
   {
     id: 'chain',
-    title: '@ton/mcp',
-    subtitle: 'Chain MCP — local · alpha',
+    title: 'TON Blockchain MCP',
     about:
-      'Runs locally via npx. Live chain access for your AI agent: balances, transaction history, sends, contract deploy, jettons, NFTs, swaps and agentic-wallet workflows.',
-    highlights: [
-      'Pairs with the wallets skills above',
-      'No API keys — uses your local agentic wallet',
-      'Tools: get_balance, send_ton, get_transactions, swap, deploy_contract, …',
-    ],
+      'A local Model Context Protocol server that gives your AI agent direct access to the TON blockchain — read balances and transaction history, send TON and jettons, deploy contracts, swap on DEX, and operate agentic wallets.',
     commands: {
       claude: { code: 'claude mcp add ton -- npx -y @ton/mcp@alpha', lang: 'bash' },
       cursor: {
@@ -76,15 +68,9 @@ const MCP_SERVERS: McpServer[] = [
   },
   {
     id: 'docs',
-    title: 'ton-docs',
-    subtitle: 'Documentation MCP — remote · read-only',
+    title: 'TON Documentation MCP',
     about:
-      'Hosted HTTP server at docs.ton.org/mcp. Search and read the official TON documentation, TEPs, and SDK guides — no local install required.',
-    highlights: [
-      'Pairs with the docs skill above',
-      'Remote HTTP transport — no npm install',
-      'Tools: search_ton_docs, fetch_ton_doc, …',
-    ],
+      'A hosted Model Context Protocol server that lets your AI agent search and read the official TON documentation, TEPs, and SDK guides directly from docs.ton.org/mcp — no local install.',
     commands: {
       claude: { code: 'claude mcp add --transport http ton-docs https://docs.ton.org/mcp', lang: 'bash' },
       cursor: {
@@ -150,9 +136,9 @@ export function McpSetup() {
   return (
     <section id="mcp" className="guide-section mcp-section">
       <SectionHeading title="MCPs">
-        Configure Model Context Protocol servers so your AI agent can read TON
-        documentation and call live chain operations directly from your IDE.
-        Pick your IDE once — both snippets below update together.
+        MCPs are Model Context Protocol servers — they expose tools your AI
+        agent can call directly from your IDE. The TON MCPs below give your
+        agent live access to the blockchain and to the official documentation.
       </SectionHeading>
 
       {IDE_TABS.map(tab => (
@@ -166,19 +152,11 @@ export function McpSetup() {
         />
       ))}
 
-      <div className="flex flex-col gap-8">
+      <div className="flex flex-col gap-4">
         {MCP_SERVERS.map(server => (
           <div key={server.id} className="flex flex-col gap-3">
-            <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-              <h3 className="font-mono text-lg font-semibold">{server.title}</h3>
-              <span className="text-sm text-muted-foreground">{server.subtitle}</span>
-            </div>
+            <h3 className="subsection-title">{server.title}</h3>
             <p className="ton-copy">{server.about}</p>
-            <ul className="ml-5 list-disc space-y-1 text-sm text-muted-foreground">
-              {server.highlights.map(item => (
-                <li key={item}>{item}</li>
-              ))}
-            </ul>
             <div className="ide-tabbed">
               <IdeTabStrip />
               <CommandPanel commands={server.commands} />

@@ -30,7 +30,7 @@ const footerColumns = [
 export function Footer() {
   return (
     <footer className="pb-6 pt-10 sm:pb-10 sm:pt-14 md:pt-16">
-      <div className="mx-auto max-w-[1240px] border-t border-white/[0.05] px-6 pt-5 sm:pt-6 md:pt-8">
+      <div className="mx-auto max-w-[960px] border-t border-white/[0.05] px-4 pt-5 sm:px-0 sm:pt-6 md:pt-8">
         <div className="grid gap-8 sm:grid-cols-2 md:grid-cols-[minmax(0,1.4fr)_repeat(3,minmax(0,1fr))] md:gap-10">
           <div>
             <a href="#what-it-is" className="site-brand flex items-center gap-2.5 text-lg font-semibold tracking-tight text-inherit no-underline hover:text-inherit hover:no-underline">

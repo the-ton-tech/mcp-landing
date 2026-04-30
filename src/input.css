@@ -75,13 +75,6 @@
 }
 
 @layer components {
-  /* ── Top accent bar ─────────────────────────────────────── */
-  .page-accent {
-    @apply fixed inset-x-0 top-0 h-0.5;
-    z-index: 110;
-    background: linear-gradient(90deg, var(--accent-default), var(--accent-hover));
-  }
-
   .site-header {
     @apply fixed inset-x-0 top-0 w-full border-b;
     z-index: 100;
@@ -93,10 +86,11 @@
   }
 
   .site-header-inner {
-    @apply mx-auto flex w-full min-w-0 flex-row items-center justify-start gap-2;
-    max-width: min(1120px, 100%);
+    @apply mx-auto flex w-full min-w-0 flex-row items-center justify-start gap-2 px-4 sm:px-0;
+    max-width: min(960px, 100%);
     min-height: 68px;
-    padding: 16px;
+    padding-top: 16px;
+    padding-bottom: 16px;
     box-sizing: border-box;
   }
 
@@ -169,6 +163,10 @@
 
   .guide-stack > .guide-section + .guide-section {
     margin-top: 48px;
+  }
+
+  .guide-stack > #getting-started + .guide-section {
+    margin-top: 80px;
   }
 
   .hero-section {
@@ -622,11 +620,11 @@
 
   /* ── Step connector — uses TON separator token ──────────── */
   .step-line {
-    @apply absolute left-[11px] top-7 h-full w-px border-l border-dashed;
+    @apply absolute left-[13px] top-8 h-full w-px border-l border-dashed;
     border-color: var(--separator-alpha);
   }
   .step-marker {
-    @apply relative flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-xs font-bold text-primary-foreground;
+    @apply relative flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-xs font-bold text-primary-foreground;
     background: var(--accent-default);
     box-shadow: var(--default--input--box--shadow--hover);
   }
@@ -639,12 +637,21 @@
     padding-top: 0;
   }
 
+  /* ── h3-level subsection heading (Skills, MCPs items) ──── */
+  .subsection-title {
+    color: var(--text-primary);
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 32px;
+    letter-spacing: -0.01em;
+    margin: 0;
+  }
+
 }
 
 @media screen and (max-width: 568px) {
   .site-header-inner {
     gap: 12px;
-    padding: 16px 24px;
   }
 
   .site-brand-title {
@@ -664,6 +671,10 @@
 
   .guide-stack > .guide-section + .guide-section {
     margin-top: 32px;
+  }
+
+  .guide-stack > #getting-started + .guide-section {
+    margin-top: 56px;
   }
 
   .ton-button {
@@ -692,10 +703,10 @@
     font-size: 16px;
     line-height: 24px;
   }
-}
 
-@media screen and (max-width: 414px) {
-  .site-header-inner {
-    padding: 16px;
+  .subsection-title {
+    font-size: 20px;
+    line-height: 28px;
   }
 }
+

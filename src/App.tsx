@@ -5,7 +5,6 @@ import { SetupGuide }      from './components/SetupGuide'
 export default function App() {
   return (
     <>
-      <div className="page-accent" />
       <Header />
       <main className="page-main mx-auto px-4 pb-14 sm:px-6">
         <div className="page-content mx-auto">

@@ -1,3 +1,4 @@
+@import './constants.css';
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400&display=swap');
 
 @tailwind base;
@@ -5,80 +6,31 @@
 @tailwind utilities;
 
 /* ─── Design tokens ──────────────────────────────────────────────────────────
-   Based on Figma: BP Admin Panel Design System (shadcn/ui slate base).
-   --primary overridden with TON blue: #0098EA in light, #4DB8FF in dark.
-   Theme priority: manual (light/dark radio) > OS preference (prefers-color-scheme).
+   Derived from src/constants.css (TON brand colours, light theme only).
 ─────────────────────────────────────────────────────────────────────────── */
 
 @layer base {
-  /* Light theme — default */
   :root {
-    --background:             0 0% 100%;
-    --foreground:             222.2 84% 4.9%;
+    --background:             0 0% 100%;          /* --background-page    #FFFFFF  */
+    --foreground:             222 46% 3%;          /* --text-primary       #04060B  */
     --card:                   0 0% 100%;
-    --card-foreground:        222.2 84% 4.9%;
+    --card-foreground:        222 46% 3%;
     --popover:                0 0% 100%;
-    --popover-foreground:     222.2 84% 4.9%;
-    --primary:                199 100% 46%;    /* #0098EA – better contrast on white */
+    --popover-foreground:     222 46% 3%;
+    --primary:                199 100% 46%;        /* --accent-default     #0098EA  */
     --primary-foreground:     0 0% 100%;
-    --secondary:              210 40% 96.1%;
-    --secondary-foreground:   222.2 47.4% 11.2%;
-    --muted:                  210 40% 96.1%;
-    --muted-foreground:       215.4 16.3% 46.9%;
-    --accent:                 210 40% 96.1%;
-    --accent-foreground:      222.2 47.4% 11.2%;
+    --secondary:              216 34% 97%;         /* --background-content #F5F7FA  */
+    --secondary-foreground:   224 31% 14%;         /* --text-secondary     #191F2F  */
+    --muted:                  216 34% 97%;
+    --muted-foreground:       200 15% 52%;         /* --text-tetriary      #728A96  */
+    --accent:                 216 34% 97%;
+    --accent-foreground:      224 31% 14%;
     --destructive:            0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
-    --border:                 214.3 31.8% 91.4%;
-    --input:                  214.3 31.8% 91.4%;
+    --border:                 201 15% 88%;         /* --card-border-default #DDE3E6 */
+    --input:                  201 15% 88%;
     --ring:                   199 100% 46%;
     --radius:                 0.5rem;
-  }
-
-  /* Manual light override */
-  html:has(#theme-light:checked) {
-    --background:             0 0% 100%;
-    --foreground:             222.2 84% 4.9%;
-    --card:                   0 0% 100%;
-    --card-foreground:        222.2 84% 4.9%;
-    --popover:                0 0% 100%;
-    --popover-foreground:     222.2 84% 4.9%;
-    --primary:                199 100% 46%;
-    --primary-foreground:     0 0% 100%;
-    --secondary:              210 40% 96.1%;
-    --secondary-foreground:   222.2 47.4% 11.2%;
-    --muted:                  210 40% 96.1%;
-    --muted-foreground:       215.4 16.3% 46.9%;
-    --accent:                 210 40% 96.1%;
-    --accent-foreground:      222.2 47.4% 11.2%;
-    --destructive:            0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-    --border:                 214.3 31.8% 91.4%;
-    --input:                  214.3 31.8% 91.4%;
-    --ring:                   199 100% 46%;
-  }
-
-  /* Manual dark override — wins over OS light via :has() specificity */
-  html:has(#theme-dark:checked) {
-    --background:             222.2 84% 4.9%;
-    --foreground:             210 40% 98%;
-    --card:                   220 23% 7.5%;
-    --card-foreground:        210 40% 98%;
-    --popover:                220 23% 7.5%;
-    --popover-foreground:     210 40% 98%;
-    --primary:                199 100% 65%;
-    --primary-foreground:     222.2 84% 4.9%;
-    --secondary:              217.2 32.6% 17.5%;
-    --secondary-foreground:   210 40% 98%;
-    --muted:                  217.2 32.6% 17.5%;
-    --muted-foreground:       215 20.2% 65.1%;
-    --accent:                 217.2 32.6% 17.5%;
-    --accent-foreground:      210 40% 98%;
-    --destructive:            0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-    --border:                 217.2 32.6% 17.5%;
-    --input:                  217.2 32.6% 17.5%;
-    --ring:                   199 100% 65%;
   }
 
   /* Global resets */
@@ -93,35 +45,13 @@
 }
 
 @layer components {
-  /* ── Theme radio inputs (visually hidden) ───────────────── */
-  .theme-radio { @apply sr-only; }
-
-  /* ── Theme toggle button group ──────────────────────────── */
-  .theme-toggle {
-    @apply flex items-center gap-0.5 rounded-lg border border-border bg-muted p-1;
-  }
-  .theme-btn {
-    @apply flex h-7 w-7 cursor-pointer items-center justify-center rounded-md
-           text-muted-foreground transition-colors hover:text-foreground;
-  }
-
-  /* Active state — sun is default (auto = light) */
-  html:has(#theme-light:checked) label[for="theme-light"],
-  html:has(#theme-auto:checked)  label[for="theme-light"] {
-    @apply bg-background text-foreground shadow-sm;
-  }
-  html:has(#theme-dark:checked) label[for="theme-dark"] {
-    @apply bg-background text-foreground shadow-sm;
-  }
-
-  /* ── TON logo colour (light: brand blue, dark: white) ───── */
-  .ton-logo { color: #4DB8FF; }
-  html:has(#theme-dark:checked) .ton-logo { color: white; }
+  /* ── TON logo colour ───────────────────────────────────── */
+  .ton-logo { color: var(--accent-default); }
 
   /* ── Top accent bar ─────────────────────────────────────── */
   .page-accent {
     @apply fixed inset-x-0 top-0 z-50 h-[3px];
-    background: linear-gradient(90deg, hsl(var(--primary)), hsl(199 100% 72%));
+    background: linear-gradient(90deg, var(--accent-default), var(--accent-hover));
   }
 
   /* ── CSS-only IDE tabs ──────────────────────────────────── */
@@ -154,8 +84,8 @@
   #t-windsurf:checked ~ .tab-list .l-windsurf,
   #t-vscode:checked   ~ .tab-list .l-vscode {
     background: hsl(var(--background));
-    color: hsl(var(--primary));
-    border-top: 2px solid hsl(var(--primary));
+    color: var(--accent-default);
+    border-top: 2px solid var(--accent-default);
     padding-top: calc(0.5rem - 1px);
   }
 
@@ -228,6 +158,14 @@
     -webkit-user-select: none;
     color: hsl(210 20% 65%);
     font-style: italic;
+  }
+
+  /* ── Prompt card copy button (light surface override) ───── */
+  .prompt-copy-btn {
+    @apply text-muted-foreground hover:bg-muted hover:text-foreground;
+  }
+  .prompt-copy-btn[data-copied] {
+    @apply text-primary;
   }
 
   /* ── Step connector ─────────────────────────────────────── */

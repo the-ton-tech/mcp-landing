@@ -1,7 +1,7 @@
-import type { ReactNode } from 'react'
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent } from '@/components/ui/card'
 import { CodeBlock } from '@/components/CodeBlock'
+import { Step } from '@/components/Step'
 
 // ── Types ─────────────────────────────────────────────────────────────────
 
@@ -202,27 +202,14 @@ function McpVerifySlots() {
   )
 }
 
-function Step({ n, last = false, title, children }: {
-  n: number; last?: boolean; title: string; children: ReactNode
-}) {
-  return (
-    <div className="relative flex gap-4">
-      {!last && <div className="step-line" />}
-      <div className="relative flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-primary text-xs font-bold text-primary-foreground ring-4 ring-primary/10">
-        {n}
-      </div>
-      <div className="min-w-0 flex-1 space-y-2.5 pb-6">
-        <p className="pt-0.5 text-sm font-medium text-foreground">{title}</p>
-        {children}
-      </div>
-    </div>
-  )
-}
 
 export function McpSetup() {
   return (
-    <section id="mcp" className="scroll-mt-28 mt-2 border-t border-border pt-10">
-      <h2 className="mb-6 text-lg font-semibold text-foreground">MCP</h2>
+    <section id="mcp" className="scroll-mt-28">
+      <h2 className="mb-2 text-lg font-semibold text-foreground">MCP</h2>
+      <p className="mb-4 text-sm text-muted-foreground">
+        Configure Model Context Protocol servers so your AI agent can read TON documentation and call live chain operations directly from your IDE.
+      </p>
 
       <h3 className="mb-2 text-xs font-medium text-foreground">Servers</h3>
       <div className="mb-6 grid items-stretch gap-4 sm:grid-cols-2">
@@ -254,7 +241,7 @@ export function McpSetup() {
 
       <div className="mcp-config-scope">
         <h3 className="mb-2 text-xs font-medium text-foreground">Include in config</h3>
-        <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+        <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
           <label
             htmlFor="mcp-docs"
             className="flex min-w-0 flex-1 cursor-pointer items-start gap-3 rounded-lg border border-border bg-card p-3 transition-colors hover:border-primary/40 has-[:checked]:border-primary/55 has-[:checked]:bg-muted/30"
@@ -291,14 +278,14 @@ export function McpSetup() {
           </label>
         </div>
 
-        <p className="mb-2 rounded-lg border border-primary/25 bg-primary/5 px-4 py-3 text-sm text-foreground/90">
+        <p className="mb-3 rounded-lg border border-primary/25 bg-primary/5 px-4 py-3 text-sm text-foreground/90">
           To let your AI agent use TON — pick your IDE below, copy the snippet, and follow the two steps.
         </p>
-        <p className="mb-3 text-xs text-muted-foreground">
+        <p className="mb-4 text-xs text-muted-foreground">
           The snippet updates automatically when you toggle servers above — no JavaScript required.
         </p>
 
-        <div className="mb-10">
+        <div>
           {IDE_TABS.map(tab => (
             <input key={tab.id} className="tab-radio" type="radio"
                    id={`t-${tab.id}`} name="ide" defaultChecked={tab.id === 'claude'} />

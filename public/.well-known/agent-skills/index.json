@@ -4,7 +4,7 @@
     {
       "name": "ton-org/skills",
       "type": "skill-bundle",
-      "description": "Official TON skills bundle — documentation and agentic wallets for AI assistants. Install with `npx skills add ton-org/skills`.",
+      "description": "Official TON skills bundle — documentation and agentic wallets for AI assistants. Install with `npx skills add ton-org/skills -y`.",
       "url": "https://github.com/ton-org/skills"
     }
   ]

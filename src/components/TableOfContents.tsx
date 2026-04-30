@@ -1,4 +1,5 @@
 const TOC_ITEMS: { id: string; label: string }[] = [
+  { id: 'getting-started', label: 'Getting started' },
   { id: 'skills', label: 'Skills' },
   { id: 'mcp', label: 'MCP' },
 ]

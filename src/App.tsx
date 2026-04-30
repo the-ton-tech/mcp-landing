@@ -6,15 +6,10 @@ import { TableOfContents } from './components/TableOfContents'
 export default function App() {
   return (
     <>
-      {/* CSS-only theme switcher — three radios, auto is default */}
-      <input type="radio" name="theme" id="theme-auto"  className="theme-radio" defaultChecked />
-      <input type="radio" name="theme" id="theme-light" className="theme-radio" />
-      <input type="radio" name="theme" id="theme-dark"  className="theme-radio" />
-
       <div className="page-accent" />
       <main className="mx-auto max-w-6xl px-4 pb-14 pt-12 sm:px-6 sm:pt-16">
         <Header />
-        <div className="mt-6 flex flex-col gap-8 sm:mt-8 lg:mt-10 lg:grid lg:grid-cols-[minmax(0,1fr)_12.5rem] lg:items-start lg:gap-10 xl:grid-cols-[minmax(0,1fr)_15rem]">
+        <div className="mt-10 flex flex-col gap-8 sm:mt-12 lg:grid lg:grid-cols-[minmax(0,1fr)_12.5rem] lg:items-start lg:gap-10 xl:grid-cols-[minmax(0,1fr)_15rem]">
           <div className="min-w-0">
             <SetupGuide />
             <Footer />
@@ -31,10 +26,13 @@ document.body.addEventListener('click', function (e) {
   var btn = e.target.closest && e.target.closest('.code-copy-btn');
   if (!btn) return;
   e.preventDefault();
-  var wrap = btn.closest('.code-wrap');
-  var codeEl = wrap && wrap.querySelector('.code-body code');
-  if (!codeEl) return;
-  var text = codeEl.textContent || '';
+  var text = btn.getAttribute('data-copy-text');
+  if (!text) {
+    var wrap = btn.closest('.code-wrap');
+    var codeEl = wrap && wrap.querySelector('.code-body code');
+    if (!codeEl) return;
+    text = codeEl.textContent || '';
+  }
   function done() {
     btn.setAttribute('data-copied', 'true');
     setTimeout(function () { btn.removeAttribute('data-copied'); }, 2000);

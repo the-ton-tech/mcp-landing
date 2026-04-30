@@ -1,40 +1,16 @@
-import { Sun, Moon } from 'lucide-react'
-
 export function Header() {
   return (
-    <header className="mb-8 sm:mb-10">
-      <div className="mb-1 flex items-center justify-between gap-2">
-        <div className="flex min-w-0 items-center gap-2 sm:gap-2.5">
-          <TONLogo />
-          <h1 className="truncate text-xl font-bold tracking-tight text-foreground sm:text-2xl">
-            TON Developer MCP
-          </h1>
-        </div>
-        <ThemeToggle />
+    <header>
+      <div className="flex items-center gap-2 sm:gap-2.5">
+        <TONLogo />
+        <h1 className="truncate text-xl font-bold tracking-tight text-foreground sm:text-2xl">
+          TON MCP
+        </h1>
       </div>
-      <p className="text-sm text-muted-foreground sm:text-base">
-        Connect your AI assistant to TON blockchain — query balances, deploy contracts,
-        and search the full documentation without leaving your IDE.
-      </p>
     </header>
   )
 }
 
-function ThemeToggle() {
-  return (
-    <div className="theme-toggle">
-      <label htmlFor="theme-light" className="theme-btn" title="Light theme">
-        <Sun size={15} />
-      </label>
-      <label htmlFor="theme-dark" className="theme-btn" title="Dark theme">
-        <Moon size={15} />
-      </label>
-    </div>
-  )
-}
-
-// Official TON icon — light: #4DB8FF, dark: white (ton.org/en/brand-assets)
-// fill="currentColor" so CSS controls the colour per theme via .ton-logo
 function TONLogo() {
   return (
     <svg className="ton-logo" width="32" height="32" viewBox="0 0 237 237" fill="none" xmlns="http://www.w3.org/2000/svg">

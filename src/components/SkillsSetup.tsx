@@ -16,12 +16,12 @@ interface SkillCard {
   tags: string[]
 }
 
-const SKILLS_ROOT_INSTALL = 'npx skills add ton-org/skills'
+const SKILLS_ROOT_INSTALL = 'npx skills add ton-org/skills -y'
 
 const SKILLS_PATH = 'ton-org/skills'
 
 const SKILLS_ADD_CMD = (...segments: string[]) =>
-  `npx skills add ${segments.map(s => `${SKILLS_PATH}/${s}`).join(' ')}`
+  `npx skills add ${segments.map(s => `${SKILLS_PATH}/${s}`).join(' ')} -y`
 
 const SKILLS_GRANULAR: Record<'all' | 'd' | 'w' | 'none', string> = {
   all: SKILLS_ROOT_INSTALL,
@@ -83,9 +83,9 @@ function SkillsGranularInstallSlots() {
 
 export function SkillsSetup() {
   return (
-    <section id="skills" className="scroll-mt-28 border-t border-border pt-10">
+    <section id="skills" className="scroll-mt-28">
       <h2 className="mb-2 text-lg font-semibold text-foreground">Skills</h2>
-      <p className="mb-3 text-xs text-muted-foreground">
+      <p className="mb-4 text-sm text-muted-foreground">
         Install the whole monorepo in one shot, or pick individual skill packs below. The cards describe documentation and wallets (paths such as{' '}
         <span className="font-mono text-[11px] text-foreground/80">ton-org/skills/docs</span>
         {' '}and{' '}
@@ -94,15 +94,12 @@ export function SkillsSetup() {
       </p>
 
       <h3 className="mb-2 text-xs font-medium text-foreground">Full bundle</h3>
-      <p className="mb-2 rounded-lg border border-primary/25 bg-primary/5 px-4 py-3 text-sm text-foreground/90">
-        To let your AI agent use TON — copy the command below, paste it into your terminal, and run it.
-      </p>
       <div className="mb-6">
         <CodeBlock code={SKILLS_ROOT_INSTALL} lang="bash" />
       </div>
 
-      <h3 className="mb-3 text-xs font-medium text-foreground">What&apos;s in the bundle</h3>
-      <div className="mb-4 grid items-stretch gap-4 sm:grid-cols-2">
+      <h3 className="mb-2 text-xs font-medium text-foreground">What&apos;s in the bundle</h3>
+      <div className="mb-6 grid items-stretch gap-4 sm:grid-cols-2">
         {SKILL_CARDS.map(card => (
           <Card
             key={card.id}
@@ -160,8 +157,8 @@ export function SkillsSetup() {
         ))}
       </div>
 
-      <div className="skill-bundle-scope mt-8 border-t border-border pt-8">
-        <p className="mb-2 text-xs font-medium text-foreground">Install selected skills only</p>
+      <div className="skill-bundle-scope">
+        <h3 className="mb-2 text-xs font-medium text-foreground">Install selected skills only</h3>
         <div className="mb-4 flex flex-col gap-2 sm:flex-row sm:flex-wrap">
           <label
             htmlFor="skill-pick-docs"

@@ -10,7 +10,7 @@ const LINKS = [
 
 export function Footer() {
   return (
-    <footer className="mt-14 border-t border-border pt-8">
+    <footer className="mt-12 border-t border-border pt-8">
       <nav className="flex flex-wrap gap-2" aria-label="External links">
         {LINKS.map(({ label, href }) => (
           <Button key={label} variant="outline" size="sm" asChild>

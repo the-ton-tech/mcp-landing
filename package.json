@@ -7,7 +7,7 @@
     "build:css": "mkdir -p dist && tailwindcss -i ./src/input.css -o ./dist/out.css --minify",
     "build:html": "tsx build.ts",
     "build": "pnpm run build:css && pnpm run build:html",
-    "dev": "pnpm run build && concurrently -n css,html,serve -c blue,green,magenta -k \"pnpm run dev:css\" \"pnpm run dev:html\" \"pnpm run dev:serve\"",
+    "dev": "pnpm run build:css && WATCH=1 pnpm run build:html && concurrently -n css,html,serve -c blue,green,magenta -k \"pnpm run dev:css\" \"pnpm run dev:html\" \"pnpm run dev:serve\"",
     "dev:css": "mkdir -p dist && tailwindcss -i ./src/input.css -o ./dist/out.css --watch",
     "dev:html": "WATCH=1 tsx watch --include ./dist/out.css build.ts",
     "dev:serve": "browser-sync start --server dist --files 'dist/index.html' --no-notify --no-ui --port 5173 --reload-debounce 200",

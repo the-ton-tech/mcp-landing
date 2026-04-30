@@ -1,6 +1,6 @@
 # TON Developer MCP
 
-> Connect AI assistants to the TON blockchain via the Model Context Protocol. Query balances, deploy contracts, and search the full TON documentation without leaving your IDE.
+> Connect AI assistants to the TON Blockchain via the Model Context Protocol. Query balances, deploy contracts, and search the full TON documentation without leaving your IDE.
 
 ## Servers
 
@@ -50,7 +50,7 @@ For Cursor and Windsurf (`~/.codeium/windsurf/mcp_config.json`):
 ## Documentation
 
 - [TON Docs MCP](https://docs.ton.org/mcp): Full reference for the TON MCP server — tools, authentication, and usage examples.
-- [TON Documentation](https://docs.ton.org): Complete TON blockchain developer documentation — FunC, Tolk, TL-B, smart contracts, wallets.
+- [TON Documentation](https://docs.ton.org): Complete TON Blockchain developer documentation — FunC, Tolk, TL-B, smart contracts, wallets.
 - [TON API Reference](https://docs.ton.org/v3/documentation/ton-documentation): API and SDK reference for building on TON.
 - [FunC Language Guide](https://docs.ton.org/develop/func/overview): Smart contract language reference for TON.
 
@@ -58,5 +58,5 @@ For Cursor and Windsurf (`~/.codeium/windsurf/mcp_config.json`):
 
 - [Agentic Wallets](https://agents.ton.org): Create and manage on-chain agent wallets on TON.
 - [Agent Dashboard](https://agents.ton.org/dashboard): Monitor and control agentic wallet activity.
-- [TON Website](https://ton.org): Official TON blockchain website.
+- [TON Website](https://ton.org): Official TON Blockchain website.
 - [TON GitHub](https://github.com/ton-blockchain): Open-source repositories for the TON protocol.

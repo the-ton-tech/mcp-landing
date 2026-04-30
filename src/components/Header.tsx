@@ -1,5 +1,5 @@
 const NAV_ITEMS = [
-  { id: 'what-it-is', label: 'What it is TON MCP' },
+  { id: 'what-it-is', label: 'What is TON MCP' },
   { id: 'getting-started', label: 'Getting started' },
   { id: 'skills', label: 'Skills' },
   { id: 'mcp', label: 'MCP' },

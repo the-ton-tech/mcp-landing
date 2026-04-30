@@ -7,10 +7,10 @@
     "build:css": "mkdir -p dist && tailwindcss -i ./src/input.css -o ./dist/out.css --minify",
     "build:html": "tsx build.ts",
     "build": "pnpm run build:css && pnpm run build:html",
-    "watch:css": "mkdir -p dist && tailwindcss -i ./src/input.css -o ./dist/out.css --watch",
-    "watch:html": "WATCH=1 tsx watch --include ./dist/out.css build.ts",
-    "watch:serve": "browser-sync start --server dist --files 'dist/index.html' --no-notify --no-ui --port 4173 --reload-debounce 200",
-    "watch": "pnpm run build && concurrently -n css,html,serve -c blue,green,magenta -k \"pnpm run watch:css\" \"pnpm run watch:html\" \"pnpm run watch:serve\"",
+    "dev": "pnpm run build && concurrently -n css,html,serve -c blue,green,magenta -k \"pnpm run dev:css\" \"pnpm run dev:html\" \"pnpm run dev:serve\"",
+    "dev:css": "mkdir -p dist && tailwindcss -i ./src/input.css -o ./dist/out.css --watch",
+    "dev:html": "WATCH=1 tsx watch --include ./dist/out.css build.ts",
+    "dev:serve": "browser-sync start --server dist --files 'dist/index.html' --no-notify --no-ui --port 5173 --reload-debounce 200",
     "preview": "pnpm run build && npx --yes serve dist -l 4173"
   },
   "repository": {
